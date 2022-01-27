@@ -1,0 +1,14 @@
+C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.exe.config
+C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.exe
+C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.pdb
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.csprojAssemblyReference.cache
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.Form1.resources
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.Properties.Resources.resources
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.csproj.GenerateResource.cache
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.csproj.CoreCompileInputs.cache
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.exe
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.pdb
+C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.exe.manifest
+C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.application
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.exe.manifest
+C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.application
