@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="AddonUpdater.exe" version="1.0.0.0" publicKeyToken="2818ef6c366ad6fe" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="AddonUpdater.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="AddonUpdater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="AddonUpdater.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          Параметры манифеста UAC
+          Если нужно изменить уровень контроля учетных записей Windows, замените 
+          узел requestedExecutionLevel одним из следующих значений.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+        Если нужно использовать виртуализацию файлов и реестра для обратной
+             совместимости, удалите узел requestedExecutionLevel.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="563600">
+      <assemblyIdentity name="AddonUpdater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>bfoJz18smnStyxGhNeheivRwqgZZZ9gk97acHeTbilo=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="AddonUpdater.exe.config" size="1530">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>oUYjFoAMLLUUJ4B1SFuKjLL3WSEI7JnYElonSA2ZK8Y=</dsig:DigestValue>
+    </hash>
+  </file>
+  <file name="AddonUpdater.ico" size="20974">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>/5/O1atva24boMZTxEobqWzJZQDTGVd73bijBPSB8gc=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=DAN\Дан" issuerKeyHash="39cba4f0bb46eed22947b1f757c5f01ebe766505" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>nPYkze0wXNaE0QxTqoVXh4gwNU0K/pxxPVM1lBCVeqc=</DigestValue></Reference></SignedInfo><SignatureValue>P1bcaSY3qO3pGmBj/sKPgZiLmw3rDD3jXm9jlr830e2MkBM6Jgb2+2Yi4nuNowgvNQ6NHTMXTqWl1pk/64Je3URHnC2xh7ZcW6fTKDh/RMw1nPwQ3Drzy5NELZG9n/w6IGfpe8RHZ9wnNmlnKn90rfvJnNIWS01fIXSzZ5UTe/4=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>zt6hnYjCb9Fnp/v6p4jhXDWaANApgmNzq8NWWQ16ctH/K/mtNjOm0FNogl1FUN6V/q+GaoHTyTu0/fquhVEwCOkdYyx2lKhMuhZonC8YD6TL7mLJaL2DkfzMA7tSe4hLyNsR5niNYwltz2TqwiNtsp89dqDTL2abK/8to5kAvr8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="a77a95109435533d719cfe0a4d353088875785aa530cd184d65c30edcd24f69c" Description="" Url=""><as:assemblyIdentity name="AddonUpdater.exe" version="1.0.0.0" publicKeyToken="2818ef6c366ad6fe" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=DAN\Дан</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>FdcMjmeLOUuTbS0JgRvsVrsqDQy1FHSZpLSgmAnQ6UE=</DigestValue></Reference></SignedInfo><SignatureValue>MUCF45dzyqKLNZy27Xz0cEMVxg977N591wgi2Te0mz3iPGH16vo6kbaUMvYZOcJtSZlzVrlGJOwf0S9B1xD1Y+grVG+0Qba/VJ2+Q92oENasNnkItBD2m0TCEWiBHuqPanhoRdwMSIwHsXaZCELm+gaD9/iCvytH+JlMETiH0Qg=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>zt6hnYjCb9Fnp/v6p4jhXDWaANApgmNzq8NWWQ16ctH/K/mtNjOm0FNogl1FUN6V/q+GaoHTyTu0/fquhVEwCOkdYyx2lKhMuhZonC8YD6TL7mLJaL2DkfzMA7tSe4hLyNsR5niNYwltz2TqwiNtsp89dqDTL2abK/8to5kAvr8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBtTCCAR6gAwIBAgIQE5uoCMqGUaZCfGlQQnwZ8zANBgkqhkiG9w0BAQsFADAZMRcwFQYDVQQDHg4ARABBAE4AXAQUBDAEPTAeFw0yMjAxMjQxNDE1MTJaFw0yMzAxMjQyMDE1MTJaMBkxFzAVBgNVBAMeDgBEAEEATgBcBBQEMAQ9MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDO3qGdiMJv0Wen+/qniOFcNZoA0CmCY3Orw1ZZDXpy0f8r+a02M6bQU2iCXUVQ3pX+r4ZqgdPJO7T9+q6FUTAI6R1jLHaUqEy6FmicLxgPpMvuYslovYOR/MwDu1J7iEvI2xHmeI1jCW3PZOrCI22ynz12oNMvZpsr/y2jmQC+vwIDAQABMA0GCSqGSIb3DQEBCwUAA4GBAH0NcExbd64ezinnAAy7d+ErFUejkszIMRs5HvqRYosyKVVHS0tEpGzmKaY+GR+BF+zyiv9ImG04dStZEhJr3Fq749+JGPe6mRSI/rYzBlgIAwLPvnJlVF46MvgZN63TFUwB1YqjJ+bX4OaMByqlgbbKmJr2cJGQi7nKNp3A5/gy</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
