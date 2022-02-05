@@ -15,6 +15,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
+//using System.Net.NetworkInformation;
 
 namespace AddonUpdater
 {
@@ -23,16 +24,15 @@ namespace AddonUpdater
         private Form activeform;
         private Button currentButton = new Button();
         public static List<GitHub> GitHubs = new List<GitHub>();
+        public static string activity = null;
+        public static int UpdateCount = 0;
+        bool openFormAddons = false;
+
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
 
-         Color standardButton = Color.FromArgb(37, 35, 47);
-         Color activeButton = Color.FromArgb(123, 119, 159);
-        
-        // [DllImport("user32.dll")]
-        //static extern int SetParent(int hWndChild, int hWndNewParent);
-        //Process p = Process.Start(Properties.Settings.Default.link_launcher);
-        //Thread.Sleep(500);
-        //SetParent(p.MainWindowHandle.ToInt32(), this.Handle.ToInt32());
+        Color standardButton = Color.FromArgb(37, 35, 47);
+        Color activeButton = Color.FromArgb(123, 119, 159);
+
         public FormMainMenu()
         {
             InitializeComponent();
@@ -69,6 +69,7 @@ namespace AddonUpdater
                 }
             }
         }
+       
         private void DisableButton()
         {
             foreach (Control previousBtn in panelMenu.Controls)
@@ -82,42 +83,22 @@ namespace AddonUpdater
         }
         
         private async void Form1_Load(object sender, EventArgs e)
-        {
-            
+        {         
             CheckVersion();
 
             if (File.Exists("Updater.exe") == false)
             {
                 MessageBox.Show("Не найден файл Updater.exe. Попробуйте переустановить приложение", "Ошибка");
                 Application.Exit();
-            }
-
+            }       
             await downloadAddonGitHub.Aupdatecheck();
+
             VisibleOn();
-            if (GitHubs.Count == 0) GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);
-            Properties.Settings.Default.download = null;
+            if (GitHubs.Count == 0) GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);          
             timer1.Start();
             timerKill.Start();
-            OpenChildForm(new Forms.FormAddons(GitHubs), buttonAddons);
-            if (Properties.Settings.Default.PathLauncherBool == true)
-            {
-                Process[] proc = Process.GetProcessesByName("Sirus Launcher");
-                
-                if (proc.Length == 0)
-                {
-                    if (File.Exists(Properties.Settings.Default.PathLauncher))                       
-                            Process.Start(Properties.Settings.Default.PathLauncher);                           
-                }
-                else
-                {
-                    for (int i = 0; i < proc.Length; i++)
-                        proc[i].Kill();
-
-                    if (File.Exists(Properties.Settings.Default.PathLauncher))
-                                Process.Start(Properties.Settings.Default.PathLauncher);
-                }
-            }
-            
+            OpenChildForm(new Forms.FormAddons(GitHubs, this), buttonAddons);
+            openFormAddons = true;
         }
 
         private void VisibleOn()
@@ -131,11 +112,12 @@ namespace AddonUpdater
             labelVersion.Visible = true;
             button_Close.Visible = true;
             button_Resize.Visible = true;
+            progressBar1.Visible = true;
+            labelInfo.Visible = true; 
         }
 
         private void CheckVersion()
-        {
-           
+        {    
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             string result; 
             WebClient webClient = new WebClient();
@@ -156,104 +138,179 @@ namespace AddonUpdater
                     {
                         MessageBox.Show("Не найден файл Updater.exe. Попробуйте переустановить приложение", "Ошибка");
                         Application.Exit();
-                    }
-                 
+                    }             
                 }
             }
             catch(Exception ex)
             {
-                if (ex.Message != "Операция была отменена пользователем")
-                // MessageBox.Show(ex.ToString(), ex.Message);
+                if (ex.Message != "Операция была отменена пользователем")              
                 {
                     MessageBox.Show("Ошибка подключения, повторите попытку позже", "Ошибка");
-                    Application.Exit();
                 }
-
             }
         }
 
         private void buttonAddons_Click(object sender, EventArgs e)
         {
-            
-            if (Properties.Settings.Default.download != null)
-                MessageBox.Show($"Дождитесь окончания {Properties.Settings.Default.download}");
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
             else
-                OpenChildForm(new Forms.FormAddons(GitHubs), sender);
+            {
+                OpenChildForm(new Forms.FormAddons(GitHubs, this), sender);
+                openFormAddons = true;
+            }
         }
 
         private void buttonSettings_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.download != null)
-                MessageBox.Show($"Дождитесь окончания {Properties.Settings.Default.download}");
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
             else
+            {
+                if (progressBar1.Visible == true)
+                {
+                    progressBar1.Visible = false;
+                    labelInfo.Visible = false;
+                }
                 OpenChildForm(new Forms.FormSetting(), sender);
+                openFormAddons = false;
+            }
         }
 
         private void buttonAllAddons_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.download != null)
-                MessageBox.Show($"Дождитесь окончания {Properties.Settings.Default.download}");
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
             else
-                OpenChildForm(new Forms.FormAllAddons(GitHubs), sender);
+            {
+                OpenChildForm(new Forms.FormAllAddons(GitHubs, this), sender);
+                openFormAddons = true;
+            }
         }
 
         private void buttonAbout_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.download != null)
-                MessageBox.Show($"Дождитесь окончания {Properties.Settings.Default.download}");
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
             else
+            {
+                if (progressBar1.Visible == true)
+                {
+                    progressBar1.Visible = false;
+                    labelInfo.Visible = false;
+                }
                 OpenChildForm(new Forms.FormAbout(), sender);
+                openFormAddons = false;
+            }
         }
+      
+        private void button_Close_Click(object sender, EventArgs e)
+        {
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
+            else
+            {
+                notifyIcon1.Visible = false;
+                Application.Exit();
+            }
+        }
+        
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
+            else
+            {
+                notifyIcon1.Visible = false;
+                Application.Exit();
+            }
+        }
+
         private async void timer1_Tick(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.download == null)
+            
+            if (activity == null)
             {
                 bool openingForm = false;
                 await downloadAddonGitHub.Aupdatecheck();
                 if (GitHubs.Count == 0) GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);
 
                 if (GitHubs.Count > 0)
-                    if (downloadAddonGitHub.ListCheck(GitHubs, DownloadAddonGitHub.GitHubs) == false)
+                if (downloadAddonGitHub.ListCheck(GitHubs, DownloadAddonGitHub.GitHubs) == false)
+                {                   
+                    GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);
+                    foreach (Form form in Application.OpenForms)
                     {
-                     
-                        GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);
-                        foreach (Form form in Application.OpenForms)
+                        if (form.Name == "FormAddons")
                         {
-                            if (form.Name == "FormAddons")
-                            {
-                                OpenChildForm(new Forms.FormAddons(GitHubs), buttonAddons);
-                                openingForm = true;
-                                break;
-                            }
-                            else if (form.Name == "FormAllAddons")
-                            {
-                                OpenChildForm(new Forms.FormAllAddons(GitHubs), buttonAllAddons);
-                                openingForm = true;
-                                break;
-                            }
+                            OpenChildForm(new Forms.FormAddons(GitHubs,this), buttonAddons);
+                            openingForm = true;
+                            break;
                         }
+                        else if (form.Name == "FormAllAddons")
+                        {
+                            OpenChildForm(new Forms.FormAllAddons(GitHubs, this), buttonAllAddons);
+                            openingForm = true;
+                            break;
+                        }
+                    }
 
-                        if (Properties.Settings.Default.AutoUpdateBool == true && Properties.Settings.Default.AutoUpdateCount > 0 && openingForm == false)
-                        {
-                            Properties.Settings.Default.download = "Скачивание";
-                          
-                            await DownloadAddonAuto();
-                            Properties.Settings.Default.download = null;
-                        }
-                    }               
+                    if (Properties.Settings.Default.AutoUpdateBool == true && UpdateCount > 0 && openingForm == false)
+                    {
+                        activity = "Cкачивания";                        
+                        await DownloadAddonAuto();
+                        activity = null;                 
+                    }
+                }               
             }
         }
 
         public async Task DownloadAddonAuto()
         {
-            DownloadAddonGitHub.NeedUpdate.Clear();
-            DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-            for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+            ButtonOff();
+            try
             {
-                await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].link, DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].Directory, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                if (progressBar1.Visible == false)
+                {
+                    progressBar1.Visible = true;
+                    labelInfo.Visible = true;
+                }
+                progressBar1.Value = 0;
+                DownloadAddonGitHub.NeedUpdate.Clear();
+                DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
+                progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
+                for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                {
+                    labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
+                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].link, DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].Directory, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                    progressBar1.Value++;
+                }
+                labelInfo.Text = "Распаковка Аддонов";
+                await downloadAddonGitHub.GetAddon();   
+                UpdateCount = 0;
+                labelInfo.Text = "Обновление";
+                activity = "обновления";
+                progressBar1.Value = 0;
+                progressBar1.Maximum = 2;
+                progressBar1.Value++;
+                await downloadAddonGitHub.Aupdatecheck();
+                GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);
+                progressBar1.Value++;
+                progressBar1.Value = 0;
+                labelInfo.Text = "";
+                activity = null;
+                if (openFormAddons == false)
+                {
+                    progressBar1.Visible = false;
+                    labelInfo.Visible = false;
+                }
             }
-            await downloadAddonGitHub.GetAddon();
-            
+            catch
+            {
+                progressBar1.Value = 0;
+                labelInfo.Text = "Ошибка подключения";
+            }
+            ButtonOn();
         }
 
         private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
@@ -273,17 +330,6 @@ namespace AddonUpdater
             }
         }
 
-        private void button_Close_Click(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.download != null)
-                MessageBox.Show($"Дождитесь окончания {Properties.Settings.Default.download}");
-            else
-            {
-                notifyIcon1.Visible = false;
-                Application.Exit();
-            }
-        }
-
         #region Убрать из atl+tab
         [DllImport("user32.dll")]
         private static extern int SetWindowLong(IntPtr window, int index, int value);
@@ -300,6 +346,7 @@ namespace AddonUpdater
                 GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
         }
         #endregion
+     
         private void button_Resize_Click(object sender, EventArgs e)
         {           
             WindowState = FormWindowState.Minimized;
@@ -307,7 +354,6 @@ namespace AddonUpdater
             HideFromAltTab(this.Handle);
         }
        
-
         #region перемещяем форму по зажатой мышки
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
@@ -321,14 +367,17 @@ namespace AddonUpdater
         {
             MoveForm(e);
         }
+       
         private void labelTitle_MouseDown(object sender, MouseEventArgs e)
         {
             MoveForm(e);
         }
+        
         private void labelTitleName_MouseDown(object sender, MouseEventArgs e)
         {
             MoveForm(e);
         }
+       
         private void MoveForm(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -344,22 +393,9 @@ namespace AddonUpdater
             WindowState = FormWindowState.Normal;
         }
 
-        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (Properties.Settings.Default.download != null)
-                MessageBox.Show($"Дождитесь окончания {Properties.Settings.Default.download}");
-            else
-            {
-                notifyIcon1.Visible = false;
-                Application.Exit();
-            }
-        }
-
-     
         #region открыть/свернуть из панели задач
         const int WS_MINIMIZEBOX = 0x20000;
         const int CS_DBLCLKS = 0x8;
-
         protected override CreateParams CreateParams
         {
             get
@@ -378,16 +414,33 @@ namespace AddonUpdater
             Process[] processes = Process.GetProcessesByName(proc);
             if (processes.Length > 1)
             { 
-              foreach (Process process in processes)
-              {
-                if(process.Id != Process.GetCurrentProcess().Id)
-                     process.Kill();
-              }
+                foreach (Process process in processes)
+                {
+                    if(process.Id != Process.GetCurrentProcess().Id)
+                        process.Kill();
+                }
                     ShowInTaskbar = true;
                     WindowState = FormWindowState.Normal;                                 
-            }
-            
+            }       
+        }     
+    
+        public void ButtonOff()
+        {
+            buttonAbout.Enabled = false;
+            buttonAddons.Enabled = false;
+            buttonAllAddons.Enabled = false;
+            buttonSettings.Enabled = false;
+            button_Close.Enabled = false;
         }
-   
+        
+        public void ButtonOn()
+        {
+            buttonAbout.Enabled = true;
+            buttonAddons.Enabled = true;
+            buttonAllAddons.Enabled = true;
+            buttonSettings.Enabled = true;
+            button_Close.Enabled = true;
+        }
+    
     }
 }

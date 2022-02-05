@@ -19,13 +19,13 @@ using System.IO.Compression;
 namespace AddonUpdater.Forms
 {
     public partial class FormAddons : Form 
-    {
-        
+    {      
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
         List<GitHub> GitHubs { get; set;}
-
-        public FormAddons(List<GitHub> _gitHubs)
+        FormMainMenu FormMainMenu;
+        public FormAddons(List<GitHub> _gitHubs, FormMainMenu owner)
         {
+            FormMainMenu = owner;
             GitHubs = new List<GitHub>(_gitHubs);
             InitializeComponent();         
         }
@@ -34,93 +34,89 @@ namespace AddonUpdater.Forms
         {
             if (Properties.Settings.Default.PathWow.Length > 0)
             {
+                if(FormMainMenu.progressBar1.Visible== false)
+                {
+                    FormMainMenu.progressBar1.Visible = true;
+                    FormMainMenu.labelInfo.Visible = true;
+                }
                 updateDataGridViewAddonsFirst();     
             }
             else
             {
                 MessageBox.Show("Укажите путь к игре в настройках", "Предупреждение");
-
             }           
         }
    
-        public async Task DownloadAddon()
+        public async Task DownloadAddon(string flag)
         {
-            progressBar1.Value = 0;
-            DownloadAddonGitHub.NeedUpdate.Clear();
-            DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.Download == true);
-            progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
-            for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+            try
             {
-                labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;            
-               
-                await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].link, DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].Directory, DownloadAddonGitHub.NeedUpdate[i].Branches);
-                progressBar1.Value++;
-            }
-            labelInfo.Text = "Распаковка Аддонов";
-            await downloadAddonGitHub.GetAddon();        
-            progressBar1.Value = 0;
-            labelInfo.Text = "";
-        }
-        public async Task DownloadAddonAuto()
-        {
-            progressBar1.Value = 0;
-            DownloadAddonGitHub.NeedUpdate.Clear();
-            DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-            progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
-            for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
-            {
-                labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
+                FormMainMenu.progressBar1.Value = 0;
+                DownloadAddonGitHub.NeedUpdate.Clear();
+                if(flag == "Download") DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.Download == true);
+                else if(flag == "AutoDownload") DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
 
-                await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].link, DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].Directory, DownloadAddonGitHub.NeedUpdate[i].Branches);
-                progressBar1.Value++;
+                FormMainMenu.progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
+                for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                {
+                    FormMainMenu.labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
+                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].link, DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].Directory, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                    FormMainMenu.progressBar1.Value++;
+                }
+                FormMainMenu.labelInfo.Text = "Распаковка Аддонов";
+                await downloadAddonGitHub.GetAddon();
+                FormMainMenu.progressBar1.Value = 0;
+                FormMainMenu.labelInfo.Text = "";      
+                FormMainMenu.UpdateCount = 0;
             }
-            labelInfo.Text = "Распаковка Аддонов";
-            await downloadAddonGitHub.GetAddon();         
-            progressBar1.Value = 0;
-            labelInfo.Text = "";
+            catch
+            {
+                FormMainMenu.progressBar1.Value = 0;
+                FormMainMenu.labelInfo.Text = "Ошибка подключения";
+            }
         }
+   
         private void dataGridViewAddons_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (Properties.Settings.Default.download == null)
+            if (FormMainMenu.activity == null)
             {
                 if (e.ColumnIndex == 3 && e.RowIndex != -1)
                 {
                     int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == dataGridViewAddons.Rows[e.RowIndex].Cells[0].Value.ToString());
                     if (index != -1)
-                        if ((bool)dataGridViewAddons.Rows[e.RowIndex].Cells[3].Value == true)
-                        {
-                            dataGridViewAddons.Rows[e.RowIndex].Cells[3].Value = false;
-                            DownloadAddonGitHub.GitHubs[index].Download = false;
-                        }
-                        else
-                        {
-                            dataGridViewAddons.Rows[e.RowIndex].Cells[3].Value = true;
-                            DownloadAddonGitHub.GitHubs[index].Download = true;
-                        }                        
+                    if ((bool)dataGridViewAddons.Rows[e.RowIndex].Cells[3].Value == true)
+                    {
+                        dataGridViewAddons.Rows[e.RowIndex].Cells[3].Value = false;
+                        DownloadAddonGitHub.GitHubs[index].Download = false;
+                    }
+                    else
+                    {
+                        dataGridViewAddons.Rows[e.RowIndex].Cells[3].Value = true;
+                        DownloadAddonGitHub.GitHubs[index].Download = true;
+                    }                        
                 }
                 else if (e.ColumnIndex == 4 && e.RowIndex != -1)
                 {
                     int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == dataGridViewAddons.Rows[e.RowIndex].Cells[0].Value.ToString());
                     if (index != -1)
-                        if ((bool)dataGridViewAddons.Rows[e.RowIndex].Cells[4].Value == true)
-                        {
-                            dataGridViewAddons.Rows[e.RowIndex].Cells[4].Value = false;
-                            DownloadAddonGitHub.GitHubs[index].Delete = false;
-                        }
-                        else
-                        {
-                            dataGridViewAddons.Rows[e.RowIndex].Cells[4].Value = true;
-                            DownloadAddonGitHub.GitHubs[index].Delete = true;
-                        }
+                    if ((bool)dataGridViewAddons.Rows[e.RowIndex].Cells[4].Value == true)
+                    {
+                        dataGridViewAddons.Rows[e.RowIndex].Cells[4].Value = false;
+                        DownloadAddonGitHub.GitHubs[index].Delete = false;
+                    }
+                    else
+                    {
+                        dataGridViewAddons.Rows[e.RowIndex].Cells[4].Value = true;
+                        DownloadAddonGitHub.GitHubs[index].Delete = true;
+                    }
                 }
 
             }
            
         }
 
-        public async void updateDataGridViewAddonsFirst()
-        {
-            
+        public void updateDataGridViewAddonsFirst()
+        {       
             if (dataGridViewAddons.Rows.Count != 0)dataGridViewAddons.Rows.Clear();
             for (int i = 0; i < GitHubs.Count; i++)
             {
@@ -138,47 +134,40 @@ namespace AddonUpdater.Forms
                                 GitHubs[i].Download,
                                 false
                             }
-
-                        );                  
+                        );    
+                        
                         if (GitHubs[i].NeedUpdate)
                         {
-                            dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.BackColor = Color.Red;
-                            dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.SelectionBackColor = Color.Red;
-                        }
-                                                 
+                            dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromArgb(166, 0, 0);
+                            dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[0].Style.SelectionForeColor = Color.FromArgb(166, 0, 0);
+                            dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.ForeColor = Color.FromArgb(166, 0, 0);
+                            dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.SelectionForeColor = Color.FromArgb(166, 0, 0);
+                        }                                               
                     }
                 }
             }
  
-            if (Properties.Settings.Default.AutoUpdateBool == true && Properties.Settings.Default.AutoUpdateCount > 0)
+            if (Properties.Settings.Default.AutoUpdateBool == true && FormMainMenu.UpdateCount > 0)
             {
-                Properties.Settings.Default.download = "Скачивание";
-                button_Delete.Enabled = false;
-                button_Dowload.Enabled = false;
-                button_update.Enabled = false;
-                await DownloadAddonAuto();
-                updateDataGridViewAddons();
-                Properties.Settings.Default.AutoUpdateCount = 0;
-                Properties.Settings.Default.download = null;
-                button_Delete.Enabled = true;
-                button_Dowload.Enabled = true;
-                button_update.Enabled = true;
+                FormMainMenu.ButtonOff();
+                AddonDownload("AutoDownload");
+               
             }
-
+           
         }
 
         public async void updateDataGridViewAddons()
         {
-
-           labelInfo.Text = "Обновление";
-           Properties.Settings.Default.download = "Обновление";
+           FormMainMenu.labelInfo.Text = "Обновление";
+           FormMainMenu.activity = "обновления";
            button_Delete.Enabled = false;
            button_Dowload.Enabled = false;
            button_update.Enabled = false;
 
-           progressBar1.Value = 0;
-           progressBar1.Maximum = 2;
-           progressBar1.Value++;
+           FormMainMenu.progressBar1.Value = 0;
+           FormMainMenu.progressBar1.Maximum = 2;
+           FormMainMenu.progressBar1.Value++;
+
            await downloadAddonGitHub.Aupdatecheck();
            
             if (dataGridViewAddons.Rows.Count !=0 )
@@ -200,64 +189,102 @@ namespace AddonUpdater.Forms
 
                 if (DownloadAddonGitHub.GitHubs[i].NeedUpdate)
                 {
-                    dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.BackColor = Color.Red;
-                    dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.SelectionBackColor = Color.Red;
+                    if (dataGridViewAddons.Rows.Count != 0)
+                    {
+                        dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[0].Style.ForeColor = Color.FromArgb(166, 0, 0);
+                        dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[0].Style.SelectionForeColor = Color.FromArgb(166, 0, 0);
+                        dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.ForeColor = Color.FromArgb(166, 0, 0);
+                        dataGridViewAddons.Rows[dataGridViewAddons.Rows.Count - 1].Cells[2].Style.SelectionForeColor = Color.FromArgb(166, 0, 0);
+                    }
                 }
             }
 
             FormMainMenu.GitHubs = new List<GitHub>(DownloadAddonGitHub.GitHubs);
-            progressBar1.Value++;
-        
-            progressBar1.Value = 0;
-            labelInfo.Text = "";
-            Properties.Settings.Default.download = null;
+            FormMainMenu.progressBar1.Value++;
+            FormMainMenu.progressBar1.Value = 0;
+            FormMainMenu.labelInfo.Text = "";
+            FormMainMenu.activity = null;
             button_Delete.Enabled = true;
             button_Dowload.Enabled = true;
             button_update.Enabled = true;
 
-            if (Properties.Settings.Default.AutoUpdateBool == true && Properties.Settings.Default.AutoUpdateCount>0)
+            if (Properties.Settings.Default.AutoUpdateBool == true && FormMainMenu.UpdateCount > 0)
             {
-                Properties.Settings.Default.download = "Скачивание";
-                button_Delete.Enabled = false;
-                button_Dowload.Enabled = false;
-                button_update.Enabled = false;
-                await DownloadAddonAuto();
-                updateDataGridViewAddons();
-                Properties.Settings.Default.AutoUpdateCount = 0;
-                Properties.Settings.Default.download = null;
-                button_Delete.Enabled = true;
-                button_Dowload.Enabled = true;
-                button_update.Enabled = true;
+                FormMainMenu.ButtonOff();
+                AddonDownload("AutoDownload");
+               
             }
+            FormMainMenu.ButtonOn();
         }
-        private async void button_Dowload_Click(object sender, EventArgs e)
+        
+        private void button_Dowload_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.download = "Скачивание";
+           
+            if (DownloadAddonGitHub.GitHubs.FindAll(find => find.Download == true).Count > 0)
+            {
+                FormMainMenu.ButtonOff();
+                AddonDownload("Download");
+            }
+            else
+            {
+                MessageBox.Show("Выберите аддоны для скачивания", "Ошибка");
+            }
+        
+        }
+
+        private async void AddonDownload(string flag)
+        {
+            FormMainMenu.activity = "Cкачивания";
             button_Delete.Enabled = false;
             button_Dowload.Enabled = false;
             button_update.Enabled = false;
-            await DownloadAddon();
+            await DownloadAddon(flag);
             updateDataGridViewAddons();
-            Properties.Settings.Default.download = null;
+            FormMainMenu.activity = null;
             button_Delete.Enabled = true;
             button_Dowload.Enabled = true;
             button_update.Enabled = true;
         }
-   
 
         private void button_Delete_Click(object sender, EventArgs e)
         {
-            //Properties.Settings.Default.download = "Удаления";
-            // await downloadAddonGitHub.DeleteAddonAsync();
-            downloadAddonGitHub.DeleteAddon();
-            updateDataGridViewAddons();
-            //Properties.Settings.Default.download = null;
+            if (DownloadAddonGitHub.GitHubs.FindAll(find => find.Delete == true).Count > 0)
+            {
+                FormMainMenu.ButtonOff();
+                downloadAddonGitHub.DeleteAddon();
+                updateDataGridViewAddons();
+            }
+            else
+            {
+                MessageBox.Show("Выберите аддоны для удаления", "Ошибка");
+            }                 
         }
 
         private void button_update_Click(object sender, EventArgs e)
-        {  
-            updateDataGridViewAddons();                 
+        {
+            FormMainMenu.ButtonOff();
+            updateDataGridViewAddons();
+           
         }
-    }
 
+        private void buttonLauncher_Click(object sender, EventArgs e)
+        {
+            string pathLauncher = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Programs\\sirus-open-launcher\\Sirus Launcher.exe";        
+            Process[] proc = Process.GetProcessesByName("Sirus Launcher");
+            if (proc.Length == 0)
+            {
+                if (File.Exists(pathLauncher))
+                    Process.Start(pathLauncher);
+            }
+            else
+            {
+                for (int i = 0; i < proc.Length; i++)
+                    proc[i].Kill();
+                if (File.Exists(pathLauncher))
+                    Process.Start(pathLauncher);
+            }
+        }
+
+ 
+    }
 }

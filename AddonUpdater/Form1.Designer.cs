@@ -33,8 +33,8 @@ namespace AddonUpdater
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainMenu));
             this.buttonAllAddons = new System.Windows.Forms.Button();
             this.buttonAddons = new System.Windows.Forms.Button();
-            this.labelTitleName = new System.Windows.Forms.Label();
             this.panelTitleBar = new System.Windows.Forms.Panel();
+            this.labelTitleName = new System.Windows.Forms.Label();
             this.button_Resize = new System.Windows.Forms.Button();
             this.button_Close = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
@@ -50,6 +50,8 @@ namespace AddonUpdater
             this.panelDesktopPane = new System.Windows.Forms.Panel();
             this.labelMainName = new System.Windows.Forms.Label();
             this.timerKill = new System.Windows.Forms.Timer(this.components);
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.labelInfo = new System.Windows.Forms.Label();
             this.panelTitleBar.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panelMenu.SuspendLayout();
@@ -67,7 +69,9 @@ namespace AddonUpdater
             this.buttonAllAddons.Name = "buttonAllAddons";
             this.buttonAllAddons.Size = new System.Drawing.Size(200, 60);
             this.buttonAllAddons.TabIndex = 3;
-            this.buttonAllAddons.Text = "Все аддоны";
+            this.buttonAllAddons.TabStop = false;
+            this.buttonAllAddons.Text = "           Все аддоны";
+            this.buttonAllAddons.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAllAddons.UseVisualStyleBackColor = false;
             this.buttonAllAddons.Visible = false;
             this.buttonAllAddons.Click += new System.EventHandler(this.buttonAllAddons_Click);
@@ -83,28 +87,18 @@ namespace AddonUpdater
             this.buttonAddons.Name = "buttonAddons";
             this.buttonAddons.Size = new System.Drawing.Size(200, 60);
             this.buttonAddons.TabIndex = 1;
-            this.buttonAddons.Text = "Установленные аддоны";
+            this.buttonAddons.TabStop = false;
+            this.buttonAddons.Text = "           Установленные аддоны";
+            this.buttonAddons.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAddons.UseVisualStyleBackColor = false;
             this.buttonAddons.Visible = false;
             this.buttonAddons.Click += new System.EventHandler(this.buttonAddons_Click);
             // 
-            // labelTitleName
-            // 
-            this.labelTitleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTitleName.ForeColor = System.Drawing.Color.White;
-            this.labelTitleName.Location = new System.Drawing.Point(15, 15);
-            this.labelTitleName.Name = "labelTitleName";
-            this.labelTitleName.Size = new System.Drawing.Size(160, 30);
-            this.labelTitleName.TabIndex = 0;
-            this.labelTitleName.Text = "Addon Updater";
-            this.labelTitleName.Visible = false;
-            this.labelTitleName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTitleName_MouseDown);
-            // 
             // panelTitleBar
             // 
             this.panelTitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.panelTitleBar.Controls.Add(this.button_Resize);
             this.panelTitleBar.Controls.Add(this.labelTitleName);
+            this.panelTitleBar.Controls.Add(this.button_Resize);
             this.panelTitleBar.Controls.Add(this.button_Close);
             this.panelTitleBar.Controls.Add(this.labelTitle);
             this.panelTitleBar.Dock = System.Windows.Forms.DockStyle.Top;
@@ -113,6 +107,19 @@ namespace AddonUpdater
             this.panelTitleBar.Size = new System.Drawing.Size(1000, 60);
             this.panelTitleBar.TabIndex = 13;
             this.panelTitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelTitleBar_MouseDown);
+            // 
+            // labelTitleName
+            // 
+            this.labelTitleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTitleName.ForeColor = System.Drawing.Color.White;
+            this.labelTitleName.Location = new System.Drawing.Point(30, 15);
+            this.labelTitleName.Name = "labelTitleName";
+            this.labelTitleName.Size = new System.Drawing.Size(168, 30);
+            this.labelTitleName.TabIndex = 0;
+            this.labelTitleName.Text = "Addon Updater";
+            this.labelTitleName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelTitleName.Visible = false;
+            this.labelTitleName.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelTitleName_MouseDown);
             // 
             // button_Resize
             // 
@@ -123,10 +130,11 @@ namespace AddonUpdater
             this.button_Resize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Resize.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Resize.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button_Resize.Location = new System.Drawing.Point(930, 5);
+            this.button_Resize.Location = new System.Drawing.Point(940, 0);
             this.button_Resize.Name = "button_Resize";
             this.button_Resize.Size = new System.Drawing.Size(30, 30);
             this.button_Resize.TabIndex = 22;
+            this.button_Resize.TabStop = false;
             this.button_Resize.UseVisualStyleBackColor = false;
             this.button_Resize.Visible = false;
             this.button_Resize.Click += new System.EventHandler(this.button_Resize_Click);
@@ -140,10 +148,11 @@ namespace AddonUpdater
             this.button_Close.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Close.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button_Close.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button_Close.Location = new System.Drawing.Point(965, 5);
+            this.button_Close.Location = new System.Drawing.Point(970, 0);
             this.button_Close.Name = "button_Close";
             this.button_Close.Size = new System.Drawing.Size(30, 30);
             this.button_Close.TabIndex = 20;
+            this.button_Close.TabStop = false;
             this.button_Close.UseVisualStyleBackColor = false;
             this.button_Close.Visible = false;
             this.button_Close.Click += new System.EventHandler(this.button_Close_Click);
@@ -152,9 +161,9 @@ namespace AddonUpdater
             // 
             this.labelTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelTitle.ForeColor = System.Drawing.Color.White;
-            this.labelTitle.Location = new System.Drawing.Point(470, 15);
+            this.labelTitle.Location = new System.Drawing.Point(200, 15);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(260, 30);
+            this.labelTitle.Size = new System.Drawing.Size(800, 30);
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Установленные аддоны";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -221,7 +230,9 @@ namespace AddonUpdater
             this.buttonAbout.Name = "buttonAbout";
             this.buttonAbout.Size = new System.Drawing.Size(200, 60);
             this.buttonAbout.TabIndex = 23;
-            this.buttonAbout.Text = "О программе";
+            this.buttonAbout.TabStop = false;
+            this.buttonAbout.Text = "           О программе";
+            this.buttonAbout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonAbout.UseVisualStyleBackColor = false;
             this.buttonAbout.Visible = false;
             this.buttonAbout.Click += new System.EventHandler(this.buttonAbout_Click);
@@ -237,7 +248,9 @@ namespace AddonUpdater
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(200, 60);
             this.buttonSettings.TabIndex = 5;
-            this.buttonSettings.Text = "Настройки";
+            this.buttonSettings.TabStop = false;
+            this.buttonSettings.Text = "           Настройки";
+            this.buttonSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonSettings.UseVisualStyleBackColor = false;
             this.buttonSettings.Visible = false;
             this.buttonSettings.Click += new System.EventHandler(this.buttonSettings_Click);
@@ -246,21 +259,20 @@ namespace AddonUpdater
             // 
             this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.labelVersion.ForeColor = System.Drawing.Color.White;
-            this.labelVersion.Location = new System.Drawing.Point(-1, 509);
+            this.labelVersion.Location = new System.Drawing.Point(34, 501);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(200, 30);
+            this.labelVersion.Size = new System.Drawing.Size(160, 30);
             this.labelVersion.TabIndex = 22;
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.labelVersion.Visible = false;
             // 
             // panelDesktopPane
             // 
             this.panelDesktopPane.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.panelDesktopPane.Controls.Add(this.labelMainName);
-            this.panelDesktopPane.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelDesktopPane.Location = new System.Drawing.Point(200, 60);
             this.panelDesktopPane.Name = "panelDesktopPane";
-            this.panelDesktopPane.Size = new System.Drawing.Size(800, 540);
+            this.panelDesktopPane.Size = new System.Drawing.Size(800, 485);
             this.panelDesktopPane.TabIndex = 16;
             // 
             // labelMainName
@@ -277,11 +289,33 @@ namespace AddonUpdater
             // 
             this.timerKill.Tick += new System.EventHandler(this.timerKill_Tick);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(200, 547);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(800, 25);
+            this.progressBar1.TabIndex = 19;
+            this.progressBar1.Visible = false;
+            // 
+            // labelInfo
+            // 
+            this.labelInfo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.labelInfo.ForeColor = System.Drawing.Color.White;
+            this.labelInfo.Location = new System.Drawing.Point(200, 575);
+            this.labelInfo.Name = "labelInfo";
+            this.labelInfo.Size = new System.Drawing.Size(800, 25);
+            this.labelInfo.TabIndex = 18;
+            this.labelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelInfo.Visible = false;
+            // 
             // FormMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.progressBar1);
+            this.Controls.Add(this.labelInfo);
             this.Controls.Add(this.panelDesktopPane);
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.panelTitleBar);
@@ -302,26 +336,27 @@ namespace AddonUpdater
         }
 
         #endregion
-       
-        private System.Windows.Forms.Button buttonAddons;
-        private System.Windows.Forms.Label labelTitleName;
         private System.Windows.Forms.Panel panelTitleBar;
         private System.Windows.Forms.Label labelTitle;
-        private System.Windows.Forms.Button buttonAllAddons;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
-        private System.Windows.Forms.Button button_Close;
         private System.Windows.Forms.Panel panelMenu;
-        private System.Windows.Forms.Button buttonSettings;
         private System.Windows.Forms.Panel panelDesktopPane;
         private System.Windows.Forms.Label labelMainName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Button buttonAbout;
         private System.Windows.Forms.Button button_Resize;
         private System.Windows.Forms.Timer timerKill;
+        private System.Windows.Forms.Label labelTitleName;
+        public System.Windows.Forms.ProgressBar progressBar1;
+        public System.Windows.Forms.Label labelInfo;
+        public System.Windows.Forms.Button buttonAddons;
+        public System.Windows.Forms.Button buttonAllAddons;
+        public System.Windows.Forms.Button buttonSettings;
+        public System.Windows.Forms.Button buttonAbout;
+        public System.Windows.Forms.Button button_Close;
     }
 }
 

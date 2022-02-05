@@ -37,29 +37,6 @@ namespace AddonUpdater.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string download {
-            get {
-                return ((string)(this["download"]));
-            }
-            set {
-                this["download"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public global::System.Collections.Specialized.StringCollection AutoUpdate {
-            get {
-                return ((global::System.Collections.Specialized.StringCollection)(this["AutoUpdate"]));
-            }
-            set {
-                this["AutoUpdate"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool AutoUpdateBool {
             get {
@@ -67,42 +44,6 @@ namespace AddonUpdater.Properties {
             }
             set {
                 this["AutoUpdateBool"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public int AutoUpdateCount {
-            get {
-                return ((int)(this["AutoUpdateCount"]));
-            }
-            set {
-                this["AutoUpdateCount"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string PathLauncher {
-            get {
-                return ((string)(this["PathLauncher"]));
-            }
-            set {
-                this["PathLauncher"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool PathLauncherBool {
-            get {
-                return ((bool)(this["PathLauncherBool"]));
-            }
-            set {
-                this["PathLauncherBool"] = value;
             }
         }
     }

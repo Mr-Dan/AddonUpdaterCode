@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.IO;
+using Microsoft.Win32;
 
 namespace AddonUpdater.Forms
 {
@@ -24,7 +25,7 @@ namespace AddonUpdater.Forms
         private void FormSetting_Load(object sender, EventArgs e)
         {
             checkBoxAutoUpdate.Checked = Properties.Settings.Default.AutoUpdateBool;
-            checkBoxLauncher.Checked = Properties.Settings.Default.PathLauncherBool;
+          
             labelPathGame.Text = "Папка с игрой: "+ Properties.Settings.Default.PathWow;
         }
 
@@ -33,13 +34,7 @@ namespace AddonUpdater.Forms
             Properties.Settings.Default.AutoUpdateBool = checkBoxAutoUpdate.Checked;
             Properties.Settings.Default.Save();
         }
-        private void checkBoxLauncher_CheckedChanged(object sender, EventArgs e)
-        {
-            Properties.Settings.Default.PathLauncherBool = checkBoxLauncher.Checked;
-            Properties.Settings.Default.PathLauncher = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Programs\\sirus-open-launcher\\Sirus Launcher.exe";
-            Properties.Settings.Default.Save();
-        }
-     
+         
         private void SavePathGame_Click(object sender, EventArgs e)
         {
             string path = GetPath();
@@ -74,7 +69,5 @@ namespace AddonUpdater.Forms
                 return null;
             }
         }
-
-       
     }
 }

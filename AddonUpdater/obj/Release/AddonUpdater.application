@@ -7,14 +7,14 @@
     <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="AddonUpdater.exe.manifest" size="4153">
+    <dependentAssembly dependencyType="install" codebase="AddonUpdater.exe.manifest" size="4154">
       <assemblyIdentity name="AddonUpdater.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>J11BYr9KQz56K4TYoYeKyn2KpV6nWv2CQ0UkW3lEpJk=</dsig:DigestValue>
+        <dsig:DigestValue>atw3fymk3fbquVwhRJFNhBFG3qiq4XQQbFTmTOdSxUQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

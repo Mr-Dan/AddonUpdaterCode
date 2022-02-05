@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,7 +25,17 @@ namespace AddonUpdater.Forms
 
         private void button_GitHub_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/Mr-Dan/AddonUpdater");
+            Process.Start("https://github.com/Mr-Dan/AddonUpdater");
+        }
+
+        private void buttonDonate_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://www.donationalerts.com/r/mr_dan_");
+        }
+
+        private void buttonDiscord_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://discord.gg/7cjU9xvcQY");       
         }
     }
 }
