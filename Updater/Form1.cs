@@ -58,7 +58,7 @@ namespace Updater
          
             buttonNo.Visible = false;
             buttonYes.Visible = false;
-            button_Close.Visible = false;
+            button_Close.Enabled = false;
             label1.Text = "Идет обновление";
 
             Process[] proc = Process.GetProcessesByName("AddonUpdater");

@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Updater.exe" size="88464">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Updater.exe" size="88976">
       <assemblyIdentity name="Updater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>fq9N9H0IhpGL3PTIV1n8wbEXeEhB5LLSitcHhSJ6feM=</dsig:DigestValue>
+        <dsig:DigestValue>VhOhRfcC7nUyIrIKlzTgbr3qAD45LeqjaLHJoBCfp+8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
