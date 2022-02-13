@@ -16,8 +16,9 @@ namespace AddonUpdater
     {
         public static List<GitHub> GitHubs = new List<GitHub>();
         public static List<GitHub> NeedUpdate = new List<GitHub>();
+        public static bool UpdateInfo = false;
 
-        public Task Aupdatecheck()
+       public Task Aupdatecheck()
         {
             var getVersion = Task.Factory.StartNew(() =>
             {
@@ -29,7 +30,10 @@ namespace AddonUpdater
                 if (GitHubsNew.Count > 0)
                     if (ListCheck(GitHubs, GitHubsNew) == false)
                     {
+                        GitHubsNew.Sort((left, right) => left.Name.CompareTo(right.Name));
                         GitHubs = new List<GitHub>(GitHubsNew);
+                        UpdateInfo = true;
+                        
                     }
             });
             return getVersion;
@@ -41,9 +45,9 @@ namespace AddonUpdater
             List<GitHub> GitHubsNew = new List<GitHub>();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;           
               
-            string Get_url_Github = GetContent(link);
-
-            string[] url_addons = Get_url_Github.Split('\n');
+            string getUrlGithub = GetContent(link);
+           
+            string[] url_addons = getUrlGithub.Split('\n');
             for (int i = 0; i < url_addons.Length - 1; i++)
             {
                 List<string> files = new List<string>();
@@ -77,26 +81,48 @@ namespace AddonUpdater
                     using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathWow + @"\Interface\AddOns" + readPath))
                     {
                         string line;
+                            bool found = false;
                         while ((line = sr.ReadLine()) != null)
                         {
                             reg = Regex.Match(line, regex);
                             if (reg.Success)
                             {
-                                //string myVersion = reg.Value.Replace(replace, "").Trim();
                                 GitHubsNew[i].MyVersion = reg.Value.Replace(replace, "").Trim();
                                 if (GitHubsNew[i].MyVersion != GitHubsNew[i].Version)
-                                {
-                                    GitHubsNew[i].NeedUpdate = true;
-                                    GitHubsNew[i].Download = true;
-                                    FormMainMenu.UpdateCount++;
+                                {                                  
+                                    if (Properties.Settings.Default.AddonBlacklist.Contains(GitHubsNew[i].Name) == false)
+                                    {
+                                            GitHubsNew[i].NeedUpdate = true;
+                                            GitHubsNew[i].DownloadMyAddon = true;
+                                            FormMainMenu.UpdateCount++;
+
+                                    }                                  
+                                                                    
                                 }
-                                else
-                                {
-                                    GitHubsNew[i].NeedUpdate = false;
-                                }                  
+                                    found = true;
                                 break;
                             }
-                            else GitHubsNew[i].MyVersion = "0";
+                                                              
+                        }
+
+                        if(found == false)
+                        {
+                            if (Properties.Settings.Default.AddonBlacklist.Contains(GitHubsNew[i].Name) == false)
+                            {
+                                GitHubsNew[i].NeedUpdate = true;
+                                GitHubsNew[i].DownloadMyAddon = true;
+                                FormMainMenu.UpdateCount++;
+                                GitHubsNew[i].MyVersion = "0";
+                            }
+                            else
+                            {
+                                GitHubsNew[i].MyVersion = "0";
+                            }
+
+                        }
+                        if (Properties.Settings.Default.AddonBlacklist.Contains(GitHubsNew[i].Name))
+                        {
+                            GitHubsNew[i].Blacklist = true;                              
                         }
                     }
                 }
@@ -105,8 +131,38 @@ namespace AddonUpdater
                     //MessageBox.Show(ex.ToString(), "Предупреждение");
                 }
             }
+            string getAddonDescription = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonDescription");
+            string[] addonDescription = getAddonDescription.Split('\n');
 
-            return GitHubsNew;
+            List<AddonDescription> AddonDescription = new List<AddonDescription>();
+
+            for (int i =0; i< addonDescription.Length-1; i++)
+            {
+                string[] addonDescriptionSplit = addonDescription[i].Split('|');
+                AddonDescription.Add(new AddonDescription { Name = addonDescriptionSplit[0], Description = addonDescriptionSplit[1] });
+            }
+
+            for (int i = 0; i < GitHubsNew.Count; i++)
+            {                            
+                int index = AddonDescription.FindIndex(f => f.Name == GitHubsNew[i].Name);
+                if (index == -1)
+                {
+                    string[] description = GetContent(GitHubsNew[i].link.Replace(GitHubsNew[i].Directory, "/README.md")).Split('\n');
+                    for (int j = 0; j < description.Length; j++)
+                    {
+                        Match match = Regex.Match(description[j], @"(https:)\/\/([A-z0-9.\/-])*");
+                        if (match.Success)
+                            description[j] = "";
+
+                        GitHubsNew[i].Description = (GitHubsNew[i].Description + " " + description[j].Trim('#').Replace("**", "").Replace("Тема на форуме:", "").Replace("Поддержать автора аддона", "")).Trim();
+                    }
+                }
+                else
+                {
+                    GitHubsNew[i].Description = AddonDescription[index].Description.Trim();
+                }
+            }
+                return GitHubsNew;
         }
    
         public bool ListCheck(List<GitHub> G1, List<GitHub> G2)
@@ -121,7 +177,7 @@ namespace AddonUpdater
                 int index = G2.FindIndex(indx => indx.Name == G1[i].Name);
                 if (index > -1)
                 {
-                    if (G1[i].Version != G2[index].Version || G1[i].MyVersion != G2[index].MyVersion)
+                    if (G1[i].Version != G2[index].Version || G1[i].MyVersion != G2[index].MyVersion || G1[i].Description != G2[index].Description)
                     {
                         return false;
                     }
@@ -217,8 +273,8 @@ namespace AddonUpdater
                                 Directory.Move(sourceDirectory, destinationDirectory);
 
                         }
-
-                        ZipFile.ExtractToDirectory($"{NeedUpdate[i].Name}\\{NeedUpdate[i].Name}.zip", Properties.Settings.Default.PathWow + @"\Interface\AddOns");
+                        if (Directory.Exists(Properties.Settings.Default.PathWow + @"\Interface\AddOns"))
+                            ZipFile.ExtractToDirectory($"{NeedUpdate[i].Name}\\{NeedUpdate[i].Name}.zip", Properties.Settings.Default.PathWow + @"\Interface\AddOns");
                         DirectoryDelete(NeedUpdate[i].Name);
                         File.Delete($"{NeedUpdate[i].Name}.zip");
                     }
@@ -353,7 +409,16 @@ namespace AddonUpdater
         public bool NeedUpdate { get; set; }
         public List<string> Files { get; set; }
         public bool Delete { get; set; }
-        public bool  Download { get; set; }
-        public bool Description { get; set; }
+       // public bool  Download { get; set; }
+        public bool DownloadMyAddon { get; set; }
+        public bool DownloadNewAddon { get; set; }
+        public string Description { get; set; }
+        public bool Blacklist { get; set; }
+
+    }
+    class AddonDescription
+    {
+        public string Name { get; set; }
+        public string Description { get; set; }
     }
 }

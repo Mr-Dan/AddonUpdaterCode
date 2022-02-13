@@ -64,6 +64,7 @@ namespace AddonUpdater
             this.buttonAllAddons.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonAllAddons.FlatAppearance.BorderSize = 0;
             this.buttonAllAddons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAllAddons.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAllAddons.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.buttonAllAddons.Location = new System.Drawing.Point(0, 60);
             this.buttonAllAddons.Name = "buttonAllAddons";
@@ -82,6 +83,7 @@ namespace AddonUpdater
             this.buttonAddons.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonAddons.FlatAppearance.BorderSize = 0;
             this.buttonAddons.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAddons.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAddons.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.buttonAddons.Location = new System.Drawing.Point(0, 0);
             this.buttonAddons.Name = "buttonAddons";
@@ -225,6 +227,7 @@ namespace AddonUpdater
             this.buttonAbout.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonAbout.FlatAppearance.BorderSize = 0;
             this.buttonAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonAbout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.buttonAbout.Location = new System.Drawing.Point(0, 180);
             this.buttonAbout.Name = "buttonAbout";
@@ -243,6 +246,7 @@ namespace AddonUpdater
             this.buttonSettings.Dock = System.Windows.Forms.DockStyle.Top;
             this.buttonSettings.FlatAppearance.BorderSize = 0;
             this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSettings.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.buttonSettings.Location = new System.Drawing.Point(0, 120);
             this.buttonSettings.Name = "buttonSettings";

@@ -34,6 +34,8 @@ namespace AddonUpdater.Forms
             this.labelPathGame = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkBoxDescription = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBoxAutoUpdate
@@ -88,12 +90,37 @@ namespace AddonUpdater.Forms
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(32, 136);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(334, 25);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Показывать описание аддона";
+            // 
+            // checkBoxDescription
+            // 
+            this.checkBoxDescription.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBoxDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxDescription.ForeColor = System.Drawing.Color.White;
+            this.checkBoxDescription.Location = new System.Drawing.Point(9, 136);
+            this.checkBoxDescription.Name = "checkBoxDescription";
+            this.checkBoxDescription.Size = new System.Drawing.Size(15, 30);
+            this.checkBoxDescription.TabIndex = 6;
+            this.checkBoxDescription.TabStop = false;
+            this.checkBoxDescription.UseVisualStyleBackColor = true;
+            this.checkBoxDescription.CheckedChanged += new System.EventHandler(this.checkBoxDescription_CheckedChanged);
+            // 
             // FormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(800, 485);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.checkBoxDescription);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.SavePathGame);
             this.Controls.Add(this.checkBoxAutoUpdate);
@@ -112,5 +139,7 @@ namespace AddonUpdater.Forms
         private System.Windows.Forms.Label labelPathGame;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBoxDescription;
     }
 }
