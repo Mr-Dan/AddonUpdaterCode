@@ -1,7 +1,6 @@
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Debug\AddonUpdater.exe.config
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Debug\AddonUpdater.exe
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Debug\AddonUpdater.pdb
-C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.csprojAssemblyReference.cache
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.Properties.Resources.resources
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.csproj.GenerateResource.cache
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.csproj.CoreCompileInputs.cache
@@ -16,3 +15,4 @@ C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Debug\AddonUpdater.ap
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.exe.manifest
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.application
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.Forms.FormAbout.resources
+C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Debug\AddonUpdater.csproj.AssemblyReference.cache

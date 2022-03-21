@@ -23,7 +23,7 @@ namespace AddonUpdater
             var getVersion = Task.Factory.StartNew(() =>
             {
                 List<GitHub> GitHubsNew = new List<GitHub>();
-                List<GitHub> GitHubsToc = AupdatecheckToc("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonLinks", @"(Version):\s*(.*\d)*", "Version:");
+                List<GitHub> GitHubsToc = AupdatecheckToc("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonLinks", @"(## Version):\s*(.*\d)*", "## Version:");
                 List<GitHub> GitHubsSirus = AupdatecheckToc("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonLinksSirus", @"(@Version):\s*(\d)*", "@Version:");
                 GitHubsNew.AddRange(GitHubsToc);
                 GitHubsNew.AddRange(GitHubsSirus);
@@ -76,12 +76,13 @@ namespace AddonUpdater
                 string readPath = reg.Value;
                 GitHubsNew[i].Directory = readPath;
                 try
-                {
-                    if(File.Exists(Properties.Settings.Default.PathWow + @"\Interface\AddOns" + readPath))
-                    using (StreamReader sr = new StreamReader(Properties.Settings.Default.PathWow + @"\Interface\AddOns" + readPath))
+                {               
+                    FileInfo fileInfo = new FileInfo(Properties.Settings.Default.PathWow + @"\Interface\AddOns" + readPath);
+                    if (File.Exists(fileInfo.FullName))
+                    using (StreamReader sr = new StreamReader(fileInfo.Open(FileMode.Open, FileAccess.Read, FileShare.ReadWrite)))
                     {
                         string line;
-                            bool found = false;
+                        bool found = false;
                         while ((line = sr.ReadLine()) != null)
                         {
                             reg = Regex.Match(line, regex);
@@ -89,23 +90,20 @@ namespace AddonUpdater
                             {
                                 GitHubsNew[i].MyVersion = reg.Value.Replace(replace, "").Trim();
                                 if (GitHubsNew[i].MyVersion != GitHubsNew[i].Version)
-                                {                                  
+                                {
                                     if (Properties.Settings.Default.AddonBlacklist.Contains(GitHubsNew[i].Name) == false)
                                     {
-                                            GitHubsNew[i].NeedUpdate = true;
-                                            GitHubsNew[i].DownloadMyAddon = true;
-                                            FormMainMenu.UpdateCount++;
-
-                                    }                                  
-                                                                    
+                                        GitHubsNew[i].NeedUpdate = true;
+                                        GitHubsNew[i].DownloadMyAddon = true;
+                                        FormMainMenu.UpdateCount++;
+                                    }
                                 }
-                                    found = true;
+                                found = true;
                                 break;
                             }
-                                                              
                         }
 
-                        if(found == false)
+                        if (found == false)
                         {
                             if (Properties.Settings.Default.AddonBlacklist.Contains(GitHubsNew[i].Name) == false)
                             {
@@ -118,11 +116,10 @@ namespace AddonUpdater
                             {
                                 GitHubsNew[i].MyVersion = "0";
                             }
-
                         }
                         if (Properties.Settings.Default.AddonBlacklist.Contains(GitHubsNew[i].Name))
                         {
-                            GitHubsNew[i].Blacklist = true;                              
+                            GitHubsNew[i].Blacklist = true;
                         }
                     }
                 }
@@ -151,9 +148,7 @@ namespace AddonUpdater
                     for (int j = 0; j < description.Length; j++)
                     {
                         Match match = Regex.Match(description[j], @"(https:)\/\/([A-z0-9.\/-])*");
-                        if (match.Success)
-                            description[j] = "";
-
+                        if (match.Success)description[j] = "";
                         GitHubsNew[i].Description = (GitHubsNew[i].Description + " " + description[j].Trim('#').Replace("**", "").Replace("Тема на форуме:", "").Replace("Поддержать автора аддона", "")).Trim();
                     }
                 }
@@ -162,7 +157,8 @@ namespace AddonUpdater
                     GitHubsNew[i].Description = AddonDescription[index].Description.Trim();
                 }
             }
-                return GitHubsNew;
+
+            return GitHubsNew;
         }
    
         public bool ListCheck(List<GitHub> G1, List<GitHub> G2)
