@@ -29,98 +29,26 @@ namespace AddonUpdater.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllAddons));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.dataGridViewAddons = new System.Windows.Forms.DataGridView();
-            this.button_Dowload = new System.Windows.Forms.Button();
             this.button_update = new System.Windows.Forms.Button();
             this.buttonLauncher = new System.Windows.Forms.Button();
             this.PanelDescription = new System.Windows.Forms.Panel();
             this.LabelDescription = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAddons)).BeginInit();
+            this.panelAddon = new System.Windows.Forms.Panel();
+            this.buttonGitHub = new System.Windows.Forms.Button();
+            this.buttonForum = new System.Windows.Forms.Button();
+            this.buttonReportBug = new System.Windows.Forms.Button();
+            this.buttonInstall = new System.Windows.Forms.Button();
+            this.panelAddonsViewTitle = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelTitleName = new System.Windows.Forms.Label();
+            this.panelAddonsView = new System.Windows.Forms.Panel();
             this.PanelDescription.SuspendLayout();
+            this.panelAddon.SuspendLayout();
+            this.panelAddonsViewTitle.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // dataGridViewAddons
-            // 
-            this.dataGridViewAddons.AllowUserToAddRows = false;
-            this.dataGridViewAddons.AllowUserToDeleteRows = false;
-            this.dataGridViewAddons.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(240)))), ((int)(((byte)(242)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(240)))), ((int)(((byte)(242)))));
-            this.dataGridViewAddons.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridViewAddons.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewAddons.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(239)))), ((int)(((byte)(240)))), ((int)(((byte)(242)))));
-            this.dataGridViewAddons.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            this.dataGridViewAddons.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(130)))), ((int)(((byte)(159)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(130)))), ((int)(((byte)(159)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAddons.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewAddons.ColumnHeadersHeight = 30;
-            this.dataGridViewAddons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridViewAddons.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column4});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(225)))), ((int)(((byte)(229)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(225)))), ((int)(((byte)(229)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewAddons.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridViewAddons.EnableHeadersVisualStyles = false;
-            this.dataGridViewAddons.GridColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridViewAddons.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewAddons.Name = "dataGridViewAddons";
-            this.dataGridViewAddons.ReadOnly = true;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(225)))), ((int)(((byte)(229)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(225)))), ((int)(((byte)(229)))));
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAddons.RowHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridViewAddons.RowHeadersVisible = false;
-            this.dataGridViewAddons.RowHeadersWidth = 50;
-            this.dataGridViewAddons.RowTemplate.Height = 25;
-            this.dataGridViewAddons.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAddons.Size = new System.Drawing.Size(800, 450);
-            this.dataGridViewAddons.TabIndex = 22;
-            this.dataGridViewAddons.TabStop = false;
-            this.dataGridViewAddons.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAddons_CellContentClick);
-            this.dataGridViewAddons.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAddons_CellMouseLeave);
-            this.dataGridViewAddons.CellMouseMove += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewAddons_CellMouseMove);
-            this.dataGridViewAddons.MouseMove += new System.Windows.Forms.MouseEventHandler(this.dataGridViewAddons_MouseMove);
-            // 
-            // button_Dowload
-            // 
-            this.button_Dowload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(177)))), ((int)(((byte)(128)))));
-            this.button_Dowload.FlatAppearance.BorderSize = 0;
-            this.button_Dowload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Dowload.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button_Dowload.Location = new System.Drawing.Point(645, 450);
-            this.button_Dowload.Name = "button_Dowload";
-            this.button_Dowload.Size = new System.Drawing.Size(150, 35);
-            this.button_Dowload.TabIndex = 19;
-            this.button_Dowload.TabStop = false;
-            this.button_Dowload.Text = "Скачать";
-            this.button_Dowload.UseVisualStyleBackColor = false;
-            this.button_Dowload.Click += new System.EventHandler(this.button_Dowload_Click);
             // 
             // button_update
             // 
@@ -130,9 +58,9 @@ namespace AddonUpdater.Forms
             this.button_update.FlatAppearance.BorderSize = 0;
             this.button_update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_update.ForeColor = System.Drawing.Color.White;
-            this.button_update.Location = new System.Drawing.Point(590, 450);
+            this.button_update.Location = new System.Drawing.Point(730, 430);
             this.button_update.Name = "button_update";
-            this.button_update.Size = new System.Drawing.Size(50, 35);
+            this.button_update.Size = new System.Drawing.Size(50, 40);
             this.button_update.TabIndex = 23;
             this.button_update.TabStop = false;
             this.button_update.UseVisualStyleBackColor = false;
@@ -146,9 +74,9 @@ namespace AddonUpdater.Forms
             this.buttonLauncher.FlatAppearance.BorderSize = 0;
             this.buttonLauncher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLauncher.ForeColor = System.Drawing.Color.White;
-            this.buttonLauncher.Location = new System.Drawing.Point(540, 450);
+            this.buttonLauncher.Location = new System.Drawing.Point(670, 430);
             this.buttonLauncher.Name = "buttonLauncher";
-            this.buttonLauncher.Size = new System.Drawing.Size(50, 35);
+            this.buttonLauncher.Size = new System.Drawing.Size(50, 40);
             this.buttonLauncher.TabIndex = 24;
             this.buttonLauncher.TabStop = false;
             this.buttonLauncher.UseVisualStyleBackColor = false;
@@ -158,7 +86,7 @@ namespace AddonUpdater.Forms
             // 
             this.PanelDescription.Controls.Add(this.LabelDescription);
             this.PanelDescription.ForeColor = System.Drawing.Color.White;
-            this.PanelDescription.Location = new System.Drawing.Point(12, 410);
+            this.PanelDescription.Location = new System.Drawing.Point(5, 469);
             this.PanelDescription.MaximumSize = new System.Drawing.Size(800, 200);
             this.PanelDescription.Name = "PanelDescription";
             this.PanelDescription.Size = new System.Drawing.Size(800, 15);
@@ -177,63 +105,198 @@ namespace AddonUpdater.Forms
             this.LabelDescription.Size = new System.Drawing.Size(800, 15);
             this.LabelDescription.TabIndex = 1;
             // 
-            // Column1
+            // panelAddon
             // 
-            this.Column1.FillWeight = 400F;
-            this.Column1.HeaderText = "Название";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
+            this.panelAddon.Controls.Add(this.buttonGitHub);
+            this.panelAddon.Controls.Add(this.buttonForum);
+            this.panelAddon.Controls.Add(this.buttonReportBug);
+            this.panelAddon.Controls.Add(this.buttonInstall);
+            this.panelAddon.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.panelAddon.Location = new System.Drawing.Point(236, 431);
+            this.panelAddon.MaximumSize = new System.Drawing.Size(140, 160);
+            this.panelAddon.Name = "panelAddon";
+            this.panelAddon.Size = new System.Drawing.Size(140, 160);
+            this.panelAddon.TabIndex = 24;
+            this.panelAddon.Visible = false;
             // 
-            // Column2
+            // buttonGitHub
             // 
-            this.Column2.FillWeight = 200F;
-            this.Column2.HeaderText = "Версия";
-            this.Column2.Name = "Column2";
-            this.Column2.ReadOnly = true;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.buttonGitHub.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonGitHub.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonGitHub.FlatAppearance.BorderSize = 0;
+            this.buttonGitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGitHub.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonGitHub.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonGitHub.Location = new System.Drawing.Point(0, 120);
+            this.buttonGitHub.Name = "buttonGitHub";
+            this.buttonGitHub.Size = new System.Drawing.Size(140, 40);
+            this.buttonGitHub.TabIndex = 7;
+            this.buttonGitHub.TabStop = false;
+            this.buttonGitHub.Text = "GitHub";
+            this.buttonGitHub.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonGitHub.UseVisualStyleBackColor = false;
+            this.buttonGitHub.Click += new System.EventHandler(this.buttonGitHub_Click);
             // 
-            // Column4
+            // buttonForum
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.NullValue = false;
-            this.Column4.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column4.FillWeight = 160F;
-            this.Column4.HeaderText = "Скачать";
-            this.Column4.Name = "Column4";
-            this.Column4.ReadOnly = true;
-            this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.buttonForum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonForum.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonForum.FlatAppearance.BorderSize = 0;
+            this.buttonForum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForum.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonForum.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonForum.Location = new System.Drawing.Point(0, 80);
+            this.buttonForum.Name = "buttonForum";
+            this.buttonForum.Size = new System.Drawing.Size(140, 40);
+            this.buttonForum.TabIndex = 6;
+            this.buttonForum.TabStop = false;
+            this.buttonForum.Text = "Форум";
+            this.buttonForum.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonForum.UseVisualStyleBackColor = false;
+            this.buttonForum.Click += new System.EventHandler(this.buttonForum_Click);
+            // 
+            // buttonReportBug
+            // 
+            this.buttonReportBug.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonReportBug.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonReportBug.FlatAppearance.BorderSize = 0;
+            this.buttonReportBug.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonReportBug.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonReportBug.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonReportBug.Location = new System.Drawing.Point(0, 40);
+            this.buttonReportBug.Name = "buttonReportBug";
+            this.buttonReportBug.Size = new System.Drawing.Size(140, 40);
+            this.buttonReportBug.TabIndex = 5;
+            this.buttonReportBug.TabStop = false;
+            this.buttonReportBug.Text = "Сообщить о баге";
+            this.buttonReportBug.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonReportBug.UseVisualStyleBackColor = false;
+            this.buttonReportBug.Click += new System.EventHandler(this.buttonReportBug_Click);
+            // 
+            // buttonInstall
+            // 
+            this.buttonInstall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonInstall.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonInstall.FlatAppearance.BorderSize = 0;
+            this.buttonInstall.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonInstall.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonInstall.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonInstall.Location = new System.Drawing.Point(0, 0);
+            this.buttonInstall.Name = "buttonInstall";
+            this.buttonInstall.Size = new System.Drawing.Size(140, 40);
+            this.buttonInstall.TabIndex = 3;
+            this.buttonInstall.TabStop = false;
+            this.buttonInstall.Text = "Скачать";
+            this.buttonInstall.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonInstall.UseVisualStyleBackColor = false;
+            this.buttonInstall.Click += new System.EventHandler(this.buttonInstall_Click);
+            // 
+            // panelAddonsViewTitle
+            // 
+            this.panelAddonsViewTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(130)))), ((int)(((byte)(159)))));
+            this.panelAddonsViewTitle.Controls.Add(this.label3);
+            this.panelAddonsViewTitle.Controls.Add(this.label2);
+            this.panelAddonsViewTitle.Controls.Add(this.label1);
+            this.panelAddonsViewTitle.Controls.Add(this.labelTitleName);
+            this.panelAddonsViewTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelAddonsViewTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelAddonsViewTitle.Name = "panelAddonsViewTitle";
+            this.panelAddonsViewTitle.Size = new System.Drawing.Size(800, 40);
+            this.panelAddonsViewTitle.TabIndex = 26;
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(600, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(200, 40);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Автор";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(420, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(180, 40);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Категория";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(280, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(140, 40);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Версия";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelTitleName
+            // 
+            this.labelTitleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelTitleName.ForeColor = System.Drawing.Color.White;
+            this.labelTitleName.Location = new System.Drawing.Point(0, 0);
+            this.labelTitleName.Name = "labelTitleName";
+            this.labelTitleName.Size = new System.Drawing.Size(280, 40);
+            this.labelTitleName.TabIndex = 1;
+            this.labelTitleName.Text = "Название";
+            this.labelTitleName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // panelAddonsView
+            // 
+            this.panelAddonsView.BackColor = System.Drawing.Color.LightGray;
+            this.panelAddonsView.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelAddonsView.Location = new System.Drawing.Point(0, 40);
+            this.panelAddonsView.Margin = new System.Windows.Forms.Padding(0);
+            this.panelAddonsView.MaximumSize = new System.Drawing.Size(800, 380);
+            this.panelAddonsView.Name = "panelAddonsView";
+            this.panelAddonsView.Size = new System.Drawing.Size(800, 380);
+            this.panelAddonsView.TabIndex = 27;
             // 
             // FormAllAddons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.Controls.Add(this.panelAddon);
             this.Controls.Add(this.PanelDescription);
+            this.Controls.Add(this.panelAddonsView);
+            this.Controls.Add(this.panelAddonsViewTitle);
             this.Controls.Add(this.buttonLauncher);
             this.Controls.Add(this.button_update);
-            this.Controls.Add(this.dataGridViewAddons);
-            this.Controls.Add(this.button_Dowload);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "FormAllAddons";
             this.Text = "Все аддоны";
             this.Load += new System.EventHandler(this.FormAllAddons_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAddons)).EndInit();
             this.PanelDescription.ResumeLayout(false);
+            this.panelAddon.ResumeLayout(false);
+            this.panelAddonsViewTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView dataGridViewAddons;
-        private System.Windows.Forms.Button button_Dowload;
         private System.Windows.Forms.Button button_update;
         private System.Windows.Forms.Button buttonLauncher;
         private System.Windows.Forms.Panel PanelDescription;
         private System.Windows.Forms.Label LabelDescription;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Column4;
+        private System.Windows.Forms.Panel panelAddon;
+        public System.Windows.Forms.Button buttonGitHub;
+        public System.Windows.Forms.Button buttonForum;
+        public System.Windows.Forms.Button buttonReportBug;
+        public System.Windows.Forms.Button buttonInstall;
+        private System.Windows.Forms.Panel panelAddonsViewTitle;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label labelTitleName;
+        private System.Windows.Forms.Panel panelAddonsView;
     }
 }

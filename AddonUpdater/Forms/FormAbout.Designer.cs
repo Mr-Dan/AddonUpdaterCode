@@ -108,6 +108,7 @@ namespace AddonUpdater.Forms
             this.button_GitHub.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.button_GitHub.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_GitHub.BackgroundImage")));
             this.button_GitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_GitHub.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button_GitHub.FlatAppearance.BorderSize = 0;
             this.button_GitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_GitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -124,6 +125,7 @@ namespace AddonUpdater.Forms
             this.buttonDonate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.buttonDonate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonate.BackgroundImage")));
             this.buttonDonate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonDonate.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDonate.FlatAppearance.BorderSize = 0;
             this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDonate.ForeColor = System.Drawing.Color.WhiteSmoke;
@@ -150,6 +152,7 @@ namespace AddonUpdater.Forms
             this.buttonDiscord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.buttonDiscord.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDiscord.BackgroundImage")));
             this.buttonDiscord.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonDiscord.FlatAppearance.BorderSize = 0;
             this.buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;

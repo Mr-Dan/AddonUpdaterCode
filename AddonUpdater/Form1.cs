@@ -16,25 +16,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO.Compression;
 using AddonUpdater.Forms;
-//using System.Net.NetworkInformation;
 
 namespace AddonUpdater
 {
     public partial class FormMainMenu : Form
     {
-        private Form activeform;     
+        private Form activeform;
         private Button currentButton = new Button();
         public static string activity = null;
         public static int UpdateCount = 0;
         bool openFormAddons = false;
         bool openingForm = false;
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
-       
+
         Color standardButton = Color.FromArgb(37, 35, 47);
         Color activeButton = Color.FromArgb(123, 119, 159);
 
         public FormMainMenu()
-        {                    
+        {
             InitializeComponent();
         }
 
@@ -96,7 +95,7 @@ namespace AddonUpdater
             VisibleOn();
             timer1.Start();
             timerKill.Start();
-            OpenChildForm(new Forms.FormAddons(this), buttonAddons);
+            OpenChildForm(new FormAddons(this), buttonAddons);
             openFormAddons = true;
         }
 
@@ -238,45 +237,45 @@ namespace AddonUpdater
                 await downloadAddonGitHub.Aupdatecheck();
 
                 if (DownloadAddonGitHub.GitHubs.Count > 0)
-                if (DownloadAddonGitHub.UpdateInfo == true)
-                {
-                       
-                    foreach (Form form in Application.OpenForms)
+                    if (DownloadAddonGitHub.UpdateInfo == true)
                     {
-                            
-                       OpenForm(form.Name);
+
+                        foreach (Form form in Application.OpenForms)
+                        {
+
+                            OpenForm(form.Name);
                             if (openingForm == true) break;
+                        }
+
+                        if (Properties.Settings.Default.AutoUpdateBool == true && UpdateCount > 0 && openingForm == false)
+                        {
+                            activity = "Cкачивания";
+                            await DownloadAddonAuto();
+                            activity = null;
+                        }
                     }
-                    
-                    if (Properties.Settings.Default.AutoUpdateBool == true && UpdateCount > 0 && openingForm == false)
-                    {
-                        activity = "Cкачивания";
-                        await DownloadAddonAuto();
-                        activity = null;
-                    }
-                }
             }
         }
 
         private void OpenForm(string name)
         {
             if (DownloadAddonGitHub.UpdateInfo == true)
-            if (name == "FormAddons")
-            {
-                OpenChildForm(new FormAddons(this), buttonAddons);
-                openingForm = true;
-                DownloadAddonGitHub.UpdateInfo = false;
+                if (name == "FormAddons")
+                {
+                    OpenChildForm(new FormAddons(this), buttonAddons);
+                    openingForm = true;
+                    DownloadAddonGitHub.UpdateInfo = false;
 
-            }
-            else if (name == "FormAllAddons")
-            {
-                OpenChildForm(new FormAllAddons(this), buttonAllAddons);
-                openingForm = true;
-                DownloadAddonGitHub.UpdateInfo = false;
+                }
+                else if (name == "FormAllAddons")
+                {
+                    OpenChildForm(new FormAllAddons(this), buttonAllAddons);
+                    openingForm = true;
+                    DownloadAddonGitHub.UpdateInfo = false;
 
-            }       
+                }
         }
-       
+
         public async Task DownloadAddonAuto()
         {
             ButtonOff();
@@ -294,7 +293,7 @@ namespace AddonUpdater
                 for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
                 {
                     labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].link, DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].Directory, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
                     progressBar1.Value++;
                 }
                 labelInfo.Text = "Распаковка Аддонов";
@@ -443,6 +442,7 @@ namespace AddonUpdater
             buttonSettings.Enabled = true;
             button_Close.Enabled = true;
         }
-     
+
+
     }
 }

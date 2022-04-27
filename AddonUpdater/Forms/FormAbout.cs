@@ -35,7 +35,7 @@ namespace AddonUpdater.Forms
 
         private void buttonDiscord_Click(object sender, EventArgs e)
         {
-            Process.Start("https://discord.gg/7cjU9xvcQY");       
+            Process.Start("https://discord.gg/7cjU9xvcQY");
         }
     }
 }

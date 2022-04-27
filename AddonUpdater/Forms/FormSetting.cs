@@ -26,7 +26,7 @@ namespace AddonUpdater.Forms
         {
             checkBoxAutoUpdate.Checked = Properties.Settings.Default.AutoUpdateBool;
             checkBoxDescription.Checked = Properties.Settings.Default.DescriptionBool;
-            labelPathGame.Text = "Папка с игрой: "+ Properties.Settings.Default.PathWow;
+            labelPathGame.Text = "Папка с игрой: " + Properties.Settings.Default.PathWow;
         }
 
         private void checkBoxAutoUpdate_CheckedChanged(object sender, EventArgs e)
@@ -34,14 +34,14 @@ namespace AddonUpdater.Forms
             Properties.Settings.Default.AutoUpdateBool = checkBoxAutoUpdate.Checked;
             Properties.Settings.Default.Save();
         }
-         
+
         private void SavePathGame_Click(object sender, EventArgs e)
         {
             string path = GetPath();
             if (path != null)
             {
                 List<string> Directories = new List<string>(Directory.GetDirectories(path));
-   
+
                 if (Directories.FindIndex(dir => dir.IndexOf("Interface") > -1) > -1 && Directories.FindIndex(dir => dir.IndexOf("WTF") > -1) > -1)
                 {
                     Properties.Settings.Default.PathWow = path;
@@ -51,9 +51,9 @@ namespace AddonUpdater.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Ошибка в пути или файлы игры повреждены");
+                    MessageBox.Show("Ошибка в пути или нет файла WTF или AddOns");
                 }
-            }        
+            }
         }
 
         private string GetPath()

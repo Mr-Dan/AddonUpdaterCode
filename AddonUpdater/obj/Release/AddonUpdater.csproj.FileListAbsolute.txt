@@ -1,7 +1,6 @@
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Release\AddonUpdater.exe.config
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Release\AddonUpdater.exe
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Release\AddonUpdater.pdb
-C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.csprojAssemblyReference.cache
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.FormMainMenu.resources
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.Forms.FormAddons.resources
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.Forms.FormAllAddons.resources
@@ -16,3 +15,4 @@ C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\bin\Release\AddonUpdater.
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.exe.manifest
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.application
 C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.Forms.FormAbout.resources
+C:\Users\Дан\source\repos\AddonUpdater\AddonUpdater\obj\Release\AddonUpdater.csproj.AssemblyReference.cache
