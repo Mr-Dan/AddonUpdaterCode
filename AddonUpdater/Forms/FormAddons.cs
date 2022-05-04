@@ -114,7 +114,7 @@ namespace AddonUpdater.Forms
         }
 
         private void AddonName_MouseLeave(object sender, EventArgs e)
-        {           
+        {
             PanelDescription.Visible = false;
             LabelDescription.Text = null;
         }
@@ -127,7 +127,7 @@ namespace AddonUpdater.Forms
                 ActiveControl = null;
                 if (Properties.Settings.Default.DescriptionBool)
                 {
-                   
+
                     Label label = new Label();
                     label = (Label)sender;
 
@@ -138,25 +138,25 @@ namespace AddonUpdater.Forms
                     if (index != -1)
                     {
                         if (DownloadAddonGitHub.GitHubs[index].Description != String.Empty)
-                        if (PanelDescription.Visible == false)
-                        {
-                            LabelDescription.Text = DownloadAddonGitHub.GitHubs[index].Description;
-                            Size len = TextRenderer.MeasureText(DownloadAddonGitHub.GitHubs[index].Description, LabelDescription.Font);
-                            int size = len.Width * len.Height;
-                            PanelDescription.Size = new Size(780, (size / 800) + 20);
-                            Point pos = new Point();
-                            pos.Y = label.Parent.Location.Y;
-                            if (pos.Y + PanelDescription.Height + 40 > panelAddonsView.Height)
+                            if (PanelDescription.Visible == false)
                             {
-                                PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 50);
+                                LabelDescription.Text = DownloadAddonGitHub.GitHubs[index].Description;
+                                Size len = TextRenderer.MeasureText(DownloadAddonGitHub.GitHubs[index].Description, LabelDescription.Font);
+                                int size = len.Width * len.Height;
+                                PanelDescription.Size = new Size(780, (size / 800) + 20);
+                                Point pos = new Point();
+                                pos.Y = label.Parent.Location.Y;
+                                if (pos.Y + PanelDescription.Height + 40 > panelAddonsView.Height)
+                                {
+                                    PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 50);
+                                }
+                                else if (pos.Y + PanelDescription.Height < panelAddonsView.Height)
+                                {
+                                    PanelDescription.Location = new Point(0, pos.Y + 80);
+                                }
+                                PanelDescription.Visible = true;
+                                PanelDescription.BringToFront();
                             }
-                            else if (pos.Y + PanelDescription.Height < panelAddonsView.Height)
-                            {
-                                PanelDescription.Location = new Point(0, pos.Y + 80);
-                            }
-                            PanelDescription.Visible = true;
-                            PanelDescription.BringToFront();
-                        }
                     }
                 }
             }
@@ -175,7 +175,7 @@ namespace AddonUpdater.Forms
                 for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
                 {
                     FormMainMenu.labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                    await downloadAddonGitHub.DownloadAddonGitHubTask( DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
                     FormMainMenu.progressBar1.Value++;
                 }
                 FormMainMenu.labelInfo.Text = "Распаковка Аддонов";
@@ -203,7 +203,7 @@ namespace AddonUpdater.Forms
             }
             else
             {
-                MessageBox.Show("Выберите аддоны для скачивания", "Ошибка");
+                MessageBox.Show("Вы используете актуальные версии аддонов", "Ошибка");
             }
         }
 
@@ -217,7 +217,7 @@ namespace AddonUpdater.Forms
             FormMainMenu.activity = null;
             ButtonOn();
             AllUpdate = false;
-        }   
+        }
 
         private void button_update_Click(object sender, EventArgs e)
         {
@@ -277,10 +277,10 @@ namespace AddonUpdater.Forms
                 int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
                 if (index != -1)
                 {
-                                    
+
                     buttonReinstall.Text = $"Переустановить\n{DownloadAddonGitHub.GitHubs[index].Name}";
                     ClickIndex = index;
-                    RowIndex = row;        
+                    RowIndex = row;
                     Point pos = new Point();
                     pos.Y = label.Parent.Location.Y;
                     if (pos.Y + panelAddon.Height > panelAddonsView.Height && pos.Y + panelAddon.Height - 120 < panelAddonsView.Height)
@@ -388,6 +388,11 @@ namespace AddonUpdater.Forms
 
                         DownloadAddonGitHub.UpdateInfo = true;
                     }
+
+
+                    if (DownloadAddonGitHub.GitHubs[index].NeedUpdate) panelAddons[RowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + "У Вас: " + DownloadAddonGitHub.GitHubs[index].MyVersion;
+                    else panelAddons[RowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
+
                     while (Properties.Settings.Default.AddonBlacklist.Contains(DownloadAddonGitHub.GitHubs[index].Name))
                     {
                         Properties.Settings.Default.AddonBlacklist.Remove(DownloadAddonGitHub.GitHubs[index].Name);
@@ -402,7 +407,7 @@ namespace AddonUpdater.Forms
                     DownloadAddonGitHub.GitHubs[index].Blacklist = true;
                     panelAddons[RowIndex].AddonName.ForeColor = Color.FromArgb(44, 42, 63);
                     panelAddons[RowIndex].AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
-
+                    panelAddons[RowIndex].AddonVersion.Text = "В игноре";
                     Properties.Settings.Default.AddonBlacklist.Add(DownloadAddonGitHub.GitHubs[index].Name);
                     Properties.Settings.Default.Save();
 
@@ -546,7 +551,7 @@ namespace AddonUpdater.Forms
             {
                 setting = comboBoxSettings.SelectedItem.ToString();
             }
-            
+
             if (account != null && realm != null && setting != null)
             {
                 if (setting == "Персональные")
@@ -573,8 +578,10 @@ namespace AddonUpdater.Forms
                                     if (DownloadAddonGitHub.GitHubs[ClickIndex].Files.FindIndex(addon => addon == filenew) > -1)
                                     {
                                         if (File.Exists(file)) File.Delete(file);
+
                                     }
                                 }
+                                MessageBox.Show("Персональные настройки удалены");
                             }
                         }
                     }
@@ -595,10 +602,12 @@ namespace AddonUpdater.Forms
                             filenew = filenew.Replace(".lua", "");
 
                             if (DownloadAddonGitHub.GitHubs[ClickIndex].Files.FindIndex(addon => addon == filenew) > -1)
-                            { 
+                            {
                                 if (File.Exists(file)) File.Delete(file);
+
                             }
                         }
+                        MessageBox.Show("Глобальные настройки удалены");
                     }
                 }
             }
@@ -643,7 +652,8 @@ namespace AddonUpdater.Forms
                 panelAddons[rowIndex].progressBar.Value = 0;
                 panelAddons[rowIndex].progressBar.Visible = false;
                 panelAddons[rowIndex].AddonName.Text = DownloadAddonGitHub.GitHubs[index].Name;
-                panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + "У Вас: " + DownloadAddonGitHub.GitHubs[index].MyVersion;
+                if (DownloadAddonGitHub.GitHubs[index].Blacklist) panelAddons[rowIndex].AddonVersion.Text = "В игноре";
+                else panelAddons[RowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
                 DataGridViewAddonsRowsForeColorUpdate(rowIndex, DownloadAddonGitHub.GitHubs[index].NeedUpdate);
                 NumberDownloadableAddons--;
                 if (NumberDownloadableAddons == 0)
@@ -661,13 +671,13 @@ namespace AddonUpdater.Forms
         }
 
         private void ButtonOn()
-        {          
+        {
             button_Dowload.Enabled = true;
             button_update.Enabled = true;
         }
 
         private void ButtonOff()
-        {         
+        {
             button_Dowload.Enabled = false;
             button_update.Enabled = false;
         }
@@ -686,14 +696,14 @@ namespace AddonUpdater.Forms
     class PanelAddon
     {
         public GitHub GitHub { get; set; }
-       
+
         public Panel AddonPanel { get; set; }
         public Label AddonName { get; set; }
         public Button AddonVersion { get; set; }
         public Label AddonAuthor { get; set; }
         public Label AddonCategory { get; set; }
         public ProgressBar progressBar { get; set; }
-        
+
         private int Row = -1;
 
         public PanelAddon(GitHub gitHub, int row, Panel panelParent)
@@ -752,7 +762,10 @@ namespace AddonUpdater.Forms
             AddonVersion = new Button();
             AddonVersion.Name = "Button_" + GitHub.Name + "_row_" + Row;
             if (GitHub.MyVersion != null)
-                AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n" + "У Вас: " + GitHub.MyVersion;
+                if (GitHub.Blacklist) AddonVersion.Text = "В игноре";
+                else
+                    if (GitHub.NeedUpdate) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n" + "У Вас: " + GitHub.MyVersion;
+                else AddonVersion.Text = "Актуальная: " + GitHub.Version;
             else if (GitHub.MyVersion == null) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n";
             AddonVersion.Width = 140;
             AddonVersion.Height = 40;
@@ -770,7 +783,7 @@ namespace AddonUpdater.Forms
         {
             AddonCategory = new Label();
             AddonCategory.Name = "LabelAuthor" + GitHub.Name + "row" + Row;
-            AddonCategory.Text =GitHub.Category;
+            AddonCategory.Text = GitHub.Category;
             AddonCategory.Width = 180;
             AddonCategory.Height = 40;
             AddonCategory.Parent = AddonPanel.Parent;

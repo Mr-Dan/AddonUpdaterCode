@@ -22,7 +22,7 @@ namespace AddonUpdater
         {
             var getVersion = Task.Factory.StartNew(() =>
             {
-                List<GitHub> GitHubsNew = new List<GitHub>();   
+                List<GitHub> GitHubsNew = new List<GitHub>();
                 List<GitHub> GitHubsToc = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterLinks", @"(## Version):\s*(.*\d)*", "## Version:");
                 List<GitHub> GitHubsSirus = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterSirusLinks", @"(@Version):\s*(\d)*", "@Version:");
                 GitHubsNew.AddRange(GitHubsToc);
@@ -46,13 +46,13 @@ namespace AddonUpdater
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             string getUrlGithub = GetContent(link);
             string[] url_addons = getUrlGithub.Split('\n');
-    
+
             for (int i = 0; i < url_addons.Length - 1; i++)
             {
                 string name = GetValues(url_addons[i], "NameAddon");
                 string linkVersion = GetValues(url_addons[i], "Version");
                 string branches = GetValues(url_addons[i], "Branches");
-                string directory = Regex.Match(linkVersion.Replace($"{branches}/",""), @"(\/)\w*(-)*\w*.(\/)\w*(-)*\w*.(toc)").Value;
+                string directory = Regex.Match(linkVersion.Replace($"{branches}/", ""), @"(\/)\w*(-)*\w*.(\/)\w*(-)*\w*.(toc)").Value;
                 string description = GetValues(url_addons[i], "Description");
                 string version = GetVersion(linkVersion, regex, replace);
                 string myVersion = GetMyVersion(directory, regex, replace);
@@ -79,7 +79,7 @@ namespace AddonUpdater
                     Replace = replace,
                     SavedVariables = GetSavedVariables(directory),
                     SavedVariablesPerCharacter = GetSavedVariablesPerCharacter(directory),
-                    Category = GetValues(url_addons[i], "Category")              
+                    Category = GetValues(url_addons[i], "Category")
                 });
 
             }
@@ -151,7 +151,7 @@ namespace AddonUpdater
                 return false;
             }
         }
-     
+
         public bool GetNeedUpdate(string version, string MyVersion, bool blacklist)
         {
             if (MyVersion == null) return false;
@@ -364,7 +364,7 @@ namespace AddonUpdater
                         }
                         else
                             ZipFile.CreateFromDirectory(allfiles[0], $"{NeedUpdate[i].Name}\\{NeedUpdate[i].Name}.zip");
-    
+
                         foreach (string dir in NeedUpdate[i].Files)
                         {
                             string sourceDirectory = Properties.Settings.Default.PathWow + @"\Interface\AddOns\" + dir;
@@ -408,8 +408,8 @@ namespace AddonUpdater
 
         public Task DownloadAddonGitHubTask(string name, string githublink, string branches)
         {
-            
-            string githubDirectory = githublink.Replace("https://github.com/","");
+
+            string githubDirectory = githublink.Replace("https://github.com/", "");
             using (WebClient client2 = new WebClient())
             {
                 var task = client2.DownloadFileTaskAsync(new Uri($"https://github.com/{githubDirectory}/archive/refs/heads/{branches}.zip"), $"{name}.zip");
@@ -535,11 +535,11 @@ namespace AddonUpdater
                     }
                     allfiles2 = Directory.GetDirectories(allfiles[0]);
 
-                    if(File.Exists(gitHub.Name+"\\"+gitHub.Directory)==false)
-                    foreach (string file in allfiles3)
-                    {
-                        File.Delete(file);
-                    }
+                    if (File.Exists(gitHub.Name + "\\" + gitHub.Directory) == false)
+                        foreach (string file in allfiles3)
+                        {
+                            File.Delete(file);
+                        }
 
                     if (File.Exists(gitHub.Name + "\\" + gitHub.Directory))
                     {
@@ -551,7 +551,7 @@ namespace AddonUpdater
                         ZipFile.CreateFromDirectory(allfiles[0], $"{gitHub.Name}\\{gitHub.Name}.zip");
 
                     Directory.CreateDirectory(Properties.Settings.Default.PathWow + $@"\Interface\AddOns\old{gitHub.Name}");
-                   
+
                     foreach (string dir in gitHub.Files)
                     {
                         string sourceDirectory = Properties.Settings.Default.PathWow + @"\Interface\AddOns\" + dir;
@@ -560,11 +560,11 @@ namespace AddonUpdater
                         if (Directory.Exists(sourceDirectory))
                             Directory.Move(sourceDirectory, destinationDirectory);
                     }
-                    
-                     if (Directory.Exists(Properties.Settings.Default.PathWow + @"\Interface\AddOns"))
-                         ZipFile.ExtractToDirectory($"{gitHub.Name}\\{gitHub.Name}.zip", Properties.Settings.Default.PathWow + @"\Interface\AddOns");
-                     DirectoryDelete(gitHub.Name);
-                     File.Delete($"{gitHub.Name}.zip");
+
+                    if (Directory.Exists(Properties.Settings.Default.PathWow + @"\Interface\AddOns"))
+                        ZipFile.ExtractToDirectory($"{gitHub.Name}\\{gitHub.Name}.zip", Properties.Settings.Default.PathWow + @"\Interface\AddOns");
+                    DirectoryDelete(gitHub.Name);
+                    File.Delete($"{gitHub.Name}.zip");
 
                 }
                 catch (Exception ex)
@@ -579,7 +579,7 @@ namespace AddonUpdater
     public class GitHub
     {
         public string Name { get; set; }
-        public string link { get; set; }       
+        public string link { get; set; }
         public string Directory { get; set; }
         public string Version { get; set; }
         public string MyVersion { get; set; }

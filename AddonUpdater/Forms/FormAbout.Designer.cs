@@ -112,7 +112,7 @@ namespace AddonUpdater.Forms
             this.button_GitHub.FlatAppearance.BorderSize = 0;
             this.button_GitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_GitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button_GitHub.Location = new System.Drawing.Point(734, 420);
+            this.button_GitHub.Location = new System.Drawing.Point(734, 410);
             this.button_GitHub.Name = "button_GitHub";
             this.button_GitHub.Size = new System.Drawing.Size(64, 64);
             this.button_GitHub.TabIndex = 20;
@@ -156,7 +156,7 @@ namespace AddonUpdater.Forms
             this.buttonDiscord.FlatAppearance.BorderSize = 0;
             this.buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDiscord.Location = new System.Drawing.Point(664, 420);
+            this.buttonDiscord.Location = new System.Drawing.Point(664, 410);
             this.buttonDiscord.Name = "buttonDiscord";
             this.buttonDiscord.Size = new System.Drawing.Size(64, 64);
             this.buttonDiscord.TabIndex = 23;
@@ -189,7 +189,7 @@ namespace AddonUpdater.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(800, 480);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonDiscord);

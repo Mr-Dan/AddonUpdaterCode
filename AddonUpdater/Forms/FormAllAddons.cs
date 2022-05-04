@@ -93,7 +93,7 @@ namespace AddonUpdater.Forms
                     panelAddons[panelAddons.Count - 1].AddonName.MouseLeave += new EventHandler(AddonName_MouseLeave);
                     panelAddons[panelAddons.Count - 1].AddonName.MouseMove += new MouseEventHandler(AddonName_MouseMove);
                     panelAddons[panelAddons.Count - 1].AddonName.MouseClick += new MouseEventHandler(AddonName_MouseClick);
-                     panelAddons[panelAddons.Count - 1].AddonVersion.Click += new EventHandler(AddonVersion_Click);
+                    panelAddons[panelAddons.Count - 1].AddonVersion.Click += new EventHandler(AddonVersion_Click);
                     panelAddons[panelAddons.Count - 1].AddonPanel.BringToFront();
                 }
             }
@@ -115,11 +115,11 @@ namespace AddonUpdater.Forms
             FormMainMenu.ButtonOn();
         }
         public void AddonName_MouseLeave(object sender, EventArgs e)
-        {         
+        {
             PanelDescription.Visible = false;
-            LabelDescription.Text = null;         
+            LabelDescription.Text = null;
         }
-      
+
         public void AddonName_MouseMove(object sender, MouseEventArgs e)
         {
             ActiveControl = null;
@@ -137,31 +137,31 @@ namespace AddonUpdater.Forms
                     if (index != -1)
                     {
                         if (DownloadAddonGitHub.GitHubs[index].Description != String.Empty)
-                        if (PanelDescription.Visible == false)
-                        {
-                            LabelDescription.Text = DownloadAddonGitHub.GitHubs[index].Description;
-                            Size len = TextRenderer.MeasureText(DownloadAddonGitHub.GitHubs[index].Description, LabelDescription.Font);
-                            int size = len.Width * len.Height;
-                            PanelDescription.Size = new Size(780, (size / 800) + 20);
-                            Point pos = new Point();
-                            pos.Y = label.Parent.Location.Y;
-                            if (pos.Y + PanelDescription.Height + 40 > panelAddonsView.Height)
+                            if (PanelDescription.Visible == false)
                             {
-                                PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 50);
+                                LabelDescription.Text = DownloadAddonGitHub.GitHubs[index].Description;
+                                Size len = TextRenderer.MeasureText(DownloadAddonGitHub.GitHubs[index].Description, LabelDescription.Font);
+                                int size = len.Width * len.Height;
+                                PanelDescription.Size = new Size(780, (size / 800) + 20);
+                                Point pos = new Point();
+                                pos.Y = label.Parent.Location.Y;
+                                if (pos.Y + PanelDescription.Height + 40 > panelAddonsView.Height)
+                                {
+                                    PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 50);
+                                }
+                                else if (pos.Y + PanelDescription.Height < panelAddonsView.Height)
+                                {
+                                    PanelDescription.Location = new Point(0, pos.Y + 80);
+                                }
+                                PanelDescription.Visible = true;
+                                PanelDescription.BringToFront();
                             }
-                            else if (pos.Y + PanelDescription.Height < panelAddonsView.Height)
-                            {
-                                PanelDescription.Location = new Point(0, pos.Y + 80);
-                            }
-                            PanelDescription.Visible = true;
-                            PanelDescription.BringToFront();
-                        }
                     }
                 }
 
             }
         }
-    
+
         public async Task DownloadAddon(string flag)
         {
             try
@@ -175,7 +175,7 @@ namespace AddonUpdater.Forms
                 for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
                 {
                     FormMainMenu.labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                    await downloadAddonGitHub.DownloadAddonGitHubTask( DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
                     FormMainMenu.progressBar1.Value++;
                 }
                 FormMainMenu.labelInfo.Text = "Распаковка Аддонов";
@@ -184,23 +184,23 @@ namespace AddonUpdater.Forms
                 FormMainMenu.labelInfo.Text = "";
                 FormMainMenu.UpdateCount = 0;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                 //MessageBox.Show(ex.Message);
+                //MessageBox.Show(ex.Message);
                 FormMainMenu.progressBar1.Value = 0;
                 FormMainMenu.labelInfo.Text = "Ошибка подключения";
             }
         }
 
         private async void AddonDownload(string flag)
-        {           
+        {
             FormMainMenu.activity = "Cкачивания";
             ButtonOff();
             await DownloadAddon(flag);
             updatePanelAddonsView(false);
             FormMainMenu.activity = null;
-            ButtonOn();  
-        }   
+            ButtonOn();
+        }
 
         private void button_update_Click(object sender, EventArgs e)
         {
@@ -235,7 +235,7 @@ namespace AddonUpdater.Forms
                 }
             }
         }
-    
+
 
         int RowIndex = 0;
         int ClickIndex = 0;
@@ -259,8 +259,8 @@ namespace AddonUpdater.Forms
                 int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
                 if (index != -1)
                 {
-                    
-                  
+
+
                     buttonInstall.Text = $"Скачать\n{DownloadAddonGitHub.GitHubs[index].Name}";
                     ClickIndex = index;
                     RowIndex = row;
@@ -287,7 +287,7 @@ namespace AddonUpdater.Forms
         }
 
         private void panelAddonButtonSet()
-        {          
+        {
             if (DownloadAddonGitHub.GitHubs[ClickIndex].BugReport == "")
             {
                 buttonReportBug.Enabled = false;
@@ -315,28 +315,28 @@ namespace AddonUpdater.Forms
         {
             panelAddon.Visible = false;
             await DownloadAddon3(DownloadAddonGitHub.GitHubs[ClickIndex], ClickIndex, RowIndex);
-           
+
         }
 
         private void buttonReportBug_Click(object sender, EventArgs e)
         {
-             if (DownloadAddonGitHub.GitHubs[ClickIndex].BugReport != "")
+            if (DownloadAddonGitHub.GitHubs[ClickIndex].BugReport != "")
                 Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].BugReport);
         }
 
         private void buttonForum_Click(object sender, EventArgs e)
         {
             if (DownloadAddonGitHub.GitHubs[ClickIndex].Forum != "")
-              Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].Forum);
+                Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].Forum);
         }
 
         private void buttonGitHub_Click(object sender, EventArgs e)
         {
             if (DownloadAddonGitHub.GitHubs[ClickIndex].GithubLink != "")
-               Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].GithubLink);
+                Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].GithubLink);
 
         }
-      
+
         public async void AddonVersion_Click(object sender, EventArgs e)
         {
             Button Button = new Button();
@@ -351,7 +351,7 @@ namespace AddonUpdater.Forms
                 panelAddon.Visible = false;
                 await DownloadAddon3(DownloadAddonGitHub.GitHubs[index], index, row);
             }
-          
+
         }
         int NumberDownloadableAddons = 0;
         public async Task DownloadAddon3(GitHub gitHub, int index, int rowIndex)
@@ -381,14 +381,14 @@ namespace AddonUpdater.Forms
                 panelAddons[rowIndex].progressBar.Visible = false;
                 panelAddons[rowIndex].AddonName.Text = DownloadAddonGitHub.GitHubs[index].Name;
                 panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + "У Вас: " + DownloadAddonGitHub.GitHubs[index].MyVersion;
-               
+
                 NumberDownloadableAddons--;
                 if (NumberDownloadableAddons == 0)
                 {
                     FormMainMenu.activity = null;
                     FormMainMenu.ButtonOn();
                     ButtonOn();
-                    updatePanelAddonsView(false);
+
                 }
             }
             catch (Exception ex)
@@ -398,15 +398,15 @@ namespace AddonUpdater.Forms
             }
         }
         private void ButtonOn()
-        {          
+        {
             button_update.Enabled = true;
         }
 
         private void ButtonOff()
-        {        
+        {
             button_update.Enabled = false;
         }
 
-       
+
     }
 }
