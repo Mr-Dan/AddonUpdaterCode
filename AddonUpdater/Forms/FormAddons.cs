@@ -22,15 +22,13 @@ namespace AddonUpdater.Forms
     {
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
         FormMainMenu FormMainMenu;
+        List<PanelAddon> panelAddons = new List<PanelAddon>();
+        PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
 
         public FormAddons(FormMainMenu owner)
         {
             FormMainMenu = owner;
             InitializeComponent();
-        }
-
-        private void FormAddons_Load(object sender, EventArgs e)
-        {
             if (Properties.Settings.Default.PathWow.Length > 0)
             {
                 if (FormMainMenu.progressBar1.Visible == false)
@@ -40,7 +38,9 @@ namespace AddonUpdater.Forms
                 }
                 panelAddonsView.HorizontalScroll.Enabled = false;
                 panelAddonsView.HorizontalScroll.Visible = false;
+                panelAddonsView.HorizontalScroll.Maximum = 0;
                 panelAddonsView.AutoScroll = true;
+                SetSettingsPanelAddon();
                 updatePanelAddonsView(false);
             }
             else
@@ -48,9 +48,15 @@ namespace AddonUpdater.Forms
                 MessageBox.Show("Укажите путь к игре в настройках", "Предупреждение");
             }
         }
-        List<PanelAddon> panelAddons = new List<PanelAddon>();
+
+        private void FormAddons_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private async void updatePanelAddonsView(bool flagGetNewInfo)
         {
+
             FormMainMenu.ButtonOff();
             ButtonOff();
             if (flagGetNewInfo == false)
@@ -85,13 +91,14 @@ namespace AddonUpdater.Forms
             {
                 if (DownloadAddonGitHub.GitHubs[i].MyVersion != null)
                 {
-                    panelAddons.Add(new PanelAddon(DownloadAddonGitHub.GitHubs[i], panelAddons.Count, panelAddonsView) { });
+                    panelAddons.Add(new PanelAddon(DownloadAddonGitHub.GitHubs[i], panelAddons.Count, panelAddonsView, panelAddonSetings) { });
                     panelAddonsView.Controls.Add(panelAddons[panelAddons.Count - 1].AddonPanel);
 
                     panelAddons[panelAddons.Count - 1].AddonName.MouseLeave += new EventHandler(AddonName_MouseLeave);
                     panelAddons[panelAddons.Count - 1].AddonName.MouseMove += new MouseEventHandler(AddonName_MouseMove);
                     panelAddons[panelAddons.Count - 1].AddonName.MouseClick += new MouseEventHandler(AddonName_MouseClick);
                     panelAddons[panelAddons.Count - 1].AddonVersion.Click += new EventHandler(AddonVersion_Click);
+                    panelAddons[panelAddons.Count - 1].AddonDelete.Click += new EventHandler(AddonDelete_Click);
                     panelAddons[panelAddons.Count - 1].AddonPanel.BringToFront();
                 }
             }
@@ -111,6 +118,7 @@ namespace AddonUpdater.Forms
             }
             ButtonOn();
             FormMainMenu.ButtonOn();
+
         }
 
         private void AddonName_MouseLeave(object sender, EventArgs e)
@@ -188,6 +196,9 @@ namespace AddonUpdater.Forms
             {
                 FormMainMenu.progressBar1.Value = 0;
                 FormMainMenu.labelInfo.Text = "Ошибка подключения";
+                FormMainMenu.activity = null;
+                FormMainMenu.ButtonOn();
+                ButtonOn();
             }
         }
 
@@ -368,6 +379,26 @@ namespace AddonUpdater.Forms
             else
             {
                 MessageBox.Show("Дождитесь обновления аддонов");
+            }
+        }
+
+        private void AddonDelete_Click(object sender, EventArgs e)
+        {
+            Button Button = new Button();
+            Button = (Button)sender;
+
+            string nameAddon = Regex.Match(Button.Name, @"AddonDelete_(\w)+_row").Value.Replace("AddonDelete_", "").Replace("_row", "");
+            int row = int.Parse(Regex.Match(Button.Name, @"_row_\d*").Value.Replace("_row_", ""));
+            int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
+            if (index != -1)
+            {
+                if (FormMainMenu.activity == null)
+                {
+                    downloadAddonGitHub.DeleteOneAddon(DownloadAddonGitHub.GitHubs[index]);
+                    DownloadAddonGitHub.GitHubs[index].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[index].Directory, DownloadAddonGitHub.GitHubs[index].Regex, DownloadAddonGitHub.GitHubs[index].Replace);
+                    updatePanelAddonsView(false);
+                    panelAddon.Visible = false;
+                }
             }
         }
         private void buttonIgnore_Click(object sender, EventArgs e)
@@ -653,7 +684,7 @@ namespace AddonUpdater.Forms
                 panelAddons[rowIndex].progressBar.Visible = false;
                 panelAddons[rowIndex].AddonName.Text = DownloadAddonGitHub.GitHubs[index].Name;
                 if (DownloadAddonGitHub.GitHubs[index].Blacklist) panelAddons[rowIndex].AddonVersion.Text = "В игноре";
-                else panelAddons[RowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
+                else panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
                 DataGridViewAddonsRowsForeColorUpdate(rowIndex, DownloadAddonGitHub.GitHubs[index].NeedUpdate);
                 NumberDownloadableAddons--;
                 if (NumberDownloadableAddons == 0)
@@ -667,6 +698,9 @@ namespace AddonUpdater.Forms
             {
                 //MessageBox.Show(ex.Message);
                 FormMainMenu.labelInfo.Text = "Ошибка подключения";
+                FormMainMenu.activity = null;
+                FormMainMenu.ButtonOn();
+                ButtonOn();
             }
         }
 
@@ -691,36 +725,94 @@ namespace AddonUpdater.Forms
             }
         }
 
+        private void SetSettingsPanelAddon()
+        {
 
+            panelAddonSetings.AddonName = new Label();
+            panelAddonSetings.AddonName.Width = 280;
+            panelAddonSetings.AddonName.Height = 40;
+            panelAddonSetings.AddonName.Location = new Point(0, 0);
+            panelAddonSetings.AddonName.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonName.TextAlign = ContentAlignment.MiddleLeft;
+            panelAddonSetings.AddonName.Cursor = Cursors.Hand;
+
+            panelAddonSetings.AddonVersion = new Button();
+            panelAddonSetings.AddonVersion.Width = 120;
+            panelAddonSetings.AddonVersion.Height = 40;
+            panelAddonSetings.AddonVersion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonVersion.FlatAppearance.BorderSize = 0;
+            panelAddonSetings.AddonVersion.FlatStyle = FlatStyle.Flat;
+            panelAddonSetings.AddonVersion.TabStop = false;
+
+            panelAddonSetings.AddonCategory = new Label();
+            panelAddonSetings.AddonCategory.Width = 180;
+            panelAddonSetings.AddonCategory.Height = 40;
+            panelAddonSetings.AddonCategory.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonCategory.ForeColor = Color.FromArgb(44, 42, 63);
+            panelAddonSetings.AddonCategory.TextAlign = ContentAlignment.MiddleLeft;
+
+            panelAddonSetings.AddonAuthor = new Label();
+            panelAddonSetings.AddonAuthor.Width = 160;
+            panelAddonSetings.AddonAuthor.Height = 40;
+            panelAddonSetings.AddonAuthor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonAuthor.ForeColor = Color.FromArgb(44, 42, 63);
+            panelAddonSetings.AddonAuthor.TextAlign = ContentAlignment.MiddleLeft;
+
+            panelAddonSetings.progressBar = new ProgressBar();
+            panelAddonSetings.progressBar.Width = 200;
+            panelAddonSetings.progressBar.Height = 10;
+            panelAddonSetings.progressBar.Visible = false;
+
+            panelAddonSetings.AddonDelete = new Button();
+            panelAddonSetings.AddonDelete.Width = 40;
+            panelAddonSetings.AddonDelete.Height = 40;
+            panelAddonSetings.AddonDelete.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonDelete.FlatAppearance.BorderSize = 0;
+            panelAddonSetings.AddonDelete.FlatStyle = FlatStyle.Flat;
+            panelAddonSetings.AddonDelete.TabStop = false;
+            panelAddonSetings.AddonDelete.BackgroundImageLayout = ImageLayout.Stretch;
+            panelAddonSetings.AddonDelete.ImageAlign = ContentAlignment.MiddleCenter;
+            panelAddonSetings.AddonDelete.Image = Properties.Resources.delete;
+
+
+
+        }
     }
     class PanelAddon
     {
+        PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
         public GitHub GitHub { get; set; }
-
         public Panel AddonPanel { get; set; }
         public Label AddonName { get; set; }
         public Button AddonVersion { get; set; }
+        public Button AddonDelete { get; set; }
         public Label AddonAuthor { get; set; }
         public Label AddonCategory { get; set; }
         public ProgressBar progressBar { get; set; }
 
+        private int xNext = 0;
+
         private int Row = -1;
 
-        public PanelAddon(GitHub gitHub, int row, Panel panelParent)
+        public PanelAddon(GitHub gitHub, int row, Panel panelParent, PanelAddonSetings panelAddonSetings_)
         {
             GitHub = gitHub;
             Row = row;
+            panelAddonSetings = panelAddonSetings_;
             setAddonPanel(panelParent);
             setAddonName();
             setAddonVersion();
-            setAddonAuthor();
             setAddonCategory();
+            setAddonAuthor();
             setProgreddBar();
+            if (panelAddonSetings_.AddonDelete != null) setAddonDelete();
             ControlsAdd(AddonName);
             ControlsAdd(AddonVersion);
             ControlsAdd(AddonAuthor);
             ControlsAdd(AddonCategory);
+            if (panelAddonSetings_.AddonDelete != null) ControlsAdd(AddonDelete);
             ControlsAdd(progressBar);
+
         }
         void ControlsAdd(Control control)
         {
@@ -747,15 +839,16 @@ namespace AddonUpdater.Forms
             AddonName = new Label();
             AddonName.Name = "LabelName_" + GitHub.Name + "_row_" + Row;
             AddonName.Text = GitHub.Name;
-            AddonName.Width = 280;
-            AddonName.Height = 40;
+            AddonName.Width = panelAddonSetings.AddonName.Width;
+            AddonName.Height = panelAddonSetings.AddonName.Height;
             AddonName.Parent = AddonPanel.Parent;
             AddonName.Location = new Point(0, 0);
-            AddonName.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            AddonName.Font = panelAddonSetings.AddonName.Font;
             if (GitHub.NeedUpdate == true) AddonName.ForeColor = Color.FromArgb(166, 0, 0);
             else AddonName.ForeColor = Color.FromArgb(44, 42, 63);
-            AddonName.TextAlign = ContentAlignment.MiddleLeft;
-            AddonName.Cursor = Cursors.Hand;
+            AddonName.TextAlign = panelAddonSetings.AddonName.TextAlign;
+            AddonName.Cursor = panelAddonSetings.AddonName.Cursor;
+            xNext += AddonName.Width;
         }
         void setAddonVersion()
         {
@@ -767,55 +860,88 @@ namespace AddonUpdater.Forms
                     if (GitHub.NeedUpdate) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n" + "У Вас: " + GitHub.MyVersion;
                 else AddonVersion.Text = "Актуальная: " + GitHub.Version;
             else if (GitHub.MyVersion == null) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n";
-            AddonVersion.Width = 140;
-            AddonVersion.Height = 40;
+            AddonVersion.Width = panelAddonSetings.AddonVersion.Width;
+            AddonVersion.Height = panelAddonSetings.AddonVersion.Height;
             AddonVersion.Parent = AddonPanel.Parent;
-            AddonVersion.Location = new Point(280, 0);
-            AddonVersion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            AddonVersion.Location = new Point(xNext, 0);
+            AddonVersion.Font = panelAddonSetings.AddonVersion.Font;
             if (GitHub.NeedUpdate == true) AddonVersion.ForeColor = Color.FromArgb(166, 0, 0);
             else AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
-            AddonVersion.FlatAppearance.BorderSize = 0;
-            AddonVersion.FlatStyle = FlatStyle.Flat;
-            AddonVersion.TabStop = false;
+            AddonVersion.FlatAppearance.BorderSize = panelAddonSetings.AddonVersion.FlatAppearance.BorderSize;
+            AddonVersion.FlatStyle = panelAddonSetings.AddonVersion.FlatStyle;
+            AddonVersion.TabStop = panelAddonSetings.AddonVersion.TabStop;
+            xNext += AddonVersion.Width;
         }
 
         void setAddonCategory()
         {
             AddonCategory = new Label();
+
             AddonCategory.Name = "LabelAuthor" + GitHub.Name + "row" + Row;
             AddonCategory.Text = GitHub.Category;
-            AddonCategory.Width = 180;
-            AddonCategory.Height = 40;
+            AddonCategory.Width = panelAddonSetings.AddonCategory.Width;
+            AddonCategory.Height = panelAddonSetings.AddonCategory.Height;
             AddonCategory.Parent = AddonPanel.Parent;
-            AddonCategory.Location = new Point(420, 0);
-            AddonCategory.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            AddonCategory.ForeColor = Color.FromArgb(44, 42, 63);
-            AddonCategory.TextAlign = ContentAlignment.MiddleLeft;
+            AddonCategory.Location = new Point(xNext, 0);
+            AddonCategory.Font = panelAddonSetings.AddonCategory.Font;
+            AddonCategory.ForeColor = panelAddonSetings.AddonCategory.ForeColor;
+            AddonCategory.TextAlign = panelAddonSetings.AddonCategory.TextAlign;
+            xNext += AddonCategory.Width;
         }
         void setAddonAuthor()
         {
             AddonAuthor = new Label();
+
             AddonAuthor.Name = "LabelAuthor" + GitHub.Name + "row" + Row;
             AddonAuthor.Text = GitHub.Author;
-            AddonAuthor.Width = 200;
-            AddonAuthor.Height = 40;
+            AddonAuthor.Width = panelAddonSetings.AddonAuthor.Width;
+            AddonAuthor.Height = panelAddonSetings.AddonAuthor.Height;
             AddonAuthor.Parent = AddonPanel.Parent;
-            AddonAuthor.Location = new Point(600, 0);
-            AddonAuthor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            AddonAuthor.ForeColor = Color.FromArgb(44, 42, 63);
-            AddonAuthor.TextAlign = ContentAlignment.MiddleLeft;
+            AddonAuthor.Location = new Point(xNext, 0);
+            AddonAuthor.Font = panelAddonSetings.AddonAuthor.Font;
+            AddonAuthor.ForeColor = panelAddonSetings.AddonAuthor.ForeColor;
+            AddonAuthor.TextAlign = panelAddonSetings.AddonAuthor.TextAlign;
+            xNext += AddonAuthor.Width;
         }
 
         void setProgreddBar()
         {
             progressBar = new ProgressBar();
             progressBar.Name = $"progressBar{GitHub.Name}" + "row" + Row;
-            progressBar.Width = 200;
-            progressBar.Height = 10;
+            progressBar.Width = panelAddonSetings.progressBar.Width;
+            progressBar.Height = panelAddonSetings.progressBar.Height;
             progressBar.Parent = AddonPanel.Parent;
             progressBar.Location = new Point(0, 30);
-            progressBar.Visible = false;
+            progressBar.Visible = panelAddonSetings.progressBar.Visible;
         }
+        void setAddonDelete()
+        {
+            AddonDelete = new Button();
+            AddonDelete.Name = "AddonDelete_" + GitHub.Name + "_row_" + Row;
+            AddonDelete.Width = panelAddonSetings.AddonDelete.Width;
+            AddonDelete.Height = panelAddonSetings.AddonDelete.Height;
+            AddonDelete.Parent = AddonPanel.Parent;
+            AddonDelete.Location = new Point(xNext, 0);
+            AddonDelete.Font = panelAddonSetings.AddonDelete.Font;
+            AddonDelete.FlatAppearance.BorderSize = panelAddonSetings.AddonDelete.FlatAppearance.BorderSize;
+            AddonDelete.FlatStyle = panelAddonSetings.AddonDelete.FlatStyle;
+            AddonDelete.TabStop = panelAddonSetings.AddonDelete.TabStop;
+            AddonDelete.Image = panelAddonSetings.AddonDelete.Image;
+            AddonDelete.BackgroundImageLayout = panelAddonSetings.AddonDelete.BackgroundImageLayout;
+            AddonDelete.ImageAlign = panelAddonSetings.AddonDelete.ImageAlign;
+            xNext += AddonDelete.Width;
+        }
+    }
+
+
+    class PanelAddonSetings
+    {
+        public Label AddonName { get; set; }
+        public Label AddonAuthor { get; set; }
+        public Label AddonCategory { get; set; }
+        public Button AddonVersion { get; set; }
+        public Button AddonDelete { get; set; }
+        public ProgressBar progressBar { get; set; }
     }
 }
 

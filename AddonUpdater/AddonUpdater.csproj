@@ -176,6 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="Resources\delete.bmp" />
+    <None Include="bin\Debug\delete.png" />
     <None Include="bin\Debug\AddonUpdater.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

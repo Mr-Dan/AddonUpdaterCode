@@ -69,7 +69,7 @@ namespace AddonUpdater.Forms
             this.button_Dowload.FlatAppearance.BorderSize = 0;
             this.button_Dowload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Dowload.ForeColor = System.Drawing.Color.White;
-            this.button_Dowload.Location = new System.Drawing.Point(630, 430);
+            this.button_Dowload.Location = new System.Drawing.Point(635, 445);
             this.button_Dowload.Name = "button_Dowload";
             this.button_Dowload.Size = new System.Drawing.Size(150, 40);
             this.button_Dowload.TabIndex = 12;
@@ -86,7 +86,7 @@ namespace AddonUpdater.Forms
             this.button_update.FlatAppearance.BorderSize = 0;
             this.button_update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_update.ForeColor = System.Drawing.Color.White;
-            this.button_update.Location = new System.Drawing.Point(570, 430);
+            this.button_update.Location = new System.Drawing.Point(575, 445);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(50, 40);
             this.button_update.TabIndex = 20;
@@ -102,7 +102,7 @@ namespace AddonUpdater.Forms
             this.buttonLauncher.FlatAppearance.BorderSize = 0;
             this.buttonLauncher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLauncher.ForeColor = System.Drawing.Color.White;
-            this.buttonLauncher.Location = new System.Drawing.Point(510, 430);
+            this.buttonLauncher.Location = new System.Drawing.Point(515, 445);
             this.buttonLauncher.Name = "buttonLauncher";
             this.buttonLauncher.Size = new System.Drawing.Size(50, 40);
             this.buttonLauncher.TabIndex = 21;
@@ -393,7 +393,7 @@ namespace AddonUpdater.Forms
             this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(600, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(200, 40);
+            this.label3.Size = new System.Drawing.Size(160, 40);
             this.label3.TabIndex = 4;
             this.label3.Text = "Автор";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -437,9 +437,9 @@ namespace AddonUpdater.Forms
             this.panelAddonsView.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAddonsView.Location = new System.Drawing.Point(0, 40);
             this.panelAddonsView.Margin = new System.Windows.Forms.Padding(0);
-            this.panelAddonsView.MaximumSize = new System.Drawing.Size(800, 380);
+            this.panelAddonsView.MaximumSize = new System.Drawing.Size(800, 400);
             this.panelAddonsView.Name = "panelAddonsView";
-            this.panelAddonsView.Size = new System.Drawing.Size(800, 380);
+            this.panelAddonsView.Size = new System.Drawing.Size(800, 400);
             this.panelAddonsView.TabIndex = 26;
             // 
             // FormAddons
@@ -447,7 +447,7 @@ namespace AddonUpdater.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(800, 485);
             this.Controls.Add(this.panelAddon);
             this.Controls.Add(this.PanelDescription);
             this.Controls.Add(this.panelDeleteSettings);

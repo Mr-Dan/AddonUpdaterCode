@@ -22,16 +22,13 @@ namespace AddonUpdater.Forms
     {
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
         FormMainMenu FormMainMenu;
-
+        List<PanelAddon> panelAddons = new List<PanelAddon>();
+        PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
         public FormAllAddons(FormMainMenu owner)
         {
             FormMainMenu = owner;
 
             InitializeComponent();
-        }
-
-        private void FormAllAddons_Load(object sender, EventArgs e)
-        {
             if (Properties.Settings.Default.PathWow.Length > 0)
             {
                 if (FormMainMenu.progressBar1.Visible == false)
@@ -41,7 +38,9 @@ namespace AddonUpdater.Forms
                 }
                 panelAddonsView.HorizontalScroll.Enabled = false;
                 panelAddonsView.HorizontalScroll.Visible = false;
+                panelAddonsView.HorizontalScroll.Maximum = 0;
                 panelAddonsView.AutoScroll = true;
+                SetSettingsPanelAddon();
                 updatePanelAddonsView(false);
             }
             else
@@ -50,9 +49,15 @@ namespace AddonUpdater.Forms
             }
         }
 
-        List<PanelAddon> panelAddons = new List<PanelAddon>();
+        private void FormAllAddons_Load(object sender, EventArgs e)
+        {
+
+        }
+
+
         public async void updatePanelAddonsView(bool flagGetNewInfo)
         {
+           
             FormMainMenu.ButtonOff();
             ButtonOff();
             if (flagGetNewInfo == false)
@@ -87,7 +92,7 @@ namespace AddonUpdater.Forms
             {
                 if (DownloadAddonGitHub.GitHubs[i].MyVersion == null)
                 {
-                    panelAddons.Add(new PanelAddon(DownloadAddonGitHub.GitHubs[i], panelAddons.Count, panelAddonsView) { });
+                    panelAddons.Add(new PanelAddon(DownloadAddonGitHub.GitHubs[i], panelAddons.Count, panelAddonsView, panelAddonSetings) { });
                     panelAddonsView.Controls.Add(panelAddons[panelAddons.Count - 1].AddonPanel);
 
                     panelAddons[panelAddons.Count - 1].AddonName.MouseLeave += new EventHandler(AddonName_MouseLeave);
@@ -97,7 +102,7 @@ namespace AddonUpdater.Forms
                     panelAddons[panelAddons.Count - 1].AddonPanel.BringToFront();
                 }
             }
-
+            
             if (flagGetNewInfo == true)
             {
                 FormMainMenu.progressBar1.Value++;
@@ -185,10 +190,12 @@ namespace AddonUpdater.Forms
                 FormMainMenu.UpdateCount = 0;
             }
             catch (Exception ex)
-            {
-                //MessageBox.Show(ex.Message);
+            {               
                 FormMainMenu.progressBar1.Value = 0;
                 FormMainMenu.labelInfo.Text = "Ошибка подключения";
+                FormMainMenu.activity = null;
+                FormMainMenu.ButtonOn();
+                ButtonOn();
             }
         }
 
@@ -395,6 +402,9 @@ namespace AddonUpdater.Forms
             {
                 //MessageBox.Show(ex.Message);
                 FormMainMenu.labelInfo.Text = "Ошибка подключения";
+                FormMainMenu.activity = null;
+                FormMainMenu.ButtonOn();
+                ButtonOn();
             }
         }
         private void ButtonOn()
@@ -407,6 +417,49 @@ namespace AddonUpdater.Forms
             button_update.Enabled = false;
         }
 
+        private void SetSettingsPanelAddon()
+        {
 
+            panelAddonSetings.AddonName = new Label();
+
+            panelAddonSetings.AddonName.Width = 280;
+            panelAddonSetings.AddonName.Height = 40;
+            panelAddonSetings.AddonName.Location = new Point(0, 0);
+            panelAddonSetings.AddonName.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonName.TextAlign = ContentAlignment.MiddleLeft;
+            panelAddonSetings.AddonName.Cursor = Cursors.Hand;
+
+            panelAddonSetings.AddonVersion = new Button();
+
+            panelAddonSetings.AddonVersion.Width = 140;
+            panelAddonSetings.AddonVersion.Height = 40;
+            panelAddonSetings.AddonVersion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonVersion.FlatAppearance.BorderSize = 0;
+            panelAddonSetings.AddonVersion.FlatStyle = FlatStyle.Flat;
+            panelAddonSetings.AddonVersion.TabStop = false;
+
+            panelAddonSetings.AddonCategory = new Label();
+
+            panelAddonSetings.AddonCategory.Width = 180;
+            panelAddonSetings.AddonCategory.Height = 40;
+            panelAddonSetings.AddonCategory.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonCategory.ForeColor = Color.FromArgb(44, 42, 63);
+            panelAddonSetings.AddonCategory.TextAlign = ContentAlignment.MiddleLeft;
+
+            panelAddonSetings.AddonAuthor = new Label();
+
+            panelAddonSetings.AddonAuthor.Width = 180;
+            panelAddonSetings.AddonAuthor.Height = 40;
+            panelAddonSetings.AddonAuthor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonAuthor.ForeColor = Color.FromArgb(44, 42, 63);
+            panelAddonSetings.AddonAuthor.TextAlign = ContentAlignment.MiddleLeft;
+
+            panelAddonSetings.progressBar = new ProgressBar();
+
+            panelAddonSetings.progressBar.Width = 200;
+            panelAddonSetings.progressBar.Height = 10;
+            panelAddonSetings.progressBar.Visible = false;
+
+        }
     }
 }

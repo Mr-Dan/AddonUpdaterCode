@@ -276,7 +276,7 @@ namespace AddonUpdater
             this.panelDesktopPane.Controls.Add(this.labelMainName);
             this.panelDesktopPane.Location = new System.Drawing.Point(200, 60);
             this.panelDesktopPane.Name = "panelDesktopPane";
-            this.panelDesktopPane.Size = new System.Drawing.Size(800, 480);
+            this.panelDesktopPane.Size = new System.Drawing.Size(800, 485);
             this.panelDesktopPane.TabIndex = 16;
             // 
             // labelMainName

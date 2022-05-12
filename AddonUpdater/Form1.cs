@@ -42,6 +42,7 @@ namespace AddonUpdater
             if (activeform != null)
             {
                 activeform.Close();
+                activeform.Dispose();
             }
             ActivateButton(btnSender);
             activeform = childForm;

@@ -58,7 +58,7 @@ namespace AddonUpdater.Forms
             this.button_update.FlatAppearance.BorderSize = 0;
             this.button_update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_update.ForeColor = System.Drawing.Color.White;
-            this.button_update.Location = new System.Drawing.Point(730, 430);
+            this.button_update.Location = new System.Drawing.Point(730, 445);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(50, 40);
             this.button_update.TabIndex = 23;
@@ -74,7 +74,7 @@ namespace AddonUpdater.Forms
             this.buttonLauncher.FlatAppearance.BorderSize = 0;
             this.buttonLauncher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLauncher.ForeColor = System.Drawing.Color.White;
-            this.buttonLauncher.Location = new System.Drawing.Point(670, 430);
+            this.buttonLauncher.Location = new System.Drawing.Point(670, 445);
             this.buttonLauncher.Name = "buttonLauncher";
             this.buttonLauncher.Size = new System.Drawing.Size(50, 40);
             this.buttonLauncher.TabIndex = 24;
@@ -254,9 +254,9 @@ namespace AddonUpdater.Forms
             this.panelAddonsView.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAddonsView.Location = new System.Drawing.Point(0, 40);
             this.panelAddonsView.Margin = new System.Windows.Forms.Padding(0);
-            this.panelAddonsView.MaximumSize = new System.Drawing.Size(800, 380);
+            this.panelAddonsView.MaximumSize = new System.Drawing.Size(800, 400);
             this.panelAddonsView.Name = "panelAddonsView";
-            this.panelAddonsView.Size = new System.Drawing.Size(800, 380);
+            this.panelAddonsView.Size = new System.Drawing.Size(800, 400);
             this.panelAddonsView.TabIndex = 27;
             // 
             // FormAllAddons
@@ -264,7 +264,7 @@ namespace AddonUpdater.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(800, 485);
             this.Controls.Add(this.panelAddon);
             this.Controls.Add(this.PanelDescription);
             this.Controls.Add(this.panelAddonsView);

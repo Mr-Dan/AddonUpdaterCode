@@ -89,7 +89,7 @@ namespace AddonUpdater
         {
             string get_version = GetContent(link);
             Match reg = Regex.Match(get_version, regex);
-            if (reg.Success) return reg.Value.Trim('\r').Replace(replace, "").Trim();
+            if (reg.Success) return Regex.Replace(reg.Value.Trim('\r').Replace(replace, ""), "[A-Za-z]", "").Trim();
             else return "0";
         }
         public string GetMyVersion(string directory, string regex, string replace)
@@ -107,7 +107,8 @@ namespace AddonUpdater
                             Match reg = Regex.Match(line, regex);
                             if (reg.Success)
                             {
-                                return reg.Value.Replace(replace, "").Trim().Length == 0 ? "0" : reg.Value.Replace(replace, "").Trim();
+
+                                return reg.Value.Replace(replace, "").Trim().Length == 0 ? "0" : Regex.Replace(reg.Value.Replace(replace, ""), "[A-Za-z]", "").Trim();
                             }
                         }
                         return "0";
@@ -172,7 +173,23 @@ namespace AddonUpdater
             }
             else return false;
         }
+        public bool GetVersion(string version, string MyVersion)
+        {
+            if (MyVersion == null) return false;
+            if (version == null) return false;
+            int versionInt = 0;
+            int MyVersionInt = 0;
 
+            int.TryParse(MyVersion.Replace(".", ""), out MyVersionInt);
+            int.TryParse(version.Replace(".", ""), out versionInt);
+
+            if (versionInt > MyVersionInt)
+            {
+                return true;
+            }
+            return false;
+
+        }
         private string GetValues(string text, string type)
         {
             int start = text.IndexOf($"{type}[");
@@ -192,10 +209,22 @@ namespace AddonUpdater
                 int index = G2.FindIndex(indx => indx.Name == G1[i].Name);
                 if (index > -1)
                 {
-                    if (G1[i].Version != G2[index].Version || G1[i].MyVersion != G2[index].MyVersion || G1[i].Description != G2[index].Description)
-                    {
-                        return false;
-                    }
+                    bool h = G1[i].Files.SequenceEqual(G2[index].Files);
+                    bool j = GetVersion(G2[i].Version, G1[index].Version);
+                    bool g = GetVersion(G2[i].MyVersion, G1[index].MyVersion);
+                    if (GetVersion(G1[i].Version, G2[index].Version) ||
+                        GetVersion(G1[i].MyVersion, G2[index].MyVersion) ||
+                        G1[i].Description != G2[index].Description ||
+                        G1[i].GithubLink != G2[index].GithubLink ||
+                        G1[i].Forum != G2[index].Forum ||
+                        !G1[i].Files.SequenceEqual(G2[index].Files) ||
+                        G1[i].Author != G2[index].Author ||
+                        G1[i].Category != G2[index].Category ||
+                        G1[i].BugReport != G2[index].BugReport ||
+                        G1[i].Forum != G2[index].Forum ||
+                        G1[i].link != G2[index].link ||
+                        G1[i].Name != G2[index].Name
+                        ) return false;
                 }
                 else
                 {
