@@ -116,6 +116,13 @@
     <Compile Include="Forms\FormSetting.Designer.cs">
       <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddonError.cs" />
+    <Compile Include="Models\GitHub.cs" />
+    <Compile Include="Models\LastUpdateAddon.cs" />
+    <Compile Include="Models\PanelAddon.cs" />
+    <Compile Include="Models\PanelAddonSetings.cs" />
+    <Compile Include="Models\Realms.cs" />
+    <Compile Include="Models\WTF.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">

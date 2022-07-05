@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AddonUpdater.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,7 +42,7 @@ namespace AddonUpdater.Forms
                 panelAddonsView.HorizontalScroll.Maximum = 0;
                 panelAddonsView.AutoScroll = true;
                 SetSettingsPanelAddon();
-                updatePanelAddonsView(false);
+                UpdatePanelAddonsView(false);
             }
             else
             {
@@ -54,7 +55,7 @@ namespace AddonUpdater.Forms
 
         }
 
-        private async void updatePanelAddonsView(bool flagGetNewInfo)
+        private async void UpdatePanelAddonsView(bool flagGetNewInfo)
         {
 
             FormMainMenu.ButtonOff();
@@ -68,8 +69,8 @@ namespace AddonUpdater.Forms
                     if (index != -1)
                     {
                         DownloadAddonGitHub.GitHubs[index].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[index].Directory, DownloadAddonGitHub.GitHubs[index].Regex, DownloadAddonGitHub.GitHubs[index].Replace);
-                        DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist);
-                        DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist);
+                        DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
+                        DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
                         DownloadAddonGitHub.GitHubs[index].SavedVariables = downloadAddonGitHub.GetSavedVariables(DownloadAddonGitHub.GitHubs[index].Directory);
                         DownloadAddonGitHub.GitHubs[index].SavedVariablesPerCharacter = downloadAddonGitHub.GetSavedVariablesPerCharacter(DownloadAddonGitHub.GitHubs[index].Directory);
                     }
@@ -111,7 +112,7 @@ namespace AddonUpdater.Forms
                 FormMainMenu.activity = null;
             }
 
-            if (Properties.Settings.Default.AutoUpdateBool == true && FormMainMenu.UpdateCount > 0)
+            if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.Update == true)
             {
                 FormMainMenu.ButtonOff();
                 AddonDownload("AutoDownload");
@@ -152,8 +153,10 @@ namespace AddonUpdater.Forms
                                 Size len = TextRenderer.MeasureText(DownloadAddonGitHub.GitHubs[index].Description, LabelDescription.Font);
                                 int size = len.Width * len.Height;
                                 PanelDescription.Size = new Size(780, (size / 800) + 20);
-                                Point pos = new Point();
-                                pos.Y = label.Parent.Location.Y;
+                                Point pos = new Point
+                                {
+                                    Y = label.Parent.Location.Y
+                                };
                                 if (pos.Y + PanelDescription.Height + 40 > panelAddonsView.Height)
                                 {
                                     PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 50);
@@ -174,23 +177,25 @@ namespace AddonUpdater.Forms
         {
             try
             {
-                FormMainMenu.progressBar1.Value = 0;
+                
                 DownloadAddonGitHub.NeedUpdate.Clear();
                 if (flag == "Download") DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.DownloadMyAddon == true);
                 else if (flag == "AutoDownload") DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-
-                FormMainMenu.progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
-                for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                if (DownloadAddonGitHub.NeedUpdate.Count > 0)
                 {
-                    FormMainMenu.labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
-                    FormMainMenu.progressBar1.Value++;
-                }
-                FormMainMenu.labelInfo.Text = "Распаковка Аддонов";
-                await downloadAddonGitHub.GetAddon();
-                FormMainMenu.progressBar1.Value = 0;
-                FormMainMenu.labelInfo.Text = "";
-                FormMainMenu.UpdateCount = 0;
+                    FormMainMenu.progressBar1.Value = 0;
+                    FormMainMenu.progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
+                    for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                    {
+                        FormMainMenu.labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
+                        await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                        FormMainMenu.progressBar1.Value++;
+                    }
+                    FormMainMenu.labelInfo.Text = "Распаковка Аддонов";
+                    await downloadAddonGitHub.GetAddon();
+                    FormMainMenu.progressBar1.Value = 0;
+                    FormMainMenu.labelInfo.Text = "";
+                }        
             }
             catch
             {
@@ -203,7 +208,7 @@ namespace AddonUpdater.Forms
         }
 
         private bool AllUpdate = false;
-        private void button_Dowload_Click(object sender, EventArgs e)
+        private void Button_Dowload_Click(object sender, EventArgs e)
         {
 
             ActiveControl = null;
@@ -224,28 +229,28 @@ namespace AddonUpdater.Forms
             FormMainMenu.activity = "Cкачивания";
             ButtonOff();
             await DownloadAddon(flag);
-            updatePanelAddonsView(false);
+            UpdatePanelAddonsView(false);
             FormMainMenu.activity = null;
             ButtonOn();
             AllUpdate = false;
         }
 
-        private void button_update_Click(object sender, EventArgs e)
+        private void Button_update_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             FormMainMenu.ButtonOff();
             ButtonOff();
-            updatePanelAddonsView(true);
+            UpdatePanelAddonsView(true);
         }
 
-        private void buttonLauncher_Click(object sender, EventArgs e)
+        private void ButtonLauncher_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             string pathLauncher = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Programs\\sirus-open-launcher\\Sirus Launcher.exe";
             string pathPlayExe = Properties.Settings.Default.PathWow + "\\run.exe";
             Process[] proc = Process.GetProcessesByName("Sirus Launcher");
             Process[] proc2 = Process.GetProcessesByName("run");
-            if (proc.Length == 0)
+            if (proc.Length == 0 && Properties.Settings.Default.LauncherOpen == true)
             {
                 if (File.Exists(pathLauncher))
                     Process.Start(pathLauncher);
@@ -284,7 +289,7 @@ namespace AddonUpdater.Forms
                 label = (Label)sender;
                 string nameAddon = Regex.Match(label.Name, @"LabelName_(\w)+_row").Value.Replace("LabelName_", "").Replace("_row", "");
                 int row = int.Parse(Regex.Match(label.Name, @"_row_\d*").Value.Replace("_row_", ""));//!!
-                panelAddonReset();
+                PanelAddonReset();
                 int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
                 if (index != -1)
                 {
@@ -292,8 +297,10 @@ namespace AddonUpdater.Forms
                     buttonReinstall.Text = $"Переустановить\n{DownloadAddonGitHub.GitHubs[index].Name}";
                     ClickIndex = index;
                     RowIndex = row;
-                    Point pos = new Point();
-                    pos.Y = label.Parent.Location.Y;
+                    Point pos = new Point
+                    {
+                        Y = label.Parent.Location.Y
+                    };
                     if (pos.Y + panelAddon.Height > panelAddonsView.Height && pos.Y + panelAddon.Height - 120 < panelAddonsView.Height)
                     {
                         panelAddon.Location = new Point(220, pos.Y - 80);
@@ -307,7 +314,7 @@ namespace AddonUpdater.Forms
                         panelAddon.Location = new Point(220, pos.Y + 40);
                     }
                     PanelDescription.Visible = false;
-                    panelAddonButtonSet(DownloadAddonGitHub.GitHubs[index].Blacklist);
+                    PanelAddonButtonSet(DownloadAddonGitHub.GitHubs[index].Blacklist,downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
                     panelAddon.Visible = true;
                     panelAddon.BringToFront();
                 }
@@ -316,7 +323,7 @@ namespace AddonUpdater.Forms
 
         }
 
-        private void panelAddonReset()
+        private void PanelAddonReset()
         {
             buttonReinstall.BackColor = Color.FromArgb(37, 35, 47);
             buttonIgnore.BackColor = Color.FromArgb(37, 35, 47);
@@ -325,14 +332,16 @@ namespace AddonUpdater.Forms
             buttonGitHub.BackColor = Color.FromArgb(37, 35, 47);
             buttonDeleteSettings.BackColor = Color.FromArgb(37, 35, 47);
             buttonDelete.BackColor = Color.FromArgb(37, 35, 47);
+            buttonUpdate.BackColor = Color.FromArgb(37, 35, 47);
             buttonReportBug.Enabled = true;
             buttonForum.Enabled = true;
             buttonGitHub.Enabled = true;
         }
-        private void panelAddonButtonSet(bool ignor)
+        private void PanelAddonButtonSet(bool ignor, bool update)
         {
 
             buttonIgnore.BackColor = ignor ? Color.FromArgb(191, 48, 48) : Color.FromArgb(37, 35, 47);
+            buttonUpdate.BackColor = update ? Color.FromArgb(44, 177, 128) : Color.FromArgb(37, 35, 47);
             if (DownloadAddonGitHub.GitHubs[ClickIndex].BugReport == "")
             {
                 buttonReportBug.Enabled = false;
@@ -347,7 +356,7 @@ namespace AddonUpdater.Forms
             }
         }
 
-        private async void buttonReinstall_Click(object sender, EventArgs e)
+        private async void ButtonReinstall_Click(object sender, EventArgs e)
         {
             if (AllUpdate == false)
             {
@@ -373,6 +382,7 @@ namespace AddonUpdater.Forms
                 if (index != -1)
                 {
                     panelAddon.Visible = false;
+                    panelAddons[row].AddonVersion.Enabled = false;
                     await DownloadAddon3(DownloadAddonGitHub.GitHubs[index], index, row);
                 }
             }
@@ -386,44 +396,58 @@ namespace AddonUpdater.Forms
         {
             Button Button = new Button();
             Button = (Button)sender;
-
             string nameAddon = Regex.Match(Button.Name, @"AddonDelete_(\w)+_row").Value.Replace("AddonDelete_", "").Replace("_row", "");
             int row = int.Parse(Regex.Match(Button.Name, @"_row_\d*").Value.Replace("_row_", ""));
             int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
             if (index != -1)
             {
-                if (FormMainMenu.activity == null)
+                DialogResult dialogResult = MessageBox.Show(
+                   $"Вы точно хотите удалить {DownloadAddonGitHub.GitHubs[index].Name}?",
+                   "Подтверждение",
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Information);
+
+                if (dialogResult == DialogResult.Yes)
                 {
-                    downloadAddonGitHub.DeleteOneAddon(DownloadAddonGitHub.GitHubs[index]);
-                    DownloadAddonGitHub.GitHubs[index].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[index].Directory, DownloadAddonGitHub.GitHubs[index].Regex, DownloadAddonGitHub.GitHubs[index].Replace);
-                    updatePanelAddonsView(false);
-                    panelAddon.Visible = false;
+                    
+
+
+                    if (FormMainMenu.activity == null)
+                    {
+                        downloadAddonGitHub.DeleteOneAddon(DownloadAddonGitHub.GitHubs[index]);
+                        DownloadAddonGitHub.GitHubs[index].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[index].Directory, DownloadAddonGitHub.GitHubs[index].Regex, DownloadAddonGitHub.GitHubs[index].Replace);
+                        UpdatePanelAddonsView(false);
+                        panelAddon.Visible = false;
+                    }
+
                 }
             }
         }
-        private void buttonIgnore_Click(object sender, EventArgs e)
+        private void ButtonIgnore_Click(object sender, EventArgs e)
         {
             if (ClickIndex != -1)
             {
                 int index = ClickIndex;
+                int rowIndex = RowIndex;
                 if (DownloadAddonGitHub.GitHubs[index].Blacklist)
                 {
                     DownloadAddonGitHub.GitHubs[index].Blacklist = false;
 
-                    DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist);
+                    DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist,downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
                     DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = DownloadAddonGitHub.GitHubs[index].NeedUpdate;
                     if (DownloadAddonGitHub.GitHubs[index].NeedUpdate)
                     {
-                        panelAddons[RowIndex].AddonName.ForeColor = Color.FromArgb(166, 0, 0);
-                        panelAddons[RowIndex].AddonVersion.ForeColor = Color.FromArgb(166, 0, 0);
-
+                        panelAddons[rowIndex].AddonName.ForeColor = Color.FromArgb(166, 0, 0);
+                        panelAddons[rowIndex].AddonVersion.ForeColor = Color.FromArgb(166, 0, 0);
                         DownloadAddonGitHub.UpdateInfo = true;
                     }
 
 
-                    if (DownloadAddonGitHub.GitHubs[index].NeedUpdate) panelAddons[RowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + "У Вас: " + DownloadAddonGitHub.GitHubs[index].MyVersion;
-                    else panelAddons[RowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
-
+                    if (DownloadAddonGitHub.GitHubs[index].NeedUpdate) panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + "У Вас: " + DownloadAddonGitHub.GitHubs[index].MyVersion;
+                    else 
+                        if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name) > -1) panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name)].LastUpdate;
+                        else panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
+                    panelAddons[rowIndex].AddonVersion.Enabled = true;
                     while (Properties.Settings.Default.AddonBlacklist.Contains(DownloadAddonGitHub.GitHubs[index].Name))
                     {
                         Properties.Settings.Default.AddonBlacklist.Remove(DownloadAddonGitHub.GitHubs[index].Name);
@@ -431,52 +455,74 @@ namespace AddonUpdater.Forms
                     Properties.Settings.Default.Save();
                 }
                 else
-                {
+                {                   
 
                     DownloadAddonGitHub.GitHubs[index].NeedUpdate = false;
                     DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = false;
                     DownloadAddonGitHub.GitHubs[index].Blacklist = true;
-                    panelAddons[RowIndex].AddonName.ForeColor = Color.FromArgb(44, 42, 63);
-                    panelAddons[RowIndex].AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
-                    panelAddons[RowIndex].AddonVersion.Text = "В игноре";
+                    panelAddons[rowIndex].AddonName.ForeColor = Color.FromArgb(44, 42, 63);
+                    panelAddons[rowIndex].AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
+                    panelAddons[rowIndex].AddonVersion.Text = "В игноре";
+                    panelAddons[rowIndex].AddonVersion.Enabled = false;
                     Properties.Settings.Default.AddonBlacklist.Add(DownloadAddonGitHub.GitHubs[index].Name);
                     Properties.Settings.Default.Save();
-
-                    if (downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, false))
-                    {
-                        FormMainMenu.UpdateCount--;
-                    }
+                    
                 }
 
                 buttonIgnore.BackColor = DownloadAddonGitHub.GitHubs[index].Blacklist ? Color.FromArgb(191, 48, 48) : Color.FromArgb(37, 35, 47);
             }
         }
+        private void ButtonUpdate_Click(object sender, EventArgs e)
+        {
+            if (ClickIndex != -1)
+            {
+                int index = ClickIndex;
+                if(Properties.Settings.Default.AddonUpdate.Contains(DownloadAddonGitHub.GitHubs[index].Name))
+                {                   
+                    while (Properties.Settings.Default.AddonBlacklist.Contains(DownloadAddonGitHub.GitHubs[index].Name))
+                    {
+                        Properties.Settings.Default.AddonUpdate.Remove(DownloadAddonGitHub.GitHubs[index].Name);
+                    }
 
-        private void buttonReportBug_Click(object sender, EventArgs e)
+                }
+                else
+                {
+                    Properties.Settings.Default.AddonUpdate.Add(DownloadAddonGitHub.GitHubs[index].Name);
+
+                }
+                Properties.Settings.Default.Save();
+
+                buttonUpdate.BackColor = downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name) ? Color.FromArgb(44, 177, 128) : Color.FromArgb(37, 35, 47);
+                DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
+                DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = DownloadAddonGitHub.GitHubs[index].NeedUpdate;
+            }
+        }
+
+        private void ButtonReportBug_Click(object sender, EventArgs e)
         {
             if (DownloadAddonGitHub.GitHubs[ClickIndex].BugReport != "")
                 Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].BugReport);
         }
 
-        private void buttonForum_Click(object sender, EventArgs e)
+        private void ButtonForum_Click(object sender, EventArgs e)
         {
             if (DownloadAddonGitHub.GitHubs[ClickIndex].Forum != "")
                 Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].Forum);
         }
 
-        private void buttonGitHub_Click(object sender, EventArgs e)
+        private void ButtonGitHub_Click(object sender, EventArgs e)
         {
             if (DownloadAddonGitHub.GitHubs[ClickIndex].GithubLink != "")
                 Process.Start(DownloadAddonGitHub.GitHubs[ClickIndex].GithubLink);
         }
 
-        private void buttonDeleteSettings_Click(object sender, EventArgs e)
+        private void ButtonDeleteSettings_Click(object sender, EventArgs e)
         {
             if (FormMainMenu.activity == null)
             {
                 labelAddonName.Text = DownloadAddonGitHub.GitHubs[ClickIndex].Name;
                 panelDeleteSettings.Visible = true;
-                clearComboBox();
+                ClearComboBox();
                 foreach (WTF wTF in DownloadAddonGitHub.WTF)
                 {
                     comboBoxAccount.Items.Add(wTF.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", ""));
@@ -489,7 +535,7 @@ namespace AddonUpdater.Forms
 
         }
 
-        private void comboBoxAccount_TextChanged(object sender, EventArgs e)
+        private void ComboBoxAccount_TextChanged(object sender, EventArgs e)
         {
 
             comboBoxRealm.Items.Clear();
@@ -505,7 +551,7 @@ namespace AddonUpdater.Forms
             }
         }
 
-        private void comboBoxRealm_TextChanged(object sender, EventArgs e)
+        private void ComboBoxRealm_TextChanged(object sender, EventArgs e)
         {
             comboBoxPersons.Items.Clear();
             comboBoxPersons.ResetText();
@@ -528,7 +574,7 @@ namespace AddonUpdater.Forms
 
         }
 
-        private void comboBoxPersons_TextChanged(object sender, EventArgs e)
+        private void ComboBoxPersons_TextChanged(object sender, EventArgs e)
         {
             labelAddonName.Text = DownloadAddonGitHub.GitHubs[ClickIndex].Name;
             comboBoxSettings.Items.Clear();
@@ -543,7 +589,7 @@ namespace AddonUpdater.Forms
             }
         }
 
-        private void clearComboBox()
+        private void ClearComboBox()
         {
             comboBoxAccount.Items.Clear();
             comboBoxAccount.ResetText();
@@ -555,104 +601,130 @@ namespace AddonUpdater.Forms
             comboBoxSettings.ResetText();
         }
 
-        private void button_Close_Click(object sender, EventArgs e)
+        private void Button_Close_Click(object sender, EventArgs e)
         {
             panelDeleteSettings.Visible = false;
         }
 
-        private void buttonpanelDeleteSettings_Click(object sender, EventArgs e)
+        private void ButtonpanelDeleteSettings_Click(object sender, EventArgs e)
         {
-            string account = null;
-            string realm = null;
-            string person = null;
-            string setting = null;
-            if (comboBoxAccount.SelectedItem != null)
-            {
-                account = comboBoxAccount.SelectedItem.ToString();
-            }
-            if (comboBoxRealm.SelectedItem != null)
-            {
-                realm = comboBoxRealm.SelectedItem.ToString();
-            }
-            if (comboBoxPersons.SelectedItem != null)
-            {
-                person = comboBoxPersons.SelectedItem.ToString();
-            }
-            if (comboBoxSettings.SelectedItem != null)
-            {
-                setting = comboBoxSettings.SelectedItem.ToString();
-            }
+            DialogResult dialogResult = MessageBox.Show(
+                   $"Вы точно хотите удалить {comboBoxSettings.SelectedItem} настройки для {DownloadAddonGitHub.GitHubs[ClickIndex].Name}?",
+                   "Подтверждение",                  
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Information);
 
-            if (account != null && realm != null && setting != null)
+            if (dialogResult == DialogResult.Yes)
             {
-                if (setting == "Персональные")
+                string account = null;
+                string realm = null;
+                string person = null;
+                string setting = null;
+                if (comboBoxAccount.SelectedItem != null)
                 {
-                    int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
-                    if (index != -1)
+                    account = comboBoxAccount.SelectedItem.ToString();
+                }
+                if (comboBoxRealm.SelectedItem != null)
+                {
+                    realm = comboBoxRealm.SelectedItem.ToString();
+                }
+                if (comboBoxPersons.SelectedItem != null)
+                {
+                    person = comboBoxPersons.SelectedItem.ToString();
+                }
+                if (comboBoxSettings.SelectedItem != null)
+                {
+                    setting = comboBoxSettings.SelectedItem.ToString();
+                }
+
+                if (account != null && realm != null && setting != null)
+                {
+                    if (setting == "Персональные")
                     {
-                        int index2 = DownloadAddonGitHub.WTF[index].Realms.FindIndex(name => name.Realm.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", "") == realm);
-                        if (index2 != -1)
+                        int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
+                        if (index != -1)
                         {
-
-                            int index3 = DownloadAddonGitHub.WTF[index].Realms[index2].Persons.FindIndex(name => name.Replace(DownloadAddonGitHub.WTF[index].Realms[index2].Realm + "\\", "") == person);
-                            if (index3 != -1)
+                            int index2 = DownloadAddonGitHub.WTF[index].Realms.FindIndex(name => name.Realm.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", "") == realm);
+                            if (index2 != -1)
                             {
-                                string path = DownloadAddonGitHub.WTF[index].Realms[index2].Persons[index3] + "\\SavedVariables";
-                                string[] getFiles = Directory.GetFiles(path);
-                                foreach (string file in getFiles)
+
+                                int index3 = DownloadAddonGitHub.WTF[index].Realms[index2].Persons.FindIndex(name => name.Replace(DownloadAddonGitHub.WTF[index].Realms[index2].Realm + "\\", "") == person);
+                                if (index3 != -1)
                                 {
-                                    string filenew = file.Replace(path + "\\", "");
-
-                                    filenew = filenew.Replace(".lua.bak", "");
-                                    filenew = filenew.Replace(".lua", "");
-
-                                    if (DownloadAddonGitHub.GitHubs[ClickIndex].Files.FindIndex(addon => addon == filenew) > -1)
+                                    string path = DownloadAddonGitHub.WTF[index].Realms[index2].Persons[index3] + "\\SavedVariables";
+                                    if (Directory.Exists(path))
                                     {
-                                        if (File.Exists(file)) File.Delete(file);
+                                        string[] getFiles = Directory.GetFiles(path);
+                                        foreach (string file in getFiles)
+                                        {
+                                            string filenew = file.Replace(path + "\\", "");
 
+                                            filenew = filenew.Replace(".lua.bak", "");
+                                            filenew = filenew.Replace(".lua", "");
+
+                                            if (DownloadAddonGitHub.GitHubs[ClickIndex].Files.FindIndex(addon => addon == filenew) > -1)
+                                            {
+                                                if (File.Exists(file)) File.Delete(file);
+
+                                            }
+                                        }
+                                        MessageBox.Show("Персональные настройки удалены");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Папка не найдена");
                                     }
                                 }
-                                MessageBox.Show("Персональные настройки удалены");
                             }
                         }
                     }
-                }
-                else if (setting == "Глобальные")
-                {
-
-                    int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
-                    if (index != -1)
+                    else if (setting == "Глобальные")
                     {
-                        string path = DownloadAddonGitHub.WTF[index].Account + "\\SavedVariables";
-                        string[] getFiles = Directory.GetFiles(path);
-                        foreach (string file in getFiles)
+
+                        int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
+                        if (index != -1)
                         {
-                            string filenew = file.Replace(path + "\\", "");
-
-                            filenew = filenew.Replace(".lua.bak", "");
-                            filenew = filenew.Replace(".lua", "");
-
-                            if (DownloadAddonGitHub.GitHubs[ClickIndex].Files.FindIndex(addon => addon == filenew) > -1)
+                            string path = DownloadAddonGitHub.WTF[index].Account + "\\SavedVariables";
+                            string[] getFiles = Directory.GetFiles(path);
+                            foreach (string file in getFiles)
                             {
-                                if (File.Exists(file)) File.Delete(file);
+                                string filenew = file.Replace(path + "\\", "");
 
+                                filenew = filenew.Replace(".lua.bak", "");
+                                filenew = filenew.Replace(".lua", "");
+
+                                if (DownloadAddonGitHub.GitHubs[ClickIndex].Files.FindIndex(addon => addon == filenew) > -1)
+                                {
+                                    if (File.Exists(file)) File.Delete(file);
+
+                                }
                             }
+                            MessageBox.Show("Глобальные настройки удалены");
                         }
-                        MessageBox.Show("Глобальные настройки удалены");
                     }
                 }
             }
+        
         }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
+        private void ButtonDelete_Click(object sender, EventArgs e)
         {
             if (FormMainMenu.activity == null)
             {
-                downloadAddonGitHub.DeleteOneAddon(DownloadAddonGitHub.GitHubs[ClickIndex]);
-                DownloadAddonGitHub.GitHubs[ClickIndex].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[ClickIndex].Directory, DownloadAddonGitHub.GitHubs[ClickIndex].Regex, DownloadAddonGitHub.GitHubs[ClickIndex].Replace);
-                updatePanelAddonsView(false);
-                panelAddon.Visible = false;
-            }
+                DialogResult dialogResult = MessageBox.Show(
+                    $"Вы точно хотите удалить {DownloadAddonGitHub.GitHubs[ClickIndex].Name}?",
+                    "Подтверждение",                  
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Information);
+
+                if (dialogResult == DialogResult.Yes)
+                {
+                    downloadAddonGitHub.DeleteOneAddon(DownloadAddonGitHub.GitHubs[ClickIndex]);
+                    DownloadAddonGitHub.GitHubs[ClickIndex].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[ClickIndex].Directory, DownloadAddonGitHub.GitHubs[ClickIndex].Regex, DownloadAddonGitHub.GitHubs[ClickIndex].Replace);
+                    UpdatePanelAddonsView(false);
+                    panelAddon.Visible = false;
+                }
+            }        
         }
         #endregion
 
@@ -661,31 +733,34 @@ namespace AddonUpdater.Forms
         {
             try
             {
-                panelAddons[rowIndex].progressBar.Maximum = 2;
-                panelAddons[rowIndex].progressBar.Value = 0;
-                panelAddons[rowIndex].progressBar.Visible = true;
+                panelAddons[rowIndex].ProgressBar.Maximum = 2;
+                panelAddons[rowIndex].ProgressBar.Value = 0;
+                panelAddons[rowIndex].ProgressBar.Visible = true;
                 FormMainMenu.activity = "Cкачивания";
                 NumberDownloadableAddons++;
                 FormMainMenu.ButtonOff();
                 ButtonOff();
                 ActiveControl = null;
                 panelAddons[rowIndex].AddonName.Text = $"Скачиваем {gitHub.Name}";
-                panelAddons[rowIndex].progressBar.Value++;
+                panelAddons[rowIndex].ProgressBar.Value++;
                 await downloadAddonGitHub.DownloadAddonGitHubTask(gitHub.Name, gitHub.GithubLink, gitHub.Branches);
                 panelAddons[rowIndex].AddonName.Text = $"Распаковываем {gitHub.Name}";
-                panelAddons[rowIndex].progressBar.Value++;
+                panelAddons[rowIndex].ProgressBar.Value++;
                 await downloadAddonGitHub.GetAddon2(gitHub);
                 DownloadAddonGitHub.GitHubs[index].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[index].Directory, DownloadAddonGitHub.GitHubs[index].Regex, DownloadAddonGitHub.GitHubs[index].Replace);
-                DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist);
-                DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist);
+                DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
+                DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
                 DownloadAddonGitHub.GitHubs[index].SavedVariables = downloadAddonGitHub.GetSavedVariables(DownloadAddonGitHub.GitHubs[index].Directory);
                 DownloadAddonGitHub.GitHubs[index].SavedVariablesPerCharacter = downloadAddonGitHub.GetSavedVariablesPerCharacter(DownloadAddonGitHub.GitHubs[index].Directory);
-                panelAddons[rowIndex].progressBar.Value = 0;
-                panelAddons[rowIndex].progressBar.Visible = false;
+                panelAddons[rowIndex].ProgressBar.Value = 0;
+                panelAddons[rowIndex].ProgressBar.Visible = false;
                 panelAddons[rowIndex].AddonName.Text = DownloadAddonGitHub.GitHubs[index].Name;
                 if (DownloadAddonGitHub.GitHubs[index].Blacklist) panelAddons[rowIndex].AddonVersion.Text = "В игноре";
-                else panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
+                else
+                    if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name) > -1) panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name)].LastUpdate;
+                    else panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
                 DataGridViewAddonsRowsForeColorUpdate(rowIndex, DownloadAddonGitHub.GitHubs[index].NeedUpdate);
+                panelAddons[rowIndex].AddonVersion.Enabled = true;
                 NumberDownloadableAddons--;
                 if (NumberDownloadableAddons == 0)
                 {
@@ -728,220 +803,71 @@ namespace AddonUpdater.Forms
         private void SetSettingsPanelAddon()
         {
 
-            panelAddonSetings.AddonName = new Label();
-            panelAddonSetings.AddonName.Width = 280;
-            panelAddonSetings.AddonName.Height = 40;
-            panelAddonSetings.AddonName.Location = new Point(0, 0);
-            panelAddonSetings.AddonName.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            panelAddonSetings.AddonName.TextAlign = ContentAlignment.MiddleLeft;
-            panelAddonSetings.AddonName.Cursor = Cursors.Hand;
+            panelAddonSetings.AddonName = new Label
+            {
+                Width = labelName.Width,
+                Height = 40,                
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204),
+                TextAlign = ContentAlignment.MiddleLeft,
+                Cursor = Cursors.Hand
+            };
 
-            panelAddonSetings.AddonVersion = new Button();
-            panelAddonSetings.AddonVersion.Width = 120;
-            panelAddonSetings.AddonVersion.Height = 40;
-            panelAddonSetings.AddonVersion.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonVersion = new Button
+            {
+                Width = labelVersion.Width,
+                Height = 40,
+                Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204),
+                FlatStyle = FlatStyle.Flat,
+                TabStop = false
+            };
             panelAddonSetings.AddonVersion.FlatAppearance.BorderSize = 0;
-            panelAddonSetings.AddonVersion.FlatStyle = FlatStyle.Flat;
-            panelAddonSetings.AddonVersion.TabStop = false;
 
-            panelAddonSetings.AddonCategory = new Label();
-            panelAddonSetings.AddonCategory.Width = 180;
-            panelAddonSetings.AddonCategory.Height = 40;
-            panelAddonSetings.AddonCategory.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            panelAddonSetings.AddonCategory.ForeColor = Color.FromArgb(44, 42, 63);
-            panelAddonSetings.AddonCategory.TextAlign = ContentAlignment.MiddleLeft;
+            panelAddonSetings.AddonCategory = new Label
+            {
+                Width = labelCategory.Width,
+                Height = 40,
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204),
+                ForeColor = Color.FromArgb(44, 42, 63),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
 
-            panelAddonSetings.AddonAuthor = new Label();
-            panelAddonSetings.AddonAuthor.Width = 160;
-            panelAddonSetings.AddonAuthor.Height = 40;
-            panelAddonSetings.AddonAuthor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204);
-            panelAddonSetings.AddonAuthor.ForeColor = Color.FromArgb(44, 42, 63);
-            panelAddonSetings.AddonAuthor.TextAlign = ContentAlignment.MiddleLeft;
+            panelAddonSetings.AddonAuthor = new Label
+            {
+                Width = labelAuthor.Width,
+                Height = 40,
+                Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 204),
+                ForeColor = Color.FromArgb(44, 42, 63),
+                TextAlign = ContentAlignment.MiddleLeft
+            };
 
-            panelAddonSetings.progressBar = new ProgressBar();
-            panelAddonSetings.progressBar.Width = 200;
-            panelAddonSetings.progressBar.Height = 10;
-            panelAddonSetings.progressBar.Visible = false;
+            panelAddonSetings.ProgressBar = new ProgressBar
+            {
+                Width = labelName.Width,
+                Height = 10,
+                Visible = false
+            };
 
-            panelAddonSetings.AddonDelete = new Button();
-            panelAddonSetings.AddonDelete.Width = 40;
-            panelAddonSetings.AddonDelete.Height = 40;
-            panelAddonSetings.AddonDelete.Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            panelAddonSetings.AddonDelete = new Button
+            {
+                Width = 45,
+                Height = 40,
+                Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204),
+
+                FlatStyle = FlatStyle.Flat,
+                TabStop = false,
+                BackgroundImageLayout = ImageLayout.Stretch,
+                ImageAlign = ContentAlignment.MiddleCenter,
+                Image = Properties.Resources.delete
+            };
             panelAddonSetings.AddonDelete.FlatAppearance.BorderSize = 0;
-            panelAddonSetings.AddonDelete.FlatStyle = FlatStyle.Flat;
-            panelAddonSetings.AddonDelete.TabStop = false;
-            panelAddonSetings.AddonDelete.BackgroundImageLayout = ImageLayout.Stretch;
-            panelAddonSetings.AddonDelete.ImageAlign = ContentAlignment.MiddleCenter;
-            panelAddonSetings.AddonDelete.Image = Properties.Resources.delete;
-
 
 
         }
+      
     }
-    class PanelAddon
-    {
-        PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
-        public GitHub GitHub { get; set; }
-        public Panel AddonPanel { get; set; }
-        public Label AddonName { get; set; }
-        public Button AddonVersion { get; set; }
-        public Button AddonDelete { get; set; }
-        public Label AddonAuthor { get; set; }
-        public Label AddonCategory { get; set; }
-        public ProgressBar progressBar { get; set; }
-
-        private int xNext = 0;
-
-        private int Row = -1;
-
-        public PanelAddon(GitHub gitHub, int row, Panel panelParent, PanelAddonSetings panelAddonSetings_)
-        {
-            GitHub = gitHub;
-            Row = row;
-            panelAddonSetings = panelAddonSetings_;
-            setAddonPanel(panelParent);
-            setAddonName();
-            setAddonVersion();
-            setAddonCategory();
-            setAddonAuthor();
-            setProgreddBar();
-            if (panelAddonSetings_.AddonDelete != null) setAddonDelete();
-            ControlsAdd(AddonName);
-            ControlsAdd(AddonVersion);
-            ControlsAdd(AddonAuthor);
-            ControlsAdd(AddonCategory);
-            if (panelAddonSetings_.AddonDelete != null) ControlsAdd(AddonDelete);
-            ControlsAdd(progressBar);
-
-        }
-        void ControlsAdd(Control control)
-        {
-            AddonPanel.Controls.Add(control);
-            control.BringToFront();
-        }
-        void setAddonPanel(Panel panelParent)
-        {
-            AddonPanel = new Panel();
-            AddonPanel.Name = "Panel" + GitHub.Name + "row" + Row;
-            AddonPanel.Width = 800;
-            AddonPanel.Height = 40;
-
-            if (Row % 2 == 0)
-                AddonPanel.BackColor = Color.FromArgb(223, 225, 229);
-            else
-                AddonPanel.BackColor = Color.FromArgb(239, 240, 242);
-            AddonPanel.Parent = panelParent.Parent;
-            AddonPanel.Location = new Point(0, Row * 40);
-
-        }
-        void setAddonName()
-        {
-            AddonName = new Label();
-            AddonName.Name = "LabelName_" + GitHub.Name + "_row_" + Row;
-            AddonName.Text = GitHub.Name;
-            AddonName.Width = panelAddonSetings.AddonName.Width;
-            AddonName.Height = panelAddonSetings.AddonName.Height;
-            AddonName.Parent = AddonPanel.Parent;
-            AddonName.Location = new Point(0, 0);
-            AddonName.Font = panelAddonSetings.AddonName.Font;
-            if (GitHub.NeedUpdate == true) AddonName.ForeColor = Color.FromArgb(166, 0, 0);
-            else AddonName.ForeColor = Color.FromArgb(44, 42, 63);
-            AddonName.TextAlign = panelAddonSetings.AddonName.TextAlign;
-            AddonName.Cursor = panelAddonSetings.AddonName.Cursor;
-            xNext += AddonName.Width;
-        }
-        void setAddonVersion()
-        {
-            AddonVersion = new Button();
-            AddonVersion.Name = "Button_" + GitHub.Name + "_row_" + Row;
-            if (GitHub.MyVersion != null)
-                if (GitHub.Blacklist) AddonVersion.Text = "В игноре";
-                else
-                    if (GitHub.NeedUpdate) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n" + "У Вас: " + GitHub.MyVersion;
-                else AddonVersion.Text = "Актуальная: " + GitHub.Version;
-            else if (GitHub.MyVersion == null) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n";
-            AddonVersion.Width = panelAddonSetings.AddonVersion.Width;
-            AddonVersion.Height = panelAddonSetings.AddonVersion.Height;
-            AddonVersion.Parent = AddonPanel.Parent;
-            AddonVersion.Location = new Point(xNext, 0);
-            AddonVersion.Font = panelAddonSetings.AddonVersion.Font;
-            if (GitHub.NeedUpdate == true) AddonVersion.ForeColor = Color.FromArgb(166, 0, 0);
-            else AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
-            AddonVersion.FlatAppearance.BorderSize = panelAddonSetings.AddonVersion.FlatAppearance.BorderSize;
-            AddonVersion.FlatStyle = panelAddonSetings.AddonVersion.FlatStyle;
-            AddonVersion.TabStop = panelAddonSetings.AddonVersion.TabStop;
-            xNext += AddonVersion.Width;
-        }
-
-        void setAddonCategory()
-        {
-            AddonCategory = new Label();
-
-            AddonCategory.Name = "LabelAuthor" + GitHub.Name + "row" + Row;
-            AddonCategory.Text = GitHub.Category;
-            AddonCategory.Width = panelAddonSetings.AddonCategory.Width;
-            AddonCategory.Height = panelAddonSetings.AddonCategory.Height;
-            AddonCategory.Parent = AddonPanel.Parent;
-            AddonCategory.Location = new Point(xNext, 0);
-            AddonCategory.Font = panelAddonSetings.AddonCategory.Font;
-            AddonCategory.ForeColor = panelAddonSetings.AddonCategory.ForeColor;
-            AddonCategory.TextAlign = panelAddonSetings.AddonCategory.TextAlign;
-            xNext += AddonCategory.Width;
-        }
-        void setAddonAuthor()
-        {
-            AddonAuthor = new Label();
-
-            AddonAuthor.Name = "LabelAuthor" + GitHub.Name + "row" + Row;
-            AddonAuthor.Text = GitHub.Author;
-            AddonAuthor.Width = panelAddonSetings.AddonAuthor.Width;
-            AddonAuthor.Height = panelAddonSetings.AddonAuthor.Height;
-            AddonAuthor.Parent = AddonPanel.Parent;
-            AddonAuthor.Location = new Point(xNext, 0);
-            AddonAuthor.Font = panelAddonSetings.AddonAuthor.Font;
-            AddonAuthor.ForeColor = panelAddonSetings.AddonAuthor.ForeColor;
-            AddonAuthor.TextAlign = panelAddonSetings.AddonAuthor.TextAlign;
-            xNext += AddonAuthor.Width;
-        }
-
-        void setProgreddBar()
-        {
-            progressBar = new ProgressBar();
-            progressBar.Name = $"progressBar{GitHub.Name}" + "row" + Row;
-            progressBar.Width = panelAddonSetings.progressBar.Width;
-            progressBar.Height = panelAddonSetings.progressBar.Height;
-            progressBar.Parent = AddonPanel.Parent;
-            progressBar.Location = new Point(0, 30);
-            progressBar.Visible = panelAddonSetings.progressBar.Visible;
-        }
-        void setAddonDelete()
-        {
-            AddonDelete = new Button();
-            AddonDelete.Name = "AddonDelete_" + GitHub.Name + "_row_" + Row;
-            AddonDelete.Width = panelAddonSetings.AddonDelete.Width;
-            AddonDelete.Height = panelAddonSetings.AddonDelete.Height;
-            AddonDelete.Parent = AddonPanel.Parent;
-            AddonDelete.Location = new Point(xNext, 0);
-            AddonDelete.Font = panelAddonSetings.AddonDelete.Font;
-            AddonDelete.FlatAppearance.BorderSize = panelAddonSetings.AddonDelete.FlatAppearance.BorderSize;
-            AddonDelete.FlatStyle = panelAddonSetings.AddonDelete.FlatStyle;
-            AddonDelete.TabStop = panelAddonSetings.AddonDelete.TabStop;
-            AddonDelete.Image = panelAddonSetings.AddonDelete.Image;
-            AddonDelete.BackgroundImageLayout = panelAddonSetings.AddonDelete.BackgroundImageLayout;
-            AddonDelete.ImageAlign = panelAddonSetings.AddonDelete.ImageAlign;
-            xNext += AddonDelete.Width;
-        }
-    }
+    
 
 
-    class PanelAddonSetings
-    {
-        public Label AddonName { get; set; }
-        public Label AddonAuthor { get; set; }
-        public Label AddonCategory { get; set; }
-        public Button AddonVersion { get; set; }
-        public Button AddonDelete { get; set; }
-        public ProgressBar progressBar { get; set; }
-    }
+   
 }
 

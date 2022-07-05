@@ -36,6 +36,8 @@ namespace AddonUpdater.Forms
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label2 = new System.Windows.Forms.Label();
             this.checkBoxDescription = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.checkBoxLauncher = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBoxAutoUpdate
@@ -49,7 +51,7 @@ namespace AddonUpdater.Forms
             this.checkBoxAutoUpdate.TabIndex = 3;
             this.checkBoxAutoUpdate.TabStop = false;
             this.checkBoxAutoUpdate.UseVisualStyleBackColor = true;
-            this.checkBoxAutoUpdate.CheckedChanged += new System.EventHandler(this.checkBoxAutoUpdate_CheckedChanged);
+            this.checkBoxAutoUpdate.CheckedChanged += new System.EventHandler(this.CheckBoxAutoUpdate_CheckedChanged);
             // 
             // SavePathGame
             // 
@@ -57,7 +59,7 @@ namespace AddonUpdater.Forms
             this.SavePathGame.FlatAppearance.BorderSize = 0;
             this.SavePathGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SavePathGame.ForeColor = System.Drawing.Color.White;
-            this.SavePathGame.Location = new System.Drawing.Point(665, 25);
+            this.SavePathGame.Location = new System.Drawing.Point(788, 25);
             this.SavePathGame.Name = "SavePathGame";
             this.SavePathGame.Size = new System.Drawing.Size(100, 30);
             this.SavePathGame.TabIndex = 4;
@@ -72,7 +74,7 @@ namespace AddonUpdater.Forms
             this.labelPathGame.ForeColor = System.Drawing.Color.White;
             this.labelPathGame.Location = new System.Drawing.Point(9, 25);
             this.labelPathGame.Name = "labelPathGame";
-            this.labelPathGame.Size = new System.Drawing.Size(650, 50);
+            this.labelPathGame.Size = new System.Drawing.Size(773, 50);
             this.labelPathGame.TabIndex = 3;
             this.labelPathGame.Text = "Папка с игрой:\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n";
             // 
@@ -111,14 +113,39 @@ namespace AddonUpdater.Forms
             this.checkBoxDescription.TabIndex = 6;
             this.checkBoxDescription.TabStop = false;
             this.checkBoxDescription.UseVisualStyleBackColor = true;
-            this.checkBoxDescription.CheckedChanged += new System.EventHandler(this.checkBoxDescription_CheckedChanged);
+            this.checkBoxDescription.CheckedChanged += new System.EventHandler(this.CheckBoxDescription_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(32, 172);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(589, 25);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Открывать лаунчер. Если открыт, открывать игру.\r\n";
+            // 
+            // checkBoxLauncher
+            // 
+            this.checkBoxLauncher.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.checkBoxLauncher.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxLauncher.ForeColor = System.Drawing.Color.White;
+            this.checkBoxLauncher.Location = new System.Drawing.Point(9, 172);
+            this.checkBoxLauncher.Name = "checkBoxLauncher";
+            this.checkBoxLauncher.Size = new System.Drawing.Size(15, 30);
+            this.checkBoxLauncher.TabIndex = 8;
+            this.checkBoxLauncher.TabStop = false;
+            this.checkBoxLauncher.UseVisualStyleBackColor = true;
+            this.checkBoxLauncher.CheckedChanged += new System.EventHandler(this.CheckBoxLauncher_CheckedChanged);
             // 
             // FormSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(900, 580);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.checkBoxLauncher);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBoxDescription);
             this.Controls.Add(this.label1);
@@ -141,5 +168,7 @@ namespace AddonUpdater.Forms
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox checkBoxDescription;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox checkBoxLauncher;
     }
 }

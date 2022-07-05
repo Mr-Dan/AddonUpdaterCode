@@ -24,7 +24,7 @@ namespace AddonUpdater
         private Form activeform;
         private Button currentButton = new Button();
         public static string activity = null;
-        public static int UpdateCount = 0;
+        //public static int UpdateCount = 0;
         bool openFormAddons = false;
         bool openingForm = false;
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
@@ -33,8 +33,8 @@ namespace AddonUpdater
         Color activeButton = Color.FromArgb(123, 119, 159);
 
         public FormMainMenu()
-        {
-            InitializeComponent();
+        {           
+            InitializeComponent();                   
         }
 
         private void OpenChildForm(Form childForm, object btnSender)
@@ -149,7 +149,7 @@ namespace AddonUpdater
             }
         }
 
-        private void buttonAddons_Click(object sender, EventArgs e)
+        private void ButtonAddons_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -161,7 +161,7 @@ namespace AddonUpdater
             }
         }
 
-        private void buttonSettings_Click(object sender, EventArgs e)
+        private void ButtonSettings_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -178,7 +178,7 @@ namespace AddonUpdater
             }
         }
 
-        private void buttonAllAddons_Click(object sender, EventArgs e)
+        private void ButtonAllAddons_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -190,7 +190,7 @@ namespace AddonUpdater
             }
         }
 
-        private void buttonAbout_Click(object sender, EventArgs e)
+        private void ButtonAbout_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -207,7 +207,7 @@ namespace AddonUpdater
             }
         }
 
-        private void button_Close_Click(object sender, EventArgs e)
+        private void Button_Close_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -216,7 +216,7 @@ namespace AddonUpdater
             {
                 notifyIcon1.Visible = false;
                 Application.Exit();
-            }
+            }          
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -230,7 +230,7 @@ namespace AddonUpdater
             }
         }
 
-        private async void timer1_Tick(object sender, EventArgs e)
+        private async void Timer1_Tick(object sender, EventArgs e)
         {
             if (activity == null)
             {
@@ -248,7 +248,7 @@ namespace AddonUpdater
                             if (openingForm == true) break;
                         }
 
-                        if (Properties.Settings.Default.AutoUpdateBool == true && UpdateCount > 0 && openingForm == false)
+                        if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.Update == true && openingForm == false)
                         {
                             activity = "Cкачивания";
                             await DownloadAddonAuto();
@@ -287,33 +287,36 @@ namespace AddonUpdater
                     progressBar1.Visible = true;
                     labelInfo.Visible = true;
                 }
-                progressBar1.Value = 0;
+                
                 DownloadAddonGitHub.NeedUpdate.Clear();
                 DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-                progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
-                for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                if (DownloadAddonGitHub.NeedUpdate.Count > 0)
                 {
-                    labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                    await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
+                    for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                    {
+                        labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
+                        await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                        progressBar1.Value++;
+                    }
+                    labelInfo.Text = "Распаковка Аддонов";
+                    await downloadAddonGitHub.GetAddon();
+                    labelInfo.Text = "Обновление";
+                    activity = "обновления";
+                    progressBar1.Value = 0;
+                    progressBar1.Maximum = 2;
                     progressBar1.Value++;
-                }
-                labelInfo.Text = "Распаковка Аддонов";
-                await downloadAddonGitHub.GetAddon();
-                UpdateCount = 0;
-                labelInfo.Text = "Обновление";
-                activity = "обновления";
-                progressBar1.Value = 0;
-                progressBar1.Maximum = 2;
-                progressBar1.Value++;
-                await downloadAddonGitHub.Aupdatecheck();
-                progressBar1.Value++;
-                progressBar1.Value = 0;
-                labelInfo.Text = "";
-                activity = null;
-                if (openFormAddons == false)
-                {
-                    progressBar1.Visible = false;
-                    labelInfo.Visible = false;
+                    await downloadAddonGitHub.Aupdatecheck();
+                    progressBar1.Value++;
+                    progressBar1.Value = 0;
+                    labelInfo.Text = "";
+                    activity = null;
+                    if (openFormAddons == false)
+                    {
+                        progressBar1.Visible = false;
+                        labelInfo.Visible = false;
+                    }
                 }
             }
             catch
@@ -324,7 +327,7 @@ namespace AddonUpdater
             ButtonOn();
         }
 
-        private void notifyIcon1_MouseClick(object sender, MouseEventArgs e)
+        private void NotifyIcon1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -361,7 +364,7 @@ namespace AddonUpdater
         }
         #endregion
 
-        private void button_Resize_Click(object sender, EventArgs e)
+        private void Button_Resize_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             WindowState = FormWindowState.Minimized;
@@ -378,17 +381,17 @@ namespace AddonUpdater
         public static extern bool ReleaseCapture();
         #endregion
 
-        private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
+        private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
             MoveForm(e);
         }
 
-        private void labelTitle_MouseDown(object sender, MouseEventArgs e)
+        private void LabelTitle_MouseDown(object sender, MouseEventArgs e)
         {
             MoveForm(e);
         }
 
-        private void labelTitleName_MouseDown(object sender, MouseEventArgs e)
+        private void LabelTitleName_MouseDown(object sender, MouseEventArgs e)
         {
             MoveForm(e);
         }
@@ -409,7 +412,7 @@ namespace AddonUpdater
             OpenForm(activeform.Name);
         }
 
-        private void timerKill_Tick(object sender, EventArgs e)
+        private void TimerKill_Tick(object sender, EventArgs e)
         {
             string proc = Process.GetCurrentProcess().ProcessName;
             Process[] processes = Process.GetProcessesByName(proc);

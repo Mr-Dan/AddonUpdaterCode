@@ -26,10 +26,11 @@ namespace AddonUpdater.Forms
         {
             checkBoxAutoUpdate.Checked = Properties.Settings.Default.AutoUpdateBool;
             checkBoxDescription.Checked = Properties.Settings.Default.DescriptionBool;
+            checkBoxLauncher.Checked = Properties.Settings.Default.LauncherOpen;
             labelPathGame.Text = "Папка с игрой: " + Properties.Settings.Default.PathWow;
         }
 
-        private void checkBoxAutoUpdate_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxAutoUpdate_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.AutoUpdateBool = checkBoxAutoUpdate.Checked;
             Properties.Settings.Default.Save();
@@ -70,10 +71,18 @@ namespace AddonUpdater.Forms
             }
         }
 
-        private void checkBoxDescription_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxDescription_CheckedChanged(object sender, EventArgs e)
         {
             Properties.Settings.Default.DescriptionBool = checkBoxDescription.Checked;
             Properties.Settings.Default.Save();
         }
+
+        private void CheckBoxLauncher_CheckedChanged(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.LauncherOpen = checkBoxLauncher.Checked;
+            Properties.Settings.Default.Save();
+        }
+
+        
     }
 }

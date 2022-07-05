@@ -40,10 +40,10 @@ namespace AddonUpdater.Forms
             this.buttonReportBug = new System.Windows.Forms.Button();
             this.buttonInstall = new System.Windows.Forms.Button();
             this.panelAddonsViewTitle = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.labelTitleName = new System.Windows.Forms.Label();
+            this.labelAuthor = new System.Windows.Forms.Label();
+            this.labelCategory = new System.Windows.Forms.Label();
+            this.labelVersion = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
             this.panelAddonsView = new System.Windows.Forms.Panel();
             this.PanelDescription.SuspendLayout();
             this.panelAddon.SuspendLayout();
@@ -58,13 +58,13 @@ namespace AddonUpdater.Forms
             this.button_update.FlatAppearance.BorderSize = 0;
             this.button_update.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_update.ForeColor = System.Drawing.Color.White;
-            this.button_update.Location = new System.Drawing.Point(730, 445);
+            this.button_update.Location = new System.Drawing.Point(840, 535);
             this.button_update.Name = "button_update";
             this.button_update.Size = new System.Drawing.Size(50, 40);
             this.button_update.TabIndex = 23;
             this.button_update.TabStop = false;
             this.button_update.UseVisualStyleBackColor = false;
-            this.button_update.Click += new System.EventHandler(this.button_update_Click);
+            this.button_update.Click += new System.EventHandler(this.Button_update_Click);
             // 
             // buttonLauncher
             // 
@@ -74,13 +74,13 @@ namespace AddonUpdater.Forms
             this.buttonLauncher.FlatAppearance.BorderSize = 0;
             this.buttonLauncher.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonLauncher.ForeColor = System.Drawing.Color.White;
-            this.buttonLauncher.Location = new System.Drawing.Point(670, 445);
+            this.buttonLauncher.Location = new System.Drawing.Point(780, 535);
             this.buttonLauncher.Name = "buttonLauncher";
             this.buttonLauncher.Size = new System.Drawing.Size(50, 40);
             this.buttonLauncher.TabIndex = 24;
             this.buttonLauncher.TabStop = false;
             this.buttonLauncher.UseVisualStyleBackColor = false;
-            this.buttonLauncher.Click += new System.EventHandler(this.buttonLauncher_Click);
+            this.buttonLauncher.Click += new System.EventHandler(this.ButtonLauncher_Click);
             // 
             // PanelDescription
             // 
@@ -135,7 +135,7 @@ namespace AddonUpdater.Forms
             this.buttonGitHub.Text = "GitHub";
             this.buttonGitHub.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonGitHub.UseVisualStyleBackColor = false;
-            this.buttonGitHub.Click += new System.EventHandler(this.buttonGitHub_Click);
+            this.buttonGitHub.Click += new System.EventHandler(this.ButtonGitHub_Click);
             // 
             // buttonForum
             // 
@@ -153,7 +153,7 @@ namespace AddonUpdater.Forms
             this.buttonForum.Text = "Форум";
             this.buttonForum.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonForum.UseVisualStyleBackColor = false;
-            this.buttonForum.Click += new System.EventHandler(this.buttonForum_Click);
+            this.buttonForum.Click += new System.EventHandler(this.ButtonForum_Click);
             // 
             // buttonReportBug
             // 
@@ -171,7 +171,7 @@ namespace AddonUpdater.Forms
             this.buttonReportBug.Text = "Сообщить о баге";
             this.buttonReportBug.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonReportBug.UseVisualStyleBackColor = false;
-            this.buttonReportBug.Click += new System.EventHandler(this.buttonReportBug_Click);
+            this.buttonReportBug.Click += new System.EventHandler(this.ButtonReportBug_Click);
             // 
             // buttonInstall
             // 
@@ -189,64 +189,64 @@ namespace AddonUpdater.Forms
             this.buttonInstall.Text = "Скачать";
             this.buttonInstall.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonInstall.UseVisualStyleBackColor = false;
-            this.buttonInstall.Click += new System.EventHandler(this.buttonInstall_Click);
+            this.buttonInstall.Click += new System.EventHandler(this.ButtonInstall_Click);
             // 
             // panelAddonsViewTitle
             // 
             this.panelAddonsViewTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(130)))), ((int)(((byte)(159)))));
-            this.panelAddonsViewTitle.Controls.Add(this.label3);
-            this.panelAddonsViewTitle.Controls.Add(this.label2);
-            this.panelAddonsViewTitle.Controls.Add(this.label1);
-            this.panelAddonsViewTitle.Controls.Add(this.labelTitleName);
+            this.panelAddonsViewTitle.Controls.Add(this.labelAuthor);
+            this.panelAddonsViewTitle.Controls.Add(this.labelCategory);
+            this.panelAddonsViewTitle.Controls.Add(this.labelVersion);
+            this.panelAddonsViewTitle.Controls.Add(this.labelName);
             this.panelAddonsViewTitle.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAddonsViewTitle.Location = new System.Drawing.Point(0, 0);
             this.panelAddonsViewTitle.Name = "panelAddonsViewTitle";
-            this.panelAddonsViewTitle.Size = new System.Drawing.Size(800, 40);
+            this.panelAddonsViewTitle.Size = new System.Drawing.Size(900, 40);
             this.panelAddonsViewTitle.TabIndex = 26;
             // 
-            // label3
+            // labelAuthor
             // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(600, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(200, 40);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Автор";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelAuthor.ForeColor = System.Drawing.Color.White;
+            this.labelAuthor.Location = new System.Drawing.Point(600, 0);
+            this.labelAuthor.Name = "labelAuthor";
+            this.labelAuthor.Size = new System.Drawing.Size(200, 40);
+            this.labelAuthor.TabIndex = 4;
+            this.labelAuthor.Text = "Автор";
+            this.labelAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // labelCategory
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(420, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(180, 40);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Категория";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelCategory.ForeColor = System.Drawing.Color.White;
+            this.labelCategory.Location = new System.Drawing.Point(420, 0);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Size = new System.Drawing.Size(180, 40);
+            this.labelCategory.TabIndex = 3;
+            this.labelCategory.Text = "Категория";
+            this.labelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // labelVersion
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(280, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(140, 40);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Версия";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelVersion.ForeColor = System.Drawing.Color.White;
+            this.labelVersion.Location = new System.Drawing.Point(280, 0);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(140, 40);
+            this.labelVersion.TabIndex = 2;
+            this.labelVersion.Text = "Версия";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // labelTitleName
+            // labelName
             // 
-            this.labelTitleName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTitleName.ForeColor = System.Drawing.Color.White;
-            this.labelTitleName.Location = new System.Drawing.Point(0, 0);
-            this.labelTitleName.Name = "labelTitleName";
-            this.labelTitleName.Size = new System.Drawing.Size(280, 40);
-            this.labelTitleName.TabIndex = 1;
-            this.labelTitleName.Text = "Название";
-            this.labelTitleName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelName.ForeColor = System.Drawing.Color.White;
+            this.labelName.Location = new System.Drawing.Point(0, 0);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(280, 40);
+            this.labelName.TabIndex = 1;
+            this.labelName.Text = "Название";
+            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panelAddonsView
             // 
@@ -254,9 +254,8 @@ namespace AddonUpdater.Forms
             this.panelAddonsView.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAddonsView.Location = new System.Drawing.Point(0, 40);
             this.panelAddonsView.Margin = new System.Windows.Forms.Padding(0);
-            this.panelAddonsView.MaximumSize = new System.Drawing.Size(800, 400);
             this.panelAddonsView.Name = "panelAddonsView";
-            this.panelAddonsView.Size = new System.Drawing.Size(800, 400);
+            this.panelAddonsView.Size = new System.Drawing.Size(900, 485);
             this.panelAddonsView.TabIndex = 27;
             // 
             // FormAllAddons
@@ -264,7 +263,7 @@ namespace AddonUpdater.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 485);
+            this.ClientSize = new System.Drawing.Size(900, 580);
             this.Controls.Add(this.panelAddon);
             this.Controls.Add(this.PanelDescription);
             this.Controls.Add(this.panelAddonsView);
@@ -293,10 +292,10 @@ namespace AddonUpdater.Forms
         public System.Windows.Forms.Button buttonReportBug;
         public System.Windows.Forms.Button buttonInstall;
         private System.Windows.Forms.Panel panelAddonsViewTitle;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelTitleName;
+        private System.Windows.Forms.Label labelAuthor;
+        private System.Windows.Forms.Label labelCategory;
+        private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Panel panelAddonsView;
     }
 }

@@ -23,17 +23,17 @@ namespace AddonUpdater.Forms
             labelVersion.Text = Application.ProductVersion;
         }
 
-        private void button_GitHub_Click(object sender, EventArgs e)
+        private void Button_GitHub_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/Mr-Dan/AddonUpdater");
         }
 
-        private void buttonDonate_Click(object sender, EventArgs e)
+        private void ButtonDonate_Click(object sender, EventArgs e)
         {
             Process.Start("https://www.donationalerts.com/r/mr_dan_");
         }
 
-        private void buttonDiscord_Click(object sender, EventArgs e)
+        private void ButtonDiscord_Click(object sender, EventArgs e)
         {
             Process.Start("https://discord.gg/7cjU9xvcQY");
         }

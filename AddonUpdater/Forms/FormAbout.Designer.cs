@@ -112,13 +112,13 @@ namespace AddonUpdater.Forms
             this.button_GitHub.FlatAppearance.BorderSize = 0;
             this.button_GitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_GitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button_GitHub.Location = new System.Drawing.Point(734, 410);
+            this.button_GitHub.Location = new System.Drawing.Point(824, 504);
             this.button_GitHub.Name = "button_GitHub";
             this.button_GitHub.Size = new System.Drawing.Size(64, 64);
             this.button_GitHub.TabIndex = 20;
             this.button_GitHub.TabStop = false;
             this.button_GitHub.UseVisualStyleBackColor = false;
-            this.button_GitHub.Click += new System.EventHandler(this.button_GitHub_Click);
+            this.button_GitHub.Click += new System.EventHandler(this.Button_GitHub_Click);
             // 
             // buttonDonate
             // 
@@ -135,7 +135,7 @@ namespace AddonUpdater.Forms
             this.buttonDonate.TabIndex = 21;
             this.buttonDonate.TabStop = false;
             this.buttonDonate.UseVisualStyleBackColor = false;
-            this.buttonDonate.Click += new System.EventHandler(this.buttonDonate_Click);
+            this.buttonDonate.Click += new System.EventHandler(this.ButtonDonate_Click);
             // 
             // label5
             // 
@@ -156,13 +156,13 @@ namespace AddonUpdater.Forms
             this.buttonDiscord.FlatAppearance.BorderSize = 0;
             this.buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDiscord.Location = new System.Drawing.Point(664, 410);
+            this.buttonDiscord.Location = new System.Drawing.Point(744, 504);
             this.buttonDiscord.Name = "buttonDiscord";
             this.buttonDiscord.Size = new System.Drawing.Size(64, 64);
             this.buttonDiscord.TabIndex = 23;
             this.buttonDiscord.TabStop = false;
             this.buttonDiscord.UseVisualStyleBackColor = false;
-            this.buttonDiscord.Click += new System.EventHandler(this.buttonDiscord_Click);
+            this.buttonDiscord.Click += new System.EventHandler(this.ButtonDiscord_Click);
             // 
             // label7
             // 
@@ -189,7 +189,7 @@ namespace AddonUpdater.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.ClientSize = new System.Drawing.Size(800, 480);
+            this.ClientSize = new System.Drawing.Size(900, 580);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.buttonDiscord);
