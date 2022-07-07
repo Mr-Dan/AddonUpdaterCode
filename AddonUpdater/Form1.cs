@@ -33,8 +33,8 @@ namespace AddonUpdater
         Color activeButton = Color.FromArgb(123, 119, 159);
 
         public FormMainMenu()
-        {           
-            InitializeComponent();                   
+        {
+            InitializeComponent();
         }
 
         private void OpenChildForm(Form childForm, object btnSender)
@@ -216,7 +216,7 @@ namespace AddonUpdater
             {
                 notifyIcon1.Visible = false;
                 Application.Exit();
-            }          
+            }
         }
 
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -287,7 +287,7 @@ namespace AddonUpdater
                     progressBar1.Visible = true;
                     labelInfo.Visible = true;
                 }
-                
+
                 DownloadAddonGitHub.NeedUpdate.Clear();
                 DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
                 if (DownloadAddonGitHub.NeedUpdate.Count > 0)

@@ -163,7 +163,7 @@ namespace AddonUpdater.Forms
             this.buttonUpdate.Size = new System.Drawing.Size(140, 40);
             this.buttonUpdate.TabIndex = 10;
             this.buttonUpdate.TabStop = false;
-            this.buttonUpdate.Text = "Обновлять";
+            this.buttonUpdate.Text = "Cледить за обновлением";
             this.buttonUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonUpdate.UseVisualStyleBackColor = false;
             this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);

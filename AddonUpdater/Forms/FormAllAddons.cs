@@ -58,7 +58,7 @@ namespace AddonUpdater.Forms
 
         public async void UpdatePanelAddonsView(bool flagGetNewInfo)
         {
-           
+
             FormMainMenu.ButtonOff();
             ButtonOff();
             if (flagGetNewInfo == false)
@@ -103,7 +103,7 @@ namespace AddonUpdater.Forms
                     panelAddons[panelAddons.Count - 1].AddonPanel.BringToFront();
                 }
             }
-            
+
             if (flagGetNewInfo == true)
             {
                 FormMainMenu.progressBar1.Value++;
@@ -111,7 +111,7 @@ namespace AddonUpdater.Forms
                 FormMainMenu.labelInfo.Text = "";
                 FormMainMenu.activity = null;
             }
-            
+
             if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.Update == true)
             {
                 FormMainMenu.ButtonOff();
@@ -174,7 +174,7 @@ namespace AddonUpdater.Forms
         {
             try
             {
-             
+
                 DownloadAddonGitHub.NeedUpdate.Clear();
                 if (flag == "Download") DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.DownloadMyAddon == true);
                 else if (flag == "AutoDownload") DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
@@ -193,10 +193,10 @@ namespace AddonUpdater.Forms
                     FormMainMenu.progressBar1.Value = 0;
                     FormMainMenu.labelInfo.Text = "";
                 }
-               
+
             }
             catch (Exception ex)
-            {               
+            {
                 FormMainMenu.progressBar1.Value = 0;
                 FormMainMenu.labelInfo.Text = "Ошибка подключения";
                 FormMainMenu.activity = null;
@@ -470,6 +470,11 @@ namespace AddonUpdater.Forms
             {
                 Width = labelName.Width,
                 Height = 10,
+                Visible = false
+            };
+
+            panelAddonSetings.PictureBox = new PictureBox
+            {
                 Visible = false
             };
 

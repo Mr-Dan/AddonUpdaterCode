@@ -10,6 +10,8 @@ namespace AddonUpdater.Models
 {
     class PanelAddon
     {
+        private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
+
         private PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
         public GitHub GitHub { get; set; }
         public Panel AddonPanel { get; set; }
@@ -19,6 +21,8 @@ namespace AddonUpdater.Models
         public Label AddonAuthor { get; set; }
         public Label AddonCategory { get; set; }
         public ProgressBar ProgressBar { get; set; }
+
+        public PictureBox PictureBox { get; set; }
 
         private int xNext = 0;
 
@@ -35,11 +39,13 @@ namespace AddonUpdater.Models
             SetAddonCategory();
             SetAddonAuthor();
             SetProgreddBar();
+            SetPictureBox();
             if (panelAddonSetings_.AddonDelete != null) SetAddonDelete();
             ControlsAdd(AddonName);
             ControlsAdd(AddonVersion);
             ControlsAdd(AddonAuthor);
             ControlsAdd(AddonCategory);
+            ControlsAdd(PictureBox);
             if (panelAddonSetings_.AddonDelete != null) ControlsAdd(AddonDelete);
             ControlsAdd(ProgressBar);
 
@@ -63,7 +69,7 @@ namespace AddonUpdater.Models
                 AddonPanel.BackColor = Color.FromArgb(223, 225, 229);
             else
                 AddonPanel.BackColor = Color.FromArgb(239, 240, 242);
-          
+
         }
         void SetAddonName()
         {
@@ -97,20 +103,20 @@ namespace AddonUpdater.Models
                 TabStop = panelAddonSetings.AddonVersion.TabStop
             };
             AddonVersion.FlatAppearance.BorderSize = panelAddonSetings.AddonVersion.FlatAppearance.BorderSize;
-           
+
             if (GitHub.MyVersion != null)
                 if (GitHub.Blacklist) AddonVersion.Text = "В игноре";
                 else
                     if (GitHub.NeedUpdate) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n" + "У Вас: " + GitHub.MyVersion;
-                    else 
-                        if(DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == GitHub.Name) > -1) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n"+ DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == GitHub.Name)].LastUpdate;
-                        else AddonVersion.Text = "Актуальная: " + GitHub.Version;
+                else
+                        if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == GitHub.Name) > -1) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == GitHub.Name)].LastUpdate;
+                else AddonVersion.Text = "Актуальная: " + GitHub.Version;
             else if (GitHub.MyVersion == null) AddonVersion.Text = "Актуальная: " + GitHub.Version + "\n";
-            
+
             if (GitHub.NeedUpdate == true) AddonVersion.ForeColor = Color.FromArgb(166, 0, 0);
             else AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
             if (GitHub.Blacklist) AddonVersion.Enabled = false;
-             xNext += AddonVersion.Width;
+            xNext += AddonVersion.Width;
         }
 
         void SetAddonCategory()
@@ -176,6 +182,21 @@ namespace AddonUpdater.Models
             };
             AddonDelete.FlatAppearance.BorderSize = panelAddonSetings.AddonDelete.FlatAppearance.BorderSize;
             xNext += AddonDelete.Width;
+        }
+        void SetPictureBox()
+        {
+            PictureBox = new PictureBox
+            {
+                Name = "PictureBox" + GitHub.Name + "_row_" + Row,
+                Width = 40,
+                Height = 40,
+                Parent = AddonPanel.Parent,
+                Location = new Point(AddonName.Width - 40, 0),
+                Visible = panelAddonSetings.PictureBox.Visible,
+                BackgroundImageLayout = ImageLayout.Zoom,
+                BackgroundImage = downloadAddonGitHub.GetAddonUpdate(GitHub.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed
+            };
+
         }
     }
 }

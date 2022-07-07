@@ -24,7 +24,7 @@ namespace AddonUpdater
         public Task Aupdatecheck()
         {
             var getVersion = Task.Factory.StartNew(() =>
-            {              
+            {
                 List<GitHub> GitHubsNew = new List<GitHub>();
                 List<GitHub> GitHubsToc = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterLinks", @"(## Version):\s*(.*\d)*", "## Version:");
                 List<GitHub> GitHubsSirus = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterSirusLinks", @"(@Version):\s*(\d)*", "@Version:");
@@ -191,7 +191,7 @@ namespace AddonUpdater
 
                 }
 
-                for (int i = 0; i < count-1; i++)
+                for (int i = 0; i < count - 1; i++)
                 {
                     int Myindex = version.LastIndexOf(".");
                     version = version.Remove(Myindex, 1);
@@ -204,7 +204,7 @@ namespace AddonUpdater
         {
             if (MyVersion == null) return false;
 
-            double.TryParse(ConvertStringFromDouble(MyVersion).Replace(".",","), out double MyVersionInt);
+            double.TryParse(ConvertStringFromDouble(MyVersion).Replace(".", ","), out double MyVersionInt);
             double.TryParse(ConvertStringFromDouble(version).Replace(".", ","), out double versionInt);
             if (blacklist == false && addonUpdate == true)
             {
@@ -251,7 +251,7 @@ namespace AddonUpdater
             {
                 int index = G2.FindIndex(indx => indx.Name == G1[i].Name);
                 if (index > -1)
-                {                  
+                {
                     if (GetVersion(G2[i].Version, G1[index].Version) ||
                         GetVersion(G1[i].MyVersion, G2[index].MyVersion) ||
                         G1[i].Description != G2[index].Description ||
@@ -676,7 +676,7 @@ namespace AddonUpdater
 
             Properties.Settings.Default.LastUpdate = lastUpdate;
             Properties.Settings.Default.Save();
-           
-        }     
+
+        }
     }
 }

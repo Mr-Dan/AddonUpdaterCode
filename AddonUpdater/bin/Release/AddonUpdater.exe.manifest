@@ -43,14 +43,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="1657232">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="1714064">
       <assemblyIdentity name="AddonUpdater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Xssolc/GMEKkc3kVlu5wY0dcCfmf03g7jqLhhW/4G7M=</dsig:DigestValue>
+        <dsig:DigestValue>f+vdO8aH5hfXtrrYRajjcr7fbWJdXxunWv6rrE5EmrA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -83,6 +83,6 @@ namespace AddonUpdater.Forms
             Properties.Settings.Default.Save();
         }
 
-        
+
     }
 }

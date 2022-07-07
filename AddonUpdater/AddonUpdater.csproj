@@ -183,6 +183,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="bin\Debug\eyes open.png" />
+    <None Include="bin\Debug\eyes closed.png" />
     <None Include="Resources\delete.bmp" />
     <None Include="bin\Debug\delete.png" />
     <None Include="bin\Debug\AddonUpdater.ico" />

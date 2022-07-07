@@ -15,5 +15,6 @@ namespace AddonUpdater.Models
         public Button AddonVersion { get; set; }
         public Button AddonDelete { get; set; }
         public ProgressBar ProgressBar { get; set; }
+        public PictureBox PictureBox { get; set; }
     }
 }

@@ -293,7 +293,7 @@ namespace AddonUpdater.Forms
                 int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
                 if (index != -1)
                 {
-
+                    if (DownloadAddonGitHub.GitHubs[index].Blacklist) buttonReinstall.Enabled = false;
                     buttonReinstall.Text = $"Переустановить\n{DownloadAddonGitHub.GitHubs[index].Name}";
                     ClickIndex = index;
                     RowIndex = row;
@@ -336,6 +336,7 @@ namespace AddonUpdater.Forms
             buttonReportBug.Enabled = true;
             buttonForum.Enabled = true;
             buttonGitHub.Enabled = true;
+            buttonReinstall.Enabled = true;
         }
         private void PanelAddonButtonSet(bool ignor, bool update)
         {
@@ -448,6 +449,7 @@ namespace AddonUpdater.Forms
                         if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name) > -1) panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name)].LastUpdate;
                         else panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
                     panelAddons[rowIndex].AddonVersion.Enabled = true;
+                    buttonReinstall.Enabled = true;
                     while (Properties.Settings.Default.AddonBlacklist.Contains(DownloadAddonGitHub.GitHubs[index].Name))
                     {
                         Properties.Settings.Default.AddonBlacklist.Remove(DownloadAddonGitHub.GitHubs[index].Name);
@@ -464,6 +466,7 @@ namespace AddonUpdater.Forms
                     panelAddons[rowIndex].AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
                     panelAddons[rowIndex].AddonVersion.Text = "В игноре";
                     panelAddons[rowIndex].AddonVersion.Enabled = false;
+                    buttonReinstall.Enabled = false;
                     Properties.Settings.Default.AddonBlacklist.Add(DownloadAddonGitHub.GitHubs[index].Name);
                     Properties.Settings.Default.Save();
                     
@@ -477,24 +480,44 @@ namespace AddonUpdater.Forms
             if (ClickIndex != -1)
             {
                 int index = ClickIndex;
-                if(Properties.Settings.Default.AddonUpdate.Contains(DownloadAddonGitHub.GitHubs[index].Name))
+                int rowIndex = RowIndex;
+                if (Properties.Settings.Default.AddonUpdate.Contains(DownloadAddonGitHub.GitHubs[index].Name))
                 {                   
-                    while (Properties.Settings.Default.AddonBlacklist.Contains(DownloadAddonGitHub.GitHubs[index].Name))
+                    while (Properties.Settings.Default.AddonUpdate.Contains(DownloadAddonGitHub.GitHubs[index].Name))
                     {
                         Properties.Settings.Default.AddonUpdate.Remove(DownloadAddonGitHub.GitHubs[index].Name);
                     }
-
                 }
                 else
                 {
                     Properties.Settings.Default.AddonUpdate.Add(DownloadAddonGitHub.GitHubs[index].Name);
-
                 }
                 Properties.Settings.Default.Save();
 
                 buttonUpdate.BackColor = downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name) ? Color.FromArgb(44, 177, 128) : Color.FromArgb(37, 35, 47);
                 DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, DownloadAddonGitHub.GitHubs[index].Blacklist, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
                 DownloadAddonGitHub.GitHubs[index].DownloadMyAddon = DownloadAddonGitHub.GitHubs[index].NeedUpdate;
+                if (DownloadAddonGitHub.GitHubs[index].NeedUpdate && DownloadAddonGitHub.GitHubs[index].Blacklist == false)
+                {
+                    panelAddons[rowIndex].AddonName.ForeColor = Color.FromArgb(166, 0, 0);
+                    panelAddons[rowIndex].AddonVersion.ForeColor = Color.FromArgb(166, 0, 0);
+                    DownloadAddonGitHub.UpdateInfo = true;
+                    panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + "У Вас: " + DownloadAddonGitHub.GitHubs[index].MyVersion;
+                }
+                else if (DownloadAddonGitHub.GitHubs[index].Blacklist)
+                {
+                    panelAddons[rowIndex].AddonName.ForeColor = Color.FromArgb(44, 42, 63);
+                    panelAddons[rowIndex].AddonVersion.ForeColor = Color.FromArgb(44, 42, 63);
+
+                    panelAddons[rowIndex].AddonVersion.Text = "В игноре";
+                    panelAddons[rowIndex].AddonVersion.Enabled = false;
+                }
+                else
+                {
+                    if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name) > -1) panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == DownloadAddonGitHub.GitHubs[index].Name)].LastUpdate;
+                    else panelAddons[rowIndex].AddonVersion.Text = "Актуальная: " + DownloadAddonGitHub.GitHubs[index].Version;
+                }
+                panelAddons[rowIndex].PictureBox.BackgroundImage = downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed;
             }
         }
 
@@ -849,7 +872,7 @@ namespace AddonUpdater.Forms
 
             panelAddonSetings.AddonDelete = new Button
             {
-                Width = 45,
+                Width = 40,
                 Height = 40,
                 Font = new Font("Microsoft Sans Serif", 9F, FontStyle.Regular, GraphicsUnit.Point, 204),
 
@@ -861,6 +884,10 @@ namespace AddonUpdater.Forms
             };
             panelAddonSetings.AddonDelete.FlatAppearance.BorderSize = 0;
 
+            panelAddonSetings.PictureBox = new PictureBox
+            {
+                Visible = true
+            };
 
         }
       
