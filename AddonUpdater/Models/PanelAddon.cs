@@ -26,7 +26,7 @@ namespace AddonUpdater.Models
 
         private int xNext = 0;
 
-        private int Row = -1;
+        public int Row = -1;
 
         public PanelAddon(GitHub gitHub, int row, Panel panelParent, PanelAddonSetings panelAddonSetings_)
         {
@@ -187,16 +187,17 @@ namespace AddonUpdater.Models
         {
             PictureBox = new PictureBox
             {
-                Name = "PictureBox" + GitHub.Name + "_row_" + Row,
+                Name = "PictureBox_" + GitHub.Name + "_row_" + Row,
                 Width = 40,
                 Height = 40,
                 Parent = AddonPanel.Parent,
                 Location = new Point(AddonName.Width - 40, 0),
                 Visible = panelAddonSetings.PictureBox.Visible,
                 BackgroundImageLayout = ImageLayout.Zoom,
-                BackgroundImage = downloadAddonGitHub.GetAddonUpdate(GitHub.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed
+                BackgroundImage = downloadAddonGitHub.GetAddonUpdate(GitHub.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed,
+                Cursor = panelAddonSetings.PictureBox.Cursor
             };
-
+           
         }
     }
 }

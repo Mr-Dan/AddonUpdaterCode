@@ -108,7 +108,7 @@ namespace AddonUpdater
             buttonAllAddons.Visible = true;
             labelTitleName.Visible = true;
             labelTitle.Visible = true;
-            labelVersion.Visible = true;
+            LabelVersion.Visible = true;
             button_Close.Visible = true;
             button_Resize.Visible = true;
             progressBar1.Visible = true;
@@ -125,7 +125,7 @@ namespace AddonUpdater
                 Stream stream = webClient.OpenRead("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterVersion");
                 StreamReader streamReader = new StreamReader(stream);
                 result = streamReader.ReadToEnd().Replace("\n", "").Trim();
-                labelVersion.Text = "v." + Application.ProductVersion;
+                LabelVersion.Text = "v." + Application.ProductVersion;
                 if (Application.ProductVersion != result)
                 {
                     if (File.Exists("Updater.exe"))
@@ -265,14 +265,14 @@ namespace AddonUpdater
                 {
                     OpenChildForm(new FormAddons(this), buttonAddons);
                     openingForm = true;
-                    DownloadAddonGitHub.UpdateInfo = false;
+                    //DownloadAddonGitHub.UpdateInfo = false;
 
                 }
                 else if (name == "FormAllAddons")
                 {
                     OpenChildForm(new FormAllAddons(this), buttonAllAddons);
                     openingForm = true;
-                    DownloadAddonGitHub.UpdateInfo = false;
+                    //DownloadAddonGitHub.UpdateInfo = false;
 
                 }
         }
@@ -447,6 +447,15 @@ namespace AddonUpdater
             button_Close.Enabled = true;
         }
 
+        private void LabelVersion_Click(object sender, EventArgs e)
+        {
+            if (DownloadAddonGitHub.AddonUpdaterSettings.LinkLastUpdate != null)
+                Process.Start(DownloadAddonGitHub.AddonUpdaterSettings.LinkLastUpdate);
+        }
 
+        private void LabelVersion_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip.Show("Нажмите для просмотра списка нововведения", LabelVersion);
+        }
     }
 }

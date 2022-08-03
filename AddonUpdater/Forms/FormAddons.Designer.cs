@@ -29,6 +29,7 @@ namespace AddonUpdater.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAddons));
             this.button_Dowload = new System.Windows.Forms.Button();
             this.button_update = new System.Windows.Forms.Button();
@@ -53,15 +54,20 @@ namespace AddonUpdater.Forms
             this.comboBoxAccount = new System.Windows.Forms.ComboBox();
             this.buttonpanelDeleteSettings = new System.Windows.Forms.Button();
             this.panelAddonsViewTitle = new System.Windows.Forms.Panel();
+            this.PictureBoxFollowUpdate = new System.Windows.Forms.PictureBox();
             this.labelAuthor = new System.Windows.Forms.Label();
             this.labelCategory = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.panelAddonsView = new System.Windows.Forms.Panel();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ButtonPathsShow = new System.Windows.Forms.Button();
+            this.ContextMenuStripPaths = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.PanelDescription.SuspendLayout();
             this.panelAddon.SuspendLayout();
             this.panelDeleteSettings.SuspendLayout();
             this.panelAddonsViewTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFollowUpdate)).BeginInit();
             this.SuspendLayout();
             // 
             // button_Dowload
@@ -389,6 +395,7 @@ namespace AddonUpdater.Forms
             // panelAddonsViewTitle
             // 
             this.panelAddonsViewTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(130)))), ((int)(((byte)(159)))));
+            this.panelAddonsViewTitle.Controls.Add(this.PictureBoxFollowUpdate);
             this.panelAddonsViewTitle.Controls.Add(this.labelAuthor);
             this.panelAddonsViewTitle.Controls.Add(this.labelCategory);
             this.panelAddonsViewTitle.Controls.Add(this.labelVersion);
@@ -398,6 +405,17 @@ namespace AddonUpdater.Forms
             this.panelAddonsViewTitle.Name = "panelAddonsViewTitle";
             this.panelAddonsViewTitle.Size = new System.Drawing.Size(900, 40);
             this.panelAddonsViewTitle.TabIndex = 25;
+            // 
+            // PictureBoxFollowUpdate
+            // 
+            this.PictureBoxFollowUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.PictureBoxFollowUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.PictureBoxFollowUpdate.Location = new System.Drawing.Point(260, 0);
+            this.PictureBoxFollowUpdate.Name = "PictureBoxFollowUpdate";
+            this.PictureBoxFollowUpdate.Size = new System.Drawing.Size(40, 40);
+            this.PictureBoxFollowUpdate.TabIndex = 5;
+            this.PictureBoxFollowUpdate.TabStop = false;
+            this.PictureBoxFollowUpdate.Click += new System.EventHandler(this.PictureBoxFollowUpdate_Click);
             // 
             // labelAuthor
             // 
@@ -453,12 +471,45 @@ namespace AddonUpdater.Forms
             this.panelAddonsView.Size = new System.Drawing.Size(900, 485);
             this.panelAddonsView.TabIndex = 26;
             // 
+            // ToolTip
+            // 
+            this.ToolTip.AutoPopDelay = 5000;
+            this.ToolTip.InitialDelay = 200;
+            this.ToolTip.ReshowDelay = 100;
+            // 
+            // ButtonPathsShow
+            // 
+            this.ButtonPathsShow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(177)))), ((int)(((byte)(128)))));
+            this.ButtonPathsShow.FlatAppearance.BorderSize = 0;
+            this.ButtonPathsShow.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ButtonPathsShow.ForeColor = System.Drawing.Color.White;
+            this.ButtonPathsShow.Location = new System.Drawing.Point(865, 535);
+            this.ButtonPathsShow.Name = "ButtonPathsShow";
+            this.ButtonPathsShow.Size = new System.Drawing.Size(25, 40);
+            this.ButtonPathsShow.TabIndex = 27;
+            this.ButtonPathsShow.TabStop = false;
+            this.ButtonPathsShow.Text = "▼";
+            this.ButtonPathsShow.UseVisualStyleBackColor = false;
+            this.ButtonPathsShow.Click += new System.EventHandler(this.ButtonPathsShow_Click);
+            this.ButtonPathsShow.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ButtonPathsShow_MouseClick);
+            // 
+            // ContextMenuStripPaths
+            // 
+            this.ContextMenuStripPaths.BackColor = System.Drawing.Color.LightGray;
+            this.ContextMenuStripPaths.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.ContextMenuStripPaths.Name = "ContextMenuStripPaths";
+            this.ContextMenuStripPaths.ShowImageMargin = false;
+            this.ContextMenuStripPaths.Size = new System.Drawing.Size(36, 4);
+            this.ContextMenuStripPaths.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStripPaths_ItemClicked);
+            this.ContextMenuStripPaths.MouseLeave += new System.EventHandler(this.ContextMenuStripPaths_MouseLeave);
+            // 
             // FormAddons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.ClientSize = new System.Drawing.Size(900, 580);
+            this.Controls.Add(this.ButtonPathsShow);
             this.Controls.Add(this.panelAddon);
             this.Controls.Add(this.PanelDescription);
             this.Controls.Add(this.panelDeleteSettings);
@@ -475,6 +526,7 @@ namespace AddonUpdater.Forms
             this.panelAddon.ResumeLayout(false);
             this.panelDeleteSettings.ResumeLayout(false);
             this.panelAddonsViewTitle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.PictureBoxFollowUpdate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -508,5 +560,9 @@ namespace AddonUpdater.Forms
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Panel panelAddonsView;
         public System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.ToolTip ToolTip;
+        private System.Windows.Forms.PictureBox PictureBoxFollowUpdate;
+        private System.Windows.Forms.Button ButtonPathsShow;
+        private System.Windows.Forms.ContextMenuStrip ContextMenuStripPaths;
     }
 }

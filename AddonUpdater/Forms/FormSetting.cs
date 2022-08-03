@@ -43,10 +43,21 @@ namespace AddonUpdater.Forms
             {
                 List<string> Directories = new List<string>(Directory.GetDirectories(path));
 
-                if (Directories.FindIndex(dir => dir.IndexOf("Interface") > -1) > -1 && Directories.FindIndex(dir => dir.IndexOf("WTF") > -1) > -1)
+                for (int i = 0; i < Directories.Count; i++)
+                {
+                    Directories[i] = Directories[i].ToLower();
+                }
+
+                if (Directories.FindIndex(dir => dir.Contains("interface")) > -1 && Directories.FindIndex(dir => dir.Contains("wtf")) > -1)
                 {
                     Properties.Settings.Default.PathWow = path;
-                    Properties.Settings.Default.AutoUpdateBool = checkBoxAutoUpdate.Checked;
+                    if (Properties.Settings.Default.PathsWow.Contains(path) == false)
+                    {
+                        Properties.Settings.Default.PathsWow.Add(path);
+                        DownloadAddonGitHub.UpdateInfo = true;
+                        DownloadAddonGitHub.ForcedUpdate = true;
+                    }
+                   
                     Properties.Settings.Default.Save();
                     labelPathGame.Text = "Папка с игрой: " + path;
                 }
@@ -83,6 +94,71 @@ namespace AddonUpdater.Forms
             Properties.Settings.Default.Save();
         }
 
+        bool isShowContextMenuStripPaths = false;
+        private void ButtonPathsShow_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (isShowContextMenuStripPaths == false)
+            {
+                ContextMenuStripPaths.Items.Clear();
+                foreach (string text in Properties.Settings.Default.PathsWow)
+                {
 
+                    ContextMenuStripPaths.Items.Add(text);
+                    if (text.Contains(Properties.Settings.Default.PathWow))
+                    {
+                        ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].BackColor = Color.FromArgb(44, 177, 128);
+                        ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].ForeColor = Color.White;
+
+                    }
+                }
+
+                ContextMenuStripPaths.Show(ButtonPathsShow, new Point(0, -ButtonPathsShow.Height));
+                isShowContextMenuStripPaths = true;
+            }
+            else
+            {
+                ContextMenuStripPaths.Hide();
+                isShowContextMenuStripPaths = false;
+            }
+        }
+
+        private void ContextMenuStripPaths_MouseLeave(object sender, EventArgs e)
+        {
+            ContextMenuStripPaths.Hide();
+            isShowContextMenuStripPaths = false;
+        }
+
+        private void ContextMenuStripPaths_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            Properties.Settings.Default.PathWow = e.ClickedItem.Text;
+            Properties.Settings.Default.Save();
+            labelPathGame.Text = e.ClickedItem.Text;
+            DownloadAddonGitHub.UpdateInfo = true;
+            DownloadAddonGitHub.ForcedUpdate = true;
+        }
+
+        private void DeletePathGame_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.PathWow != null)
+            {
+                if (Properties.Settings.Default.PathsWow.Count > 1)
+                {
+                    Properties.Settings.Default.PathsWow.Remove(Properties.Settings.Default.PathWow);
+                    Properties.Settings.Default.PathWow = Properties.Settings.Default.PathsWow[0];
+                    Properties.Settings.Default.Save();
+                    labelPathGame.Text = "Папка с игрой: " + Properties.Settings.Default.PathWow;
+                    DownloadAddonGitHub.UpdateInfo = true;
+                    DownloadAddonGitHub.ForcedUpdate = true;
+                }
+                else
+                {
+                    MessageBox.Show("Вы не можете удалить единственный путь к игре.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Путь к игре пустой.");
+            }
+        }
     }
 }

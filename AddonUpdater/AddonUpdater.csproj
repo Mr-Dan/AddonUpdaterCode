@@ -117,11 +117,13 @@
       <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AddonError.cs" />
+    <Compile Include="Models\AddonUpdaterSettings.cs" />
     <Compile Include="Models\GitHub.cs" />
     <Compile Include="Models\LastUpdateAddon.cs" />
     <Compile Include="Models\PanelAddon.cs" />
     <Compile Include="Models\PanelAddonSetings.cs" />
     <Compile Include="Models\Realms.cs" />
+    <Compile Include="Models\Toc.cs" />
     <Compile Include="Models\WTF.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,6 +185,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="bin\Debug\eyes mixed.png" />
     <None Include="bin\Debug\eyes open.png" />
     <None Include="bin\Debug\eyes closed.png" />
     <None Include="Resources\delete.bmp" />

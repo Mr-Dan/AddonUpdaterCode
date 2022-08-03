@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace AddonUpdater
@@ -19,26 +20,83 @@ namespace AddonUpdater
         public static List<GitHub> NeedUpdate = new List<GitHub>();
         public static bool UpdateInfo = false;
         public static bool Update = false;
+        public static bool ForcedUpdate = false;
         public static List<WTF> WTF = new List<WTF>();
         public static List<LastUpdateAddon> lastUpdateAddon = new List<LastUpdateAddon>();
+        public static AddonUpdaterSettings AddonUpdaterSettings = new AddonUpdaterSettings();
+
+        private void GetSettings()
+        {
+            // DeleteDirectory = new List<string>();
+            //DeleteDirectory = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterDeleteDirectory").Split(',').ToList();
+            AddonUpdaterSettings = new AddonUpdaterSettings
+            {
+                Tocs = new List<Toc>()
+            };
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            string getUrlGithub = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterSettings");
+            string[] url_addons = getUrlGithub.Split('\n');
+
+            for (int i = 0; i < url_addons.Length - 1; i++)
+            {
+                string deleteDirectory = GetValues(url_addons[i], "DeleteDirectory");
+                string listAddons = GetValues(url_addons[i], "ListsAddons");
+
+                if (deleteDirectory != null)
+                    AddonUpdaterSettings.DeleteDirectory = deleteDirectory.Split(',').ToList();
+
+                if (listAddons != null)
+                {
+                    string[] listsAddons = listAddons.Split('|');
+
+                    if (listsAddons.Length > 0)
+                    {
+                        foreach (string line in listsAddons)
+                        {
+                            AddonUpdaterSettings.Tocs.Add(new Toc(line));
+                        }
+                    }
+                }
+                AddonUpdaterSettings.LinkLastUpdate = GetValues(url_addons[i], "LinkLastUpdate");
+            }
+        }
         public Task Aupdatecheck()
         {
             var getVersion = Task.Factory.StartNew(() =>
             {
+                GetSettings();
                 List<GitHub> GitHubsNew = new List<GitHub>();
-                List<GitHub> GitHubsToc = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterLinks", @"(## Version):\s*(.*\d)*", "## Version:");
-                List<GitHub> GitHubsSirus = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterSirusLinks", @"(@Version):\s*(\d)*", "@Version:");
-                GitHubsNew.AddRange(GitHubsToc);
-                GitHubsNew.AddRange(GitHubsSirus);
-                if (GitHubsNew.Count > 0)
+                //List<GitHub> GitHubsToc = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterLinks", @"(## Version):\s*(.*\d)*", "## Version:");
+                //List<GitHub> GitHubsSirus = AupdatecheckToc2("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterSirusLinks", @"(@Version):\s*(\d)*", "@Version:");        
+                //GitHubsNew.AddRange(GitHubsToc);
+                //GitHubsNew.AddRange(GitHubsSirus);
+                foreach (Toc toc in AddonUpdaterSettings.Tocs)
+                {
+                    GitHubsNew.AddRange(AupdatecheckToc2(toc.GitHubToc, toc.GitHubTocRegex, toc.GitHubTocReplase));
+                   
+                }
+                GitHubsNew.Sort((left, right) => left.Name.CompareTo(right.Name));
+
+                if(GitHubs.Count < 1)
+                {
+                    GitHubs = new List<GitHub>(GitHubsNew);
+                }
+                else if(GitHubsNew.Count > 0)
+                {
                     if (ListCheck(GitHubs, GitHubsNew) == false)
                     {
-                        GitHubsNew.Sort((left, right) => left.Name.CompareTo(right.Name));
                         GitHubs = new List<GitHub>(GitHubsNew);
-                        UpdateInfo = true;
-
+                        if (ForcedUpdate == false) UpdateInfo = true;
+                        else ForcedUpdate = false;
                     }
+                    else
+                    {
+                        UpdateInfo = false;
+                    }
+                }
+                
                 GetWTF();
+
                 if (lastUpdateAddon.Count == 0)
                 {
                     for (int i = 0; i < GitHubs.Count; i++)
@@ -99,6 +157,7 @@ namespace AddonUpdater
             }
             return GitHubsNew;
         }
+
         private string GetVersion(string link, string regex, string replace)
         {
             string get_version = GetContent(link);
@@ -188,7 +247,6 @@ namespace AddonUpdater
                 {
                     if (version[i] == '.')
                         count++;
-
                 }
 
                 for (int i = 0; i < count - 1; i++)
@@ -217,15 +275,15 @@ namespace AddonUpdater
             }
             else return false;
         }
-        public bool GetVersion(string version, string MyVersion)
+        public bool GetVersion(string oldVersion, string newVersion)
         {
-            if (MyVersion == null) return false;
-            if (version == null) return false;
+            if (newVersion == null) return false;
+            if (oldVersion == null) return false;
 
-            double.TryParse(ConvertStringFromDouble(MyVersion).Replace(".", ","), out double MyVersionInt);
-            double.TryParse(ConvertStringFromDouble(version).Replace(".", ","), out double versionInt);
+            double.TryParse(ConvertStringFromDouble(newVersion).Replace(".", ","), out double newVersionInt);
+            double.TryParse(ConvertStringFromDouble(oldVersion).Replace(".", ","), out double oldVersionInt);
 
-            if (versionInt > MyVersionInt)
+            if (oldVersionInt != newVersionInt)
             {
                 return true;
             }
@@ -249,7 +307,8 @@ namespace AddonUpdater
 
             for (int i = 0; i < G1.Count; i++)
             {
-                int index = G2.FindIndex(indx => indx.Name == G1[i].Name);
+                //int index = G2.FindIndex(indx => indx.Name == G1[i].Name);
+                int index = i;
                 if (index > -1)
                 {
                     if (GetVersion(G2[i].Version, G1[index].Version) ||
@@ -265,7 +324,10 @@ namespace AddonUpdater
                         G1[i].Link != G2[index].Link ||
                         G1[i].Name != G2[index].Name
                         )
+                    {
+                        int g = i;
                         return false;
+                    }
                 }
                 else
                 {
@@ -366,6 +428,8 @@ namespace AddonUpdater
                 }
             }
         }
+
+
         List<Realms> GetRealm(string path)
         {
             List<Realms> Realms = new List<Realms>();
@@ -387,6 +451,7 @@ namespace AddonUpdater
                     if (Directory.Exists(Properties.Settings.Default.PathWow + @"\Interface\AddOns\old"))
                     {
                         DirectoryDelete(Properties.Settings.Default.PathWow + @"\Interface\AddOns\old");
+                        Thread.Sleep(100);
                     }
                     Directory.CreateDirectory(Properties.Settings.Default.PathWow + @"\Interface\AddOns\old");
 
@@ -395,6 +460,7 @@ namespace AddonUpdater
                         if (Directory.Exists(NeedUpdate[i].Name))
                         {
                             DirectoryDelete(NeedUpdate[i].Name);
+                            Thread.Sleep(100);
                         }
                         Directory.CreateDirectory(NeedUpdate[i].Name);
 
@@ -409,14 +475,8 @@ namespace AddonUpdater
                         string[] allfiles2 = Directory.GetDirectories(allfiles[0]);
                         string[] allfiles3 = Directory.GetFiles(allfiles[0]);
 
-                        if (Directory.Exists(allfiles[0] + @"\.github"))
-                        {
-                            DirectoryDelete(allfiles[0] + @"\.github");
-                        }
-                        if (Directory.Exists(allfiles[0] + @"\.vs"))
-                        {
-                            DirectoryDelete(allfiles[0] + @"\.vs");
-                        }
+                        AddonUpdaterDeleteDirectory(allfiles[0]);
+
                         allfiles2 = Directory.GetDirectories(allfiles[0]);
 
 
@@ -468,6 +528,32 @@ namespace AddonUpdater
                 //Aupdatecheck();
             });
             return getaddon;
+        }
+
+
+        public (string nameAddon, int row) GetNameAndRow(string controlName, string control)
+        {
+            string nameAddon = Regex.Match(controlName, $@"{control}_(\w)+_row").Value.Replace($"{control}_", "").Replace("_row", "");
+            int row = int.Parse(Regex.Match(controlName, @"_row_\d*").Value.Replace("_row_", ""));
+
+            return (nameAddon, row);
+        }
+
+        private void AddonUpdaterDeleteDirectory(string path)
+        {
+            foreach (string directory in AddonUpdaterSettings.DeleteDirectory)
+            {
+                if (Directory.Exists(path + $@"\{directory}"))
+                {
+                    DirectoryDelete(path + $@"\{directory}");
+                    Thread.Sleep(100);
+                }
+                if (Directory.Exists(Properties.Settings.Default.PathWow + $@"\Interface\AddOns\{directory}"))
+                {
+                    DirectoryDelete(Properties.Settings.Default.PathWow + $@"\Interface\AddOns\{directory}");
+                    Thread.Sleep(100);
+                }
+            }
         }
 
         public void DirectoryDelete(string path)
@@ -585,12 +671,14 @@ namespace AddonUpdater
                     if (Directory.Exists(Properties.Settings.Default.PathWow + $@"\Interface\AddOns\old{gitHub.Name}"))
                     {
                         DirectoryDelete(Properties.Settings.Default.PathWow + $@"\Interface\AddOns\old{gitHub.Name}");
+                        Thread.Sleep(100);
                     }
 
 
                     if (Directory.Exists(gitHub.Name))
                     {
                         DirectoryDelete(gitHub.Name);
+                        Thread.Sleep(100);
                     }
                     Directory.CreateDirectory(gitHub.Name);
 
@@ -605,14 +693,8 @@ namespace AddonUpdater
                     string[] allfiles2 = Directory.GetDirectories(allfiles[0]);
                     string[] allfiles3 = Directory.GetFiles(allfiles[0]);
 
-                    if (Directory.Exists(allfiles[0] + @"\.github"))
-                    {
-                        DirectoryDelete(allfiles[0] + @"\.github");
-                    }
-                    if (Directory.Exists(allfiles[0] + @"\.vs"))
-                    {
-                        DirectoryDelete(allfiles[0] + @"\.vs");
-                    }
+                    AddonUpdaterDeleteDirectory(allfiles[0]);
+
                     allfiles2 = Directory.GetDirectories(allfiles[0]);
 
                     if (File.Exists(gitHub.Name + "\\" + gitHub.Directory) == false)

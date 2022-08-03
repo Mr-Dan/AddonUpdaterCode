@@ -46,12 +46,13 @@ namespace AddonUpdater
             this.panelMenu = new System.Windows.Forms.Panel();
             this.buttonAbout = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
-            this.labelVersion = new System.Windows.Forms.Label();
+            this.LabelVersion = new System.Windows.Forms.Label();
             this.panelDesktopPane = new System.Windows.Forms.Panel();
             this.labelMainName = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.timerKill = new System.Windows.Forms.Timer(this.components);
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelTitleBar.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.panelMenu.SuspendLayout();
@@ -212,7 +213,7 @@ namespace AddonUpdater
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
             this.panelMenu.Controls.Add(this.buttonAbout);
             this.panelMenu.Controls.Add(this.buttonSettings);
-            this.panelMenu.Controls.Add(this.labelVersion);
+            this.panelMenu.Controls.Add(this.LabelVersion);
             this.panelMenu.Controls.Add(this.buttonAllAddons);
             this.panelMenu.Controls.Add(this.buttonAddons);
             this.panelMenu.Dock = System.Windows.Forms.DockStyle.Left;
@@ -259,16 +260,19 @@ namespace AddonUpdater
             this.buttonSettings.Visible = false;
             this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             // 
-            // labelVersion
+            // LabelVersion
             // 
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVersion.ForeColor = System.Drawing.Color.White;
-            this.labelVersion.Location = new System.Drawing.Point(30, 601);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(160, 30);
-            this.labelVersion.TabIndex = 22;
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.labelVersion.Visible = false;
+            this.LabelVersion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.LabelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LabelVersion.ForeColor = System.Drawing.Color.White;
+            this.LabelVersion.Location = new System.Drawing.Point(30, 601);
+            this.LabelVersion.Name = "LabelVersion";
+            this.LabelVersion.Size = new System.Drawing.Size(160, 30);
+            this.LabelVersion.TabIndex = 22;
+            this.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.LabelVersion.Visible = false;
+            this.LabelVersion.Click += new System.EventHandler(this.LabelVersion_Click);
+            this.LabelVersion.MouseHover += new System.EventHandler(this.LabelVersion_MouseHover);
             // 
             // panelDesktopPane
             // 
@@ -313,6 +317,12 @@ namespace AddonUpdater
             this.progressBar1.TabIndex = 19;
             this.progressBar1.Visible = false;
             // 
+            // ToolTip
+            // 
+            this.ToolTip.AutoPopDelay = 5000;
+            this.ToolTip.InitialDelay = 200;
+            this.ToolTip.ReshowDelay = 100;
+            // 
             // FormMainMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -351,7 +361,7 @@ namespace AddonUpdater
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem CloseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
-        private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Label LabelVersion;
         private System.Windows.Forms.Button button_Resize;
         private System.Windows.Forms.Timer timerKill;
         private System.Windows.Forms.Label labelTitleName;
@@ -362,6 +372,7 @@ namespace AddonUpdater
         public System.Windows.Forms.Button buttonSettings;
         public System.Windows.Forms.Button buttonAbout;
         public System.Windows.Forms.Button button_Close;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }
 

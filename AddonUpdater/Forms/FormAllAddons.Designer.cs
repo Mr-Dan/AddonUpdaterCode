@@ -29,6 +29,7 @@ namespace AddonUpdater.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAllAddons));
             this.button_update = new System.Windows.Forms.Button();
             this.buttonLauncher = new System.Windows.Forms.Button();
@@ -45,6 +46,7 @@ namespace AddonUpdater.Forms
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
             this.panelAddonsView = new System.Windows.Forms.Panel();
+            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.PanelDescription.SuspendLayout();
             this.panelAddon.SuspendLayout();
             this.panelAddonsViewTitle.SuspendLayout();
@@ -258,6 +260,12 @@ namespace AddonUpdater.Forms
             this.panelAddonsView.Size = new System.Drawing.Size(900, 485);
             this.panelAddonsView.TabIndex = 27;
             // 
+            // ToolTip
+            // 
+            this.ToolTip.AutoPopDelay = 5000;
+            this.ToolTip.InitialDelay = 200;
+            this.ToolTip.ReshowDelay = 100;
+            // 
             // FormAllAddons
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,5 +305,6 @@ namespace AddonUpdater.Forms
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Panel panelAddonsView;
+        private System.Windows.Forms.ToolTip ToolTip;
     }
 }

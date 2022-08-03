@@ -42,7 +42,13 @@ namespace AddonUpdater.Forms
                 panelAddonsView.HorizontalScroll.Maximum = 0;
                 panelAddonsView.AutoScroll = true;
                 SetSettingsPanelAddon();
-                UpdatePanelAddonsView(false);
+                if (DownloadAddonGitHub.UpdateInfo == false)
+                    UpdatePanelAddonsView(false);
+                else
+                {
+                    UpdatePanelAddonsView(true);
+                    DownloadAddonGitHub.UpdateInfo = false;
+                }
             }
             else
             {
@@ -100,6 +106,7 @@ namespace AddonUpdater.Forms
                     panelAddons[panelAddons.Count - 1].AddonName.MouseMove += new MouseEventHandler(AddonName_MouseMove);
                     panelAddons[panelAddons.Count - 1].AddonName.MouseClick += new MouseEventHandler(AddonName_MouseClick);
                     panelAddons[panelAddons.Count - 1].AddonVersion.Click += new EventHandler(AddonVersion_Click);
+                    panelAddons[panelAddons.Count - 1].AddonVersion.MouseHover += new EventHandler(AddonVersion_MouseHover);
                     panelAddons[panelAddons.Count - 1].AddonPanel.BringToFront();
                 }
             }
@@ -357,8 +364,12 @@ namespace AddonUpdater.Forms
             Button Button = new Button();
             Button = (Button)sender;
 
-            string nameAddon = Regex.Match(Button.Name, @"Button_(\w)+_row").Value.Replace("Button_", "").Replace("_row", "");
-            int row = int.Parse(Regex.Match(Button.Name, @"_row_\d*").Value.Replace("_row_", ""));//??
+            //string nameAddon = Regex.Match(Button.Name, @"Button_(\w)+_row").Value.Replace("Button_", "").Replace("_row", "");
+            //int row = int.Parse(Regex.Match(Button.Name, @"_row_\d*").Value.Replace("_row_", ""));//??
+
+            var tuple = downloadAddonGitHub.GetNameAndRow(Button.Name, "Button");
+            string nameAddon = tuple.nameAddon;
+            int row = tuple.row;
 
             int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == nameAddon);
             if (index != -1)
@@ -367,6 +378,10 @@ namespace AddonUpdater.Forms
                 await DownloadAddon3(DownloadAddonGitHub.GitHubs[index], index, row);
             }
 
+        }
+        private void AddonVersion_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip.Show("Нажмите чтобы скачать данный аддон", (Button)sender);
         }
         int NumberDownloadableAddons = 0;
         public async Task DownloadAddon3(GitHub gitHub, int index, int rowIndex)

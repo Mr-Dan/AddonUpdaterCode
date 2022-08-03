@@ -27,6 +27,6 @@ namespace AddonUpdater.Models
         public bool Blacklist { get; set; }
         public bool SavedVariables { get; set; }
         public bool SavedVariablesPerCharacter { get; set; }
-        public List<string> Files { get; set; }
+        public List<string> Files { get; set; }  
     }
 }

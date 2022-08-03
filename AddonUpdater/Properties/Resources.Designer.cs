@@ -93,6 +93,16 @@ namespace AddonUpdater.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap eyes_mixed {
+            get {
+                object obj = ResourceManager.GetObject("eyes_mixed", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap eyes_open {
             get {
                 object obj = ResourceManager.GetObject("eyes_open", resourceCulture);
