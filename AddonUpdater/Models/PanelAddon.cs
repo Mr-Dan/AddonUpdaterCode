@@ -10,7 +10,7 @@ namespace AddonUpdater.Models
 {
     class PanelAddon
     {
-        private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
+      /*  private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
 
         private PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
         public GitHub GitHub { get; set; }
@@ -197,7 +197,7 @@ namespace AddonUpdater.Models
                 BackgroundImage = downloadAddonGitHub.GetAddonUpdate(GitHub.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed,
                 Cursor = panelAddonSetings.PictureBox.Cursor
             };
-           
-        }
+
+        }*/
     }
 }

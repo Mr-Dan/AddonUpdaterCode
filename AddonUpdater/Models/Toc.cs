@@ -14,7 +14,6 @@ namespace AddonUpdater.Models
 
             GitHubToc = toc[0].Trim();
             GitHubTocRegex = toc[1].Trim();
-            GitHubTocReplase = toc[2].Trim();
         }
         public string GitHubToc { get; set; }
         public string GitHubTocRegex { get; set; }

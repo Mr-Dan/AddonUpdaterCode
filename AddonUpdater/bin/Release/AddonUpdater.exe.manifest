@@ -4,7 +4,7 @@
   <description asmv2:iconFile="AddonUpdater.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="AddonUpdater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <assemblyIdentity name="AddonUpdater" version="1.22.0.0" language="neutral" processorArchitecture="msil" />
     <commandLine file="AddonUpdater.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -43,24 +43,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="1751952">
-      <assemblyIdentity name="AddonUpdater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="756624">
+      <assemblyIdentity name="AddonUpdater" version="1.22.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>R1xf4rF171rwnLGFU1sTSijZ/th4s+eAyAbpqQYfUEw=</dsig:DigestValue>
+        <dsig:DigestValue>Y+kgCBjPTw+hIdBLngUmJU/LwycsushWt3nLcFWHehQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="AddonUpdater.exe.config" size="2556">
+  <file name="AddonUpdater.exe.config" size="2236">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>L7AFy2Bllto7WZmC8zcyYSuhe5/5Y17jxyeJM4dzj5Y=</dsig:DigestValue>
+      <dsig:DigestValue>RVQWOee+esE1ogO6D7SBiKcsQti2pSN96Mge/zpNvjQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="AddonUpdater.ico" size="20974">

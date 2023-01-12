@@ -43,24 +43,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="1763728">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="AddonUpdater.exe" size="763280">
       <assemblyIdentity name="AddonUpdater" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>P/Gr+fw+cbInsAKzOkQaLUQSFrq55hp700Vg7k2UHl4=</dsig:DigestValue>
+        <dsig:DigestValue>A3WFej0WaABkRD8BRnlWQ3600bOXYvj+s90GKDEyl8E=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="AddonUpdater.exe.config" size="2556">
+  <file name="AddonUpdater.exe.config" size="2116">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>L7AFy2Bllto7WZmC8zcyYSuhe5/5Y17jxyeJM4dzj5Y=</dsig:DigestValue>
+      <dsig:DigestValue>K/ryodk+T8VOKam6JYClkW1yBUvm6pYF6XZv97SdoTk=</dsig:DigestValue>
     </hash>
   </file>
   <file name="AddonUpdater.ico" size="20974">

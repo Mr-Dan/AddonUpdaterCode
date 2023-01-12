@@ -4,17 +4,17 @@
   <description asmv2:publisher="AddonUpdater" asmv2:product="AddonUpdater" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" co.v1:createDesktopShortcut="true" />
   <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
-    <framework targetVersion="4.7.2" profile="Full" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.8" profile="Full" supportedRuntime="4.0.30319" />
   </compatibleFrameworks>
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="AddonUpdater.exe.manifest" size="4154">
+    <dependentAssembly dependencyType="install" codebase="AddonUpdater.exe.manifest" size="4155">
       <assemblyIdentity name="AddonUpdater.exe" version="1.0.0.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>W5XrPth+fUSy/Xf9YPNR2YLwQE02HhIeWKVawt5TAjw=</dsig:DigestValue>
+        <dsig:DigestValue>bXBk+mWfVpqbh37ewjBQqC147AkqWSYeGPyAAuwO9JA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

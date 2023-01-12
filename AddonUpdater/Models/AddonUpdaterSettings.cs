@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace AddonUpdater.Models
 {
     class AddonUpdaterSettings
-    {    
+    {
         public List<Toc> Tocs { get; set; }
         public List<string> DeleteDirectory { get; set; }
         public string LinkLastUpdate { get; set; }

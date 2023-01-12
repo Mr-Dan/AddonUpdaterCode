@@ -1,5 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.props" Condition="Exists('..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.props')" />
+  <Import Project="..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.props" Condition="Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,11 +10,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>AddonUpdater</RootNamespace>
     <AssemblyName>AddonUpdater</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,6 +32,8 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -85,36 +90,48 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\AddonUpdaterAboutFormControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddonUpdaterAboutFormControl.Designer.cs">
+      <DependentUpon>AddonUpdaterAboutFormControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddonControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddonControl.Designer.cs">
+      <DependentUpon>AddonControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddonDeleteSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddonDeleteSettingsControl.Designer.cs">
+      <DependentUpon>AddonDeleteSettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddonDropdownControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddonDropdownControl.Designer.cs">
+      <DependentUpon>AddonDropdownControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddonFormControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddonFormControl.Designer.cs">
+      <DependentUpon>AddonFormControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AddonUpdaterSettingsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddonUpdaterSettingsControl.Designer.cs">
+      <DependentUpon>AddonUpdaterSettingsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownloadAddonGitHub.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormAbout.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormAbout.Designer.cs">
-      <DependentUpon>FormAbout.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormAddons.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormAddons.Designer.cs">
-      <DependentUpon>FormAddons.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormAllAddons.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormAllAddons.Designer.cs">
-      <DependentUpon>FormAllAddons.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\FormSetting.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\FormSetting.Designer.cs">
-      <DependentUpon>FormSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\AddonError.cs" />
     <Compile Include="Models\AddonUpdaterSettings.cs" />
@@ -127,20 +144,26 @@
     <Compile Include="Models\WTF.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Controls\AddonUpdaterAboutFormControl.resx">
+      <DependentUpon>AddonUpdaterAboutFormControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AddonControl.resx">
+      <DependentUpon>AddonControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AddonDeleteSettingsControl.resx">
+      <DependentUpon>AddonDeleteSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AddonDropdownControl.resx">
+      <DependentUpon>AddonDropdownControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AddonFormControl.resx">
+      <DependentUpon>AddonFormControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AddonUpdaterSettingsControl.resx">
+      <DependentUpon>AddonUpdaterSettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormAbout.resx">
-      <DependentUpon>FormAbout.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormAddons.resx">
-      <DependentUpon>FormAddons.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormAllAddons.resx">
-      <DependentUpon>FormAllAddons.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\FormSetting.resx">
-      <DependentUpon>FormSetting.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -185,6 +208,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="bin\Debug\notifications3.png" />
+    <None Include="bin\Debug\notifications2.png" />
+    <None Include="bin\Debug\notifications.png" />
     <None Include="bin\Debug\eyes mixed.png" />
     <None Include="bin\Debug\eyes open.png" />
     <None Include="bin\Debug\eyes closed.png" />
@@ -193,4 +219,15 @@
     <None Include="bin\Debug\AddonUpdater.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.targets" Condition="Exists('..\packages\Microsoft.Build.Tasks.Git.1.1.1\build\Microsoft.Build.Tasks.Git.targets')" />
+  <Import Project="..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.targets" Condition="Exists('..\packages\Microsoft.SourceLink.Common.1.1.1\build\Microsoft.SourceLink.Common.targets')" />
 </Project>
