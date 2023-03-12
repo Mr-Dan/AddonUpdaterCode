@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace AddonUpdater
 {
@@ -19,7 +20,6 @@ namespace AddonUpdater
         public static List<GitHub> GitHubs = new List<GitHub>();
         public static List<GitHub> NeedUpdate = new List<GitHub>();
         public static bool UpdateInfo = true;
-        public static bool Update = false;
 
         public static List<WTF> WTF = new List<WTF>();
         public static List<LastUpdateAddon> lastUpdateAddon = new List<LastUpdateAddon>();
@@ -38,7 +38,6 @@ namespace AddonUpdater
 
                 }
                 GitHubsNew.Sort((left, right) => left.Name.CompareTo(right.Name));
-
                 if (GitHubs.Count < 1)
                 {
                     GitHubs = new List<GitHub>(GitHubsNew);
@@ -47,13 +46,42 @@ namespace AddonUpdater
                 {
                     if (ListCheck(GitHubs, GitHubsNew) == false)
                     {
-                        GitHubs = new List<GitHub>(GitHubsNew);
+                        UpdateGitHub(GitHubsNew);
                         UpdateInfo = true;
-
                     }
-                    else
+                    
+                }
+
+                GetWTF();
+
+                if (lastUpdateAddon.Count == 0)
+                {
+                    for (int i = 0; i < GitHubs.Count; i++)
                     {
-                        UpdateInfo = false;
+                        if (GitHubs[i].MyVersion != null)
+                        {
+                            lastUpdateAddon.Add(new LastUpdateAddon { AddonName = GitHubs[i].Name, LastUpdate = GetValues(Properties.Settings.Default.LastUpdate, GitHubs[i].Name) });
+                        }
+                    }
+                }
+
+            });
+            return getVersion;
+        }
+
+        public Task AupdatecheckLocal()
+        {
+            var getVersion = Task.Factory.StartNew(() =>
+            {
+            
+                for (int i = 0; i < GitHubs.Count; i++)
+                {
+                    string myVersion = GetMyVersion(GitHubs[i].Directory, GitHubs[i].Regex);
+                    if (GitHubs[i].MyVersion != myVersion)
+                    {
+                        GitHubs[i].MyVersion = myVersion;
+                        GitHubs[i].NeedUpdate = GetNeedUpdate(GitHubs[i].Version, GitHubs[i].MyVersion, GetAddonUpdate(GitHubs[i].Name));
+                        UpdateInfo = true;
                     }
                 }
 
@@ -73,6 +101,7 @@ namespace AddonUpdater
             });
             return getVersion;
         }
+
         public List<GitHub> AupdatecheckToc(string link, string regex, string replace)
         {
             List<GitHub> GitHubsNew = new List<GitHub>();
@@ -147,8 +176,8 @@ namespace AddonUpdater
             }
             catch (Exception ex)
             {
-                if (Directory.Exists(path))
-                    DirectoryDelete(path);
+                // if (Directory.Exists(path))
+                //  DirectoryDelete(path);
                 //MessageBox.Show(ex.ToString(), "Предупреждение");
             }
         }
@@ -336,7 +365,6 @@ namespace AddonUpdater
             {
                 if (versionInt > MyVersionInt)
                 {
-                    if (Update == false) Update = true;
                     return true;
                 }
                 return false;
@@ -451,7 +479,7 @@ namespace AddonUpdater
             foreach (string realm in realms)
             {
                 if (realm.IndexOf("SavedVariables") == -1)
-                    Realms.Add(new Realms { Realm = realm, Persons = Directory.GetDirectories(realm).ToList() });
+                    Realms.Add(new Realms { Name = realm, Persons = Directory.GetDirectories(realm).ToList() });
             }
             return Realms;
         }
@@ -543,7 +571,6 @@ namespace AddonUpdater
                     MessageBox.Show(ex.ToString(), ex.Message);
                 }
                 DirectoryDelete(Properties.Settings.Default.PathWow + @"\Interface\AddOns\old");
-                Update = false;
                 //Aupdatecheck();
             });
             return getaddon;
@@ -666,6 +693,36 @@ namespace AddonUpdater
             Properties.Settings.Default.LastUpdate = lastUpdate;
             Properties.Settings.Default.Save();
 
+        }
+
+        private void UpdateGitHub(List<GitHub> gitHub)
+        {
+            for (int i = 0; i < gitHub.Count; i++)
+            {
+                int index = GitHubs.FindIndex(addon => addon.Name == gitHub[i].Name);
+                if (index > -1)
+                {
+                    GitHubs[i].Name = gitHub[i].Name;
+                    GitHubs[i].Link = gitHub[i].Link;
+                    GitHubs[i].Directory = gitHub[i].Directory;
+                    GitHubs[i].Version = gitHub[i].Version;
+                    GitHubs[i].MyVersion = gitHub[i].MyVersion;
+                    GitHubs[i].Branches = gitHub[i].Branches;
+                    GitHubs[i].Description = gitHub[i].Description;
+                    GitHubs[i].Author = gitHub[i].Author;
+                    GitHubs[i].GithubLink = gitHub[i].GithubLink;
+                    GitHubs[i].Forum = gitHub[i].Forum;
+                    GitHubs[i].BugReport = gitHub[i].BugReport;
+                    GitHubs[i].Regex = gitHub[i].Regex;
+                    GitHubs[i].Replace = gitHub[i].Replace;
+                    GitHubs[i].Category = gitHub[i].Category;
+                    GitHubs[i].NeedUpdate = gitHub[i].NeedUpdate;
+                    GitHubs[i].SavedVariables = gitHub[i].SavedVariables;
+                    GitHubs[i].SavedVariablesPerCharacter = gitHub[i].SavedVariablesPerCharacter;
+                    GitHubs[i].Files = new List<string>(gitHub[i].Files);
+
+                }
+            }
         }
     }
 }

@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace AddonUpdater.Controls
 {
-    public partial class AddonUpdaterAboutFormControl : UserControl
+    public partial class AboutFormControl : UserControl
     {
-        public AddonUpdaterAboutFormControl()
+        public AboutFormControl()
         {
             InitializeComponent();
             labelVersion.Text = Properties.Settings.Default.Version;
@@ -29,7 +29,12 @@ namespace AddonUpdater.Controls
             Process.Start("https://discord.gg/7cjU9xvcQY");
         }
 
-        private void Button_GitHub_Click(object sender, EventArgs e)
+        private void ButtonForum_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://forum.sirus.su/threads/addon-updater.205056/");
+        }
+
+        private void ButtonGitHub_Click(object sender, EventArgs e)
         {
             Process.Start("https://github.com/Mr-Dan/AddonUpdater");
         }

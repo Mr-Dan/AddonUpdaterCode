@@ -48,12 +48,46 @@ namespace AddonUpdater.Controls
             addonForm.AddonName_MouseClick(addon, Location, this);
         }
 
+        bool download = false;
         private async void VersionButton_Click(object sender, EventArgs e)
         {
             if (addonForm.AllUpdate == false)
             {
                 addonForm.addonDropdown.Visible = false;
-                await DownloadAddon();
+
+                if (addonForm.myAddon)
+                {
+                    if (!download)
+                    {
+                        download = true;
+                        await DownloadAddon();
+                        download = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Аддон устанавливается");
+                    }
+                }
+                else
+                {
+                    if (!download)
+                    {
+                        download = true;
+                        await DownloadAddon();
+                        if (!Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+                        {
+                            FollowUpdate();
+
+                        }
+                        addonForm.UpdatePanelAddons();
+                        download = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Аддон устанавливается");
+                    }
+                }
+
             }
             else
             {
@@ -92,6 +126,16 @@ namespace AddonUpdater.Controls
                 addon.NeedUpdate = downloadAddonGitHub.GetNeedUpdate(addon.Version, addon.MyVersion, downloadAddonGitHub.GetAddonUpdate(addon.Name));
                 addon.SavedVariables = downloadAddonGitHub.GetSavedVariables(addon.Directory);
                 addon.SavedVariablesPerCharacter = downloadAddonGitHub.GetSavedVariablesPerCharacter(addon.Directory);
+
+                /*int index = DownloadAddonGitHub.GitHubs.FindIndex(fAddon => fAddon.Name == addon.Name);
+
+                if (index >= 0)
+                {
+                    DownloadAddonGitHub.GitHubs[index].MyVersion = addon.MyVersion;
+                    DownloadAddonGitHub.GitHubs[index].NeedUpdate = addon.NeedUpdate;
+                    DownloadAddonGitHub.GitHubs[index].SavedVariables = addon.SavedVariables;
+                    DownloadAddonGitHub.GitHubs[index].SavedVariablesPerCharacter = addon.SavedVariablesPerCharacter;
+                }*/
                 addonProgressBar.Value = 0;
                 addonProgressBar.Visible = false;
                 SetVersion();
@@ -130,13 +174,30 @@ namespace AddonUpdater.Controls
                 {
                     downloadAddonGitHub.DeleteAddon(addon);
                     addon.MyVersion = downloadAddonGitHub.GetMyVersion(addon.Directory, addon.Regex);
+                    addon.NeedUpdate = false;
                     DownloadAddonGitHub.UpdateInfo = true;
-                    addonForm.UpdatePanelAddonsView();
+                    UnFollowUpdate();
+                    addonForm.UpdatePanelAddons();
                     Visible = false;
                 }
             }
         }
 
+        public void UnFollowUpdate()
+        {
+            if (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+            {
+                while (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+                {
+                    Properties.Settings.Default.UpdateAddon.Remove(addon.Name);
+                }
+            }
+            Properties.Settings.Default.Save();
+
+            trackImage.BackgroundImage = downloadAddonGitHub.GetAddonUpdate(addon.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed;
+            addonForm.SetPictureBoxFollowUpdate();
+            addonForm.FormMainMenu.SetNotificationsAddons();
+        }
         public void FollowUpdate()
         {
             if (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
@@ -153,22 +214,14 @@ namespace AddonUpdater.Controls
             Properties.Settings.Default.Save();
 
             addon.NeedUpdate = downloadAddonGitHub.GetNeedUpdate(addon.Version, addon.MyVersion, downloadAddonGitHub.GetAddonUpdate(addon.Name));
-            if (addon.NeedUpdate)
-            {
-                nameAddon.ForeColor = Color.FromArgb(166, 0, 0);
-                versionButton.ForeColor = Color.FromArgb(166, 0, 0);
-                DownloadAddonGitHub.UpdateInfo = true;
-                versionButton.Text = "Актуальная: " + addon.Version + "\n" + "У Вас: " + addon.MyVersion;
-            }
-            else
-            {
-                nameAddon.ForeColor = Color.FromArgb(44, 42, 63);
-                versionButton.ForeColor = Color.FromArgb(44, 42, 63);
-                SetVersion();
-            }
+
+            SetForeColor();
+            SetVersion();
+
             trackImage.BackgroundImage = downloadAddonGitHub.GetAddonUpdate(addon.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed;
             addonForm.SetPictureBoxFollowUpdate();
             addonForm.FormMainMenu.SetNotificationsAddons();
+
         }
 
         #region MouseHover
@@ -207,6 +260,14 @@ namespace AddonUpdater.Controls
         }
         #endregion
 
+
+        public void Remove()
+        {
+
+            //addon.MyVersion = downloadAddonGitHub.GetMyVersion(addon.Directory, addon.Regex);
+            //addon.NeedUpdate = downloadAddonGitHub.GetNeedUpdate(addon.Version, addon.MyVersion, downloadAddonGitHub.GetAddonUpdate(addon.Name));
+        }
+
         #region Set
         private void SetControls()
         {
@@ -228,6 +289,20 @@ namespace AddonUpdater.Controls
             trackImage.Visible = setings.Track.Visible;
             deleteButton.Visible = setings.Delete.Visible;
 
+            SetBackColor();
+            SetForeColor();
+            SetVersion();
+
+            trackImage.BackgroundImage = downloadAddonGitHub.GetAddonUpdate(addon.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed;
+        }
+
+        public void UpdateControl(int row)
+        {
+
+            nameAddon.Text = addon.Name;
+            categoryAddon.Text = addon.Category;
+            authorAddon.Text = addon.Author;
+            this.row = row;
             SetBackColor();
             SetForeColor();
             SetVersion();
@@ -271,6 +346,7 @@ namespace AddonUpdater.Controls
                 if (addon.NeedUpdate)
                 {
                     versionButton.Text = "Актуальная: " + addon.Version + "\n" + "У Вас: " + addon.MyVersion;
+                    versionButton.Enabled = true;
                 }
                 else
                 {
@@ -278,19 +354,24 @@ namespace AddonUpdater.Controls
                     {
                         if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == addon.Name) > -1) versionButton.Text = "Актуальная: " + addon.Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == addon.Name)].LastUpdate;
                         else versionButton.Text = "Актуальная: " + addon.Version;
+                        versionButton.Enabled = true;
                     }
                     else
                     {
-                        versionButton.Text = "Не слежу" ;
+                        versionButton.Text = "Не слежу";
+                        versionButton.Enabled = false;
                     }
                 }
             }
             else
             {
                 versionButton.Text = "Актуальная: " + addon.Version;
+                versionButton.Enabled = true;
             }
+
+            #endregion
+
         }
-        #endregion
 
     }
 }

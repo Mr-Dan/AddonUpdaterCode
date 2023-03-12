@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -11,18 +12,18 @@ using System.Windows.Forms;
 
 namespace AddonUpdater.Controls
 {
-    public partial class AddonUpdaterSettingsControl : UserControl
+    public partial class SettingsControl : UserControl
     {
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
         private FormMainMenu formMainMenu;
-        public AddonUpdaterSettingsControl(FormMainMenu formMainMenu)
+        public SettingsControl(FormMainMenu formMainMenu)
         {
             InitializeComponent();
             this.formMainMenu = formMainMenu;
             checkBoxAutoUpdate.Checked = Properties.Settings.Default.AutoUpdateBool;
             checkBoxDescription.Checked = Properties.Settings.Default.DescriptionBool;
             checkBoxLauncher.Checked = Properties.Settings.Default.LauncherOpen;
-            labelPathGame.Text = "Папка с игрой: " + Properties.Settings.Default.PathWow;
+            labelPathGame.Text = Properties.Settings.Default.PathWow;
         }
 
 
@@ -49,80 +50,91 @@ namespace AddonUpdater.Controls
         #region Click
         private void SavePathGame_Click(object sender, EventArgs e)
         {
-            string path = GetPath();
-            if (path != null)
+            ActiveControl = null;
+            if (FormMainMenu.activity == null)
             {
-                List<string> Directories = new List<string>(Directory.GetDirectories(path));
-
-                if (Directories.FindIndex(dir => dir.ToLower().Contains("interface")) > -1 && Directories.FindIndex(dir => dir.ToLower().Contains("wtf")) > -1)
+                string path = GetPath();
+                if (path != null)
                 {
-                    Properties.Settings.Default.PathWow = path;
-                    if (Properties.Settings.Default.PathsWow.Contains(path) == false)
+                    List<string> Directories = new List<string>(Directory.GetDirectories(path));
+
+                    if (Directories.FindIndex(dir => dir.ToLower().Contains("interface")) > -1 && Directories.FindIndex(dir => dir.ToLower().Contains("wtf")) > -1)
                     {
-                        Properties.Settings.Default.PathsWow.Add(path);
-                        UpdateInfo();
-                    }
+                        Properties.Settings.Default.PathWow = path;
+                        if (Properties.Settings.Default.PathsWow.Contains(path) == false)
+                        {
+                            Properties.Settings.Default.PathsWow.Add(path);
+                            UpdateInfo();
+                        }
 
-                    Properties.Settings.Default.Save();
-                    labelPathGame.Text = "Папка с игрой: " + path;
-                }
-                else
-                {
-                    MessageBox.Show("Ошибка в пути или нет файла WTF или AddOns");
+                        Properties.Settings.Default.Save();
+                        labelPathGame.Text = path;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ошибка в пути или нет файла WTF или AddOns");
+                    }
                 }
             }
         }
         bool isShowContextMenuStripPaths = false;
         private void ButtonPathsShow_Click(object sender, EventArgs e)
         {
-            if (isShowContextMenuStripPaths == false)
+            ActiveControl = null;
+            if (FormMainMenu.activity == null)
             {
-                ContextMenuStripPaths.Items.Clear();
-                foreach (string text in Properties.Settings.Default.PathsWow)
+                if (isShowContextMenuStripPaths == false)
                 {
-                    if (text != null)
+                    ContextMenuStripPaths.Items.Clear();
+                    foreach (string text in Properties.Settings.Default.PathsWow)
                     {
-                        ContextMenuStripPaths.Items.Add(text);
-                        if (text == Properties.Settings.Default.PathWow)
+                        if (text != null)
                         {
-                            ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].BackColor = Color.FromArgb(44, 177, 128);
-                            ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].ForeColor = Color.White;
+                            ContextMenuStripPaths.Items.Add(text);
+                            if (text == Properties.Settings.Default.PathWow)
+                            {
+                                ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].BackColor = Color.FromArgb(44, 177, 128);
+                                ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].ForeColor = Color.White;
 
+                            }
                         }
                     }
-                }
 
-                ContextMenuStripPaths.Show(ButtonPathsShow, new Point(0, -ButtonPathsShow.Height));
-                isShowContextMenuStripPaths = true;
-            }
-            else
-            {
-                ButtonReset();
-                ContextMenuStripPaths.Hide();
-                isShowContextMenuStripPaths = false;
+                    ContextMenuStripPaths.Show(ButtonPathsShow, new Point(0, -ButtonPathsShow.Height));
+                    isShowContextMenuStripPaths = true;
+                }
+                else
+                {
+                    ButtonReset();
+                    ContextMenuStripPaths.Hide();
+                    isShowContextMenuStripPaths = false;
+                }
             }
         }
 
         private void DeletePathGame_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.PathWow != null)
+            if (FormMainMenu.activity == null)
             {
-                if (Properties.Settings.Default.PathsWow.Count > 1)
+                if (Properties.Settings.Default.PathWow != null)
                 {
-                    Properties.Settings.Default.PathsWow.Remove(Properties.Settings.Default.PathWow);
-                    Properties.Settings.Default.PathWow = Properties.Settings.Default.PathsWow[0];
-                    Properties.Settings.Default.Save();
-                    labelPathGame.Text = "Папка с игрой: " + Properties.Settings.Default.PathWow;
-                    UpdateInfo();
+                    if (Properties.Settings.Default.PathsWow.Count > 1)
+                    {
+                        Properties.Settings.Default.PathsWow.Remove(Properties.Settings.Default.PathWow);
+                        Properties.Settings.Default.PathWow = Properties.Settings.Default.PathsWow[0];
+                        Properties.Settings.Default.Save();
+                        labelPathGame.Text = Properties.Settings.Default.PathWow;
+                        UpdateInfo();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы не можете удалить единственный путь к игре.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Вы не можете удалить единственный путь к игре.");
+                    MessageBox.Show("Путь к игре пустой.");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Путь к игре пустой.");
             }
         }
         #endregion
@@ -209,5 +221,12 @@ namespace AddonUpdater.Controls
             }
         }
 
+        private void LabelPathGame_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.PathWow != null)
+            {
+                Process.Start("explorer.exe", Properties.Settings.Default.PathWow);
+            }
+        }
     }
 }

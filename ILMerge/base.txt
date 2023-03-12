@@ -1,0 +1,1 @@
+ilmerge AddonUpdater.exe Newtonsoft.Json.dll /out:new.exe

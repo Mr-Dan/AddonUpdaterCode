@@ -17,18 +17,23 @@ using System.Windows.Forms;
 using System.IO.Compression;
 using AddonUpdater.Controls;
 using System.Security.Policy;
+using AddonUpdater.Models;
+using Newtonsoft.Json;
+using System.Timers;
 
 namespace AddonUpdater
 {
     public partial class FormMainMenu : Form
     {
         private Control activeform;
-        private string formName;
         private Button currentButton = new Button();
         public static string activity = null;
 
+        public static bool test = false;
+
+        private AddonFormControl formControl = null;
+
         bool openFormAddons = false;
-        bool openingForm = false;
         DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
 
         Color standardButton = Color.FromArgb(37, 35, 47);
@@ -37,6 +42,9 @@ namespace AddonUpdater
         public FormMainMenu()
         {
             InitializeComponent();
+
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            UpdateStyles();
         }
 
         private void CheckVersion()
@@ -66,9 +74,50 @@ namespace AddonUpdater
             }
             catch (Exception ex)
             {
-                if (ex.Message != "Операция была отменена пользователем")
+                if(ex.HResult == -2146233079)
                 {
-                    MessageBox.Show("Ошибка подключения, повторите попытку позже", "Ошибка");
+                    MessageBox.Show("Ошибка подключения, повторите попытку позже", "Ошибка Addon Updater");
+
+                }
+                if (ex.HResult == -2147467259)
+                {
+                    //MessageBox.Show("Необходимо открыть от имени администратора", "Ошибка Addon Updater");
+                }
+            }
+        }
+
+        private void GetOnline()
+        {
+
+            string result;
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    using (Stream stream = webClient.OpenRead("https://api.sirus.su/api/server/status"))
+                    {
+                        using (StreamReader streamReader = new StreamReader(stream))
+                        {
+                            result = streamReader.ReadToEnd().Replace("\n", "").Trim();
+                            List<Realms> json = JsonConvert.DeserializeObject<List<Realms>>(result);
+
+                            for (int i = 0; i < json.Count; i++)
+                            {
+                                OnlineControl onlineControl = new OnlineControl(json[i].IsOnline, json[i].Name, json[i].Online, this)
+                                {
+                                    Location = new Point(i * 200, 0),
+                                    Name = json[i].Name,
+                                    Width = 200
+                                };
+
+                                titleOnlinePanel.Controls.Add(onlineControl);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
                 }
             }
         }
@@ -82,9 +131,7 @@ namespace AddonUpdater
             else
             {
                 OpenChildForm(new AddonFormControl(this, true), sender);
-                formName = "FormAddons";
                 openFormAddons = true;
-
             }
         }
 
@@ -100,8 +147,7 @@ namespace AddonUpdater
                     progressBar1.Visible = false;
                     labelInfo.Visible = false;
                 }
-                OpenChildForm(new AddonUpdaterSettingsControl(this), sender);
-                formName = "";
+                OpenChildForm(new SettingsControl(this), sender);
                 openFormAddons = false;
 
             }
@@ -115,9 +161,7 @@ namespace AddonUpdater
             else
             {
                 OpenChildForm(new AddonFormControl(this, false), sender);
-                formName = "FormAllAddons";
                 openFormAddons = true;
-
             }
         }
 
@@ -133,14 +177,12 @@ namespace AddonUpdater
                     progressBar1.Visible = false;
                     labelInfo.Visible = false;
                 }
-                OpenChildForm(new AddonUpdaterAboutFormControl(), sender);
-                formName = "";
+                OpenChildForm(new AboutFormControl(), sender);
                 openFormAddons = false;
-
             }
         }
 
-        private void Button_Close_Click(object sender, EventArgs e)
+        private void ButtonClose_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -176,14 +218,11 @@ namespace AddonUpdater
                 {
                     ShowInTaskbar = true;
                     WindowState = FormWindowState.Normal;
-
-                    OpenForm(formName);
                 }
-
             }
         }
 
-        private void Button_Resize_Click(object sender, EventArgs e)
+        private void ButtonResize_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             WindowState = FormWindowState.Minimized;
@@ -195,13 +234,24 @@ namespace AddonUpdater
         {
             ShowInTaskbar = true;
             WindowState = FormWindowState.Normal;
-            OpenForm(formName);
+
         }
 
         private void LabelVersion_Click(object sender, EventArgs e)
         {
             if (DownloadAddonGitHub.AddonUpdaterSettings.LinkLastUpdate != null)
                 Process.Start(DownloadAddonGitHub.AddonUpdaterSettings.LinkLastUpdate);
+        }
+
+        private void ButtonClose_MouseMove(object sender, MouseEventArgs e)
+        {
+            buttonClose.BackColor = Color.FromArgb(191, 48, 48);
+        }
+
+        private void ButtonClose_MouseLeave(object sender, EventArgs e)
+        {
+            buttonClose.BackColor = Color.FromArgb(44, 42, 63);
+
         }
 
         #endregion
@@ -216,7 +266,7 @@ namespace AddonUpdater
                     progressBar1.Visible = true;
                     labelInfo.Visible = true;
                 }
-
+                activity = "обновления";
                 DownloadAddonGitHub.NeedUpdate.Clear();
                 DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
                 if (DownloadAddonGitHub.NeedUpdate.Count > 0)
@@ -232,7 +282,6 @@ namespace AddonUpdater
                     labelInfo.Text = "Распаковка Аддонов";
                     await downloadAddonGitHub.GetAddon();
                     labelInfo.Text = "Обновление";
-                    activity = "обновления";
                     progressBar1.Value = 0;
                     progressBar1.Maximum = 2;
                     progressBar1.Value++;
@@ -261,6 +310,7 @@ namespace AddonUpdater
         {
             CheckVersion();
             PathCheck();
+            GetOnline();
             if (File.Exists("Updater.exe") == false)
             {
                 MessageBox.Show("Не найден файл Updater.exe. Попробуйте переустановить приложение", "Ошибка");
@@ -269,12 +319,16 @@ namespace AddonUpdater
             await downloadAddonGitHub.Aupdatecheck();
             VisibleOn();
             SetNotificationsAddons();
-            timer1.Start();
+            timerGithub.Start();
+            timerLocal.Start();
+            timerUpdate.Start();
             timerKill.Start();
-            formName = "FormAddons";
+            timerSirus.Start();
             OpenChildForm(new AddonFormControl(this, true), buttonAddons);
+            AutoUpdate();
             openFormAddons = true;
-            labelNeedUpdateMyAddon.Location = new Point(0, 16);
+            labelNeedUpdateMyAddon.Parent = buttonAddons;
+            labelNeedUpdateMyAddon.Location = new Point(0, 12);
         }
 
         #region MoveForm
@@ -301,6 +355,21 @@ namespace AddonUpdater
             MoveForm(e);
         }
 
+        public void PanelTitleMove_MouseDown(object sender, MouseEventArgs e)
+        {
+            MoveForm(e);
+        }
+
+        private void TitleOnlinePanel_MouseDown(object sender, MouseEventArgs e)
+        {
+            MoveForm(e);
+        }
+
+        private void PanelTitleRight_MouseDown(object sender, MouseEventArgs e)
+        {
+            MoveForm(e);
+        }
+
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
         [DllImportAttribute("user32.dll")]
@@ -311,12 +380,10 @@ namespace AddonUpdater
         #endregion
 
         #region OpenChildForm
+
         private void OpenChildForm(Control childForm, object btnSender)
         {
-            if (activeform != null)
-            {
-                activeform.Dispose();
-            }
+            activeform?.Dispose();
             panelDesktopPane.Controls.Clear();
             ActivateButton(btnSender);
             activeform = childForm;
@@ -326,8 +393,16 @@ namespace AddonUpdater
             panelDesktopPane.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
-            labelTitle.Text = childForm.Text;
             OnPanel();
+            if (childForm.GetType().ToString() == "AddonUpdater.Controls.AddonFormControl")
+            {
+                formControl = new AddonFormControl();
+                formControl = (AddonFormControl)childForm;
+            }
+            else
+            {
+                formControl = null;
+            }
         }
 
         private void ActivateButton(object btnSender)
@@ -362,19 +437,16 @@ namespace AddonUpdater
 
         #endregion 
 
-        private void OpenForm(string name)
+        private void OpenForm()
         {
-            if (DownloadAddonGitHub.UpdateInfo == true)
-                if (name == "FormAddons")
+            if (DownloadAddonGitHub.UpdateInfo)
+            {
+                if(formControl != null)
                 {
-                    OpenChildForm(new AddonFormControl(this, true), buttonAddons);
-                    openingForm = true;
+                    formControl.UpdatePanelAddonsView();
                 }
-                else if (name == "FormAllAddons")
-                {
-                    OpenChildForm(new AddonFormControl(this, false), buttonAllAddons);
-                    openingForm = true;
-                }
+               
+            }
         }
 
         private void LabelVersion_MouseHover(object sender, EventArgs e)
@@ -396,41 +468,68 @@ namespace AddonUpdater
                 }
                 ShowInTaskbar = true;
                 WindowState = FormWindowState.Normal;
-                OpenForm(formName);
+
             }
         }
-
-        private async void Timer1_Tick(object sender, EventArgs e)
+        bool timer = false;
+        private async void TimerGithub_Tick(object sender, EventArgs e)
         {
             if (activity == null)
             {
-                openingForm = false;
+                timer = true;
                 await downloadAddonGitHub.Aupdatecheck();
+                timer = false;
+            }
+        }
+
+        private async void TimerLocal_Tick(object sender, EventArgs e)
+        {
+            if (activity == null && timer == false)
+            {
+                await downloadAddonGitHub.AupdatecheckLocal();
+            }
+        }
+
+        private void TimerSirus_Tick(object sender, EventArgs e)
+        {
+            titleOnlinePanel.Controls.Clear();
+            GetOnline();
+        }
+
+
+        private void timerUpdate_Tick(object sender, EventArgs e)
+        {
+            if (activity == null)
+            {
                 SetNotificationsAddons();
                 if (DownloadAddonGitHub.GitHubs.Count > 0)
+                {
                     if (DownloadAddonGitHub.UpdateInfo)
                     {
+                        OpenForm();
 
-                        foreach (Form form in Application.OpenForms)
-                        {
-                            OpenForm(form.Name);
-                            if (openingForm == true) break;
-                        }
-
-                        if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.Update == true && openingForm == false)
-                        {
-                            if (Directory.Exists(Properties.Settings.Default.PathWow))
-                            {
-                                activity = "Cкачивания";
-                                await DownloadAddonAuto();
-                                activity = null;
-                            }
-                            else
-                            {
-                                labelNeedUpdateMyAddon.Visible = false;
-                            }
-                        }
                     }
+                    AutoUpdate();
+
+                }
+            }
+        }
+
+        private async void AutoUpdate()
+        {
+            if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.GitHubs.FindAll(addon => addon.NeedUpdate == true).Count > 0)
+            {
+                if (Directory.Exists(Properties.Settings.Default.PathWow))
+                {
+                    activity = "Cкачивания";
+                    await DownloadAddonAuto();
+                    activity = null;
+                    OpenForm();
+                }
+                else
+                {
+                    labelNeedUpdateMyAddon.Visible = false;
+                }
             }
         }
 
@@ -505,7 +604,7 @@ namespace AddonUpdater
             buttonAddons.Enabled = false;
             buttonAllAddons.Enabled = false;
             buttonSettings.Enabled = false;
-            button_Close.Enabled = false;
+            buttonClose.Enabled = false;
         }
 
         public void ButtonOn()
@@ -514,7 +613,7 @@ namespace AddonUpdater
             buttonAddons.Enabled = true;
             buttonAllAddons.Enabled = true;
             buttonSettings.Enabled = true;
-            button_Close.Enabled = true;
+            buttonClose.Enabled = true;
         }
 
         private void VisibleOn()
@@ -524,12 +623,14 @@ namespace AddonUpdater
             buttonSettings.Visible = true;
             buttonAllAddons.Visible = true;
             labelTitleName.Visible = true;
-            labelTitle.Visible = true;
+            // labelTitle.Visible = true;
             LabelVersion.Visible = true;
-            button_Close.Visible = true;
-            button_Resize.Visible = true;
+            buttonClose.Visible = true;
+            buttonResize.Visible = true;
             progressBar1.Visible = true;
             labelInfo.Visible = true;
+            titleOnlinePanel.Visible = true;
+
         }
 
         #endregion
@@ -549,6 +650,13 @@ namespace AddonUpdater
             SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle,
                 GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
         }
+
+
+
+
+
         #endregion
+
+
     }
 }

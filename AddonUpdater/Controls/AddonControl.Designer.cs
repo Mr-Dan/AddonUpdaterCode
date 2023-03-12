@@ -44,6 +44,7 @@
             this.nameAddon.Dock = System.Windows.Forms.DockStyle.Left;
             this.nameAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.nameAddon.Location = new System.Drawing.Point(0, 0);
+            this.nameAddon.Margin = new System.Windows.Forms.Padding(0);
             this.nameAddon.Name = "nameAddon";
             this.nameAddon.Size = new System.Drawing.Size(320, 50);
             this.nameAddon.TabIndex = 1;
@@ -59,6 +60,7 @@
             this.trackImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.trackImage.Dock = System.Windows.Forms.DockStyle.Left;
             this.trackImage.Location = new System.Drawing.Point(320, 0);
+            this.trackImage.Margin = new System.Windows.Forms.Padding(0);
             this.trackImage.Name = "trackImage";
             this.trackImage.Size = new System.Drawing.Size(50, 50);
             this.trackImage.TabIndex = 2;
@@ -73,6 +75,7 @@
             this.versionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.versionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.versionButton.Location = new System.Drawing.Point(370, 0);
+            this.versionButton.Margin = new System.Windows.Forms.Padding(0);
             this.versionButton.Name = "versionButton";
             this.versionButton.Size = new System.Drawing.Size(160, 50);
             this.versionButton.TabIndex = 3;
@@ -88,11 +91,12 @@
             this.categoryAddon.Dock = System.Windows.Forms.DockStyle.Left;
             this.categoryAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.categoryAddon.Location = new System.Drawing.Point(530, 0);
+            this.categoryAddon.Margin = new System.Windows.Forms.Padding(0);
             this.categoryAddon.Name = "categoryAddon";
             this.categoryAddon.Size = new System.Drawing.Size(170, 50);
             this.categoryAddon.TabIndex = 4;
             this.categoryAddon.Text = "Тип";
-            this.categoryAddon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.categoryAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // authorAddon
             // 
@@ -100,11 +104,12 @@
             this.authorAddon.Dock = System.Windows.Forms.DockStyle.Left;
             this.authorAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.authorAddon.Location = new System.Drawing.Point(700, 0);
+            this.authorAddon.Margin = new System.Windows.Forms.Padding(0);
             this.authorAddon.Name = "authorAddon";
             this.authorAddon.Size = new System.Drawing.Size(170, 50);
             this.authorAddon.TabIndex = 5;
             this.authorAddon.Text = "Автор";
-            this.authorAddon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.authorAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // deleteButton
             // 
@@ -114,6 +119,7 @@
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.Image = global::AddonUpdater.Properties.Resources.delete;
             this.deleteButton.Location = new System.Drawing.Point(870, 0);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(0);
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(40, 50);
             this.deleteButton.TabIndex = 6;
@@ -125,6 +131,7 @@
             // addonProgressBar
             // 
             this.addonProgressBar.Location = new System.Drawing.Point(0, 35);
+            this.addonProgressBar.Margin = new System.Windows.Forms.Padding(0);
             this.addonProgressBar.Name = "addonProgressBar";
             this.addonProgressBar.Size = new System.Drawing.Size(320, 15);
             this.addonProgressBar.TabIndex = 7;
@@ -132,8 +139,8 @@
             // 
             // AddonControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.Controls.Add(this.addonProgressBar);
@@ -145,7 +152,7 @@
             this.Controls.Add(this.nameAddon);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "AddonControl";
-            this.Size = new System.Drawing.Size(890, 50);
+            this.Size = new System.Drawing.Size(1070, 50);
             ((System.ComponentModel.ISupportInitialize)(this.trackImage)).EndInit();
             this.ResumeLayout(false);
 

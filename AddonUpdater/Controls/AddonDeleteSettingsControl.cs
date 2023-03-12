@@ -71,11 +71,11 @@ namespace AddonUpdater.Controls
                         int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
                         if (index != -1)
                         {
-                            int index2 = DownloadAddonGitHub.WTF[index].Realms.FindIndex(name => name.Realm.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", "") == realm);
+                            int index2 = DownloadAddonGitHub.WTF[index].Realms.FindIndex(name => name.Name.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", "") == realm);
                             if (index2 != -1)
                             {
 
-                                int index3 = DownloadAddonGitHub.WTF[index].Realms[index2].Persons.FindIndex(name => name.Replace(DownloadAddonGitHub.WTF[index].Realms[index2].Realm + "\\", "") == person);
+                                int index3 = DownloadAddonGitHub.WTF[index].Realms[index2].Persons.FindIndex(name => name.Replace(DownloadAddonGitHub.WTF[index].Realms[index2].Name + "\\", "") == person);
                                 if (index3 != -1)
                                 {
                                     string path = DownloadAddonGitHub.WTF[index].Realms[index2].Persons[index3] + "\\SavedVariables";
@@ -171,7 +171,7 @@ namespace AddonUpdater.Controls
 
                 foreach (Realms realms in DownloadAddonGitHub.WTF[index].Realms)
                 {
-                    realmComboBox.Items.Add(realms.Realm.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", ""));
+                    realmComboBox.Items.Add(realms.Name.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", ""));
                 }
             }
         }
@@ -189,7 +189,7 @@ namespace AddonUpdater.Controls
 
                 foreach (string person in DownloadAddonGitHub.WTF[indexAccount].Realms[indexRealm].Persons)
                 {
-                    personsComboBox.Items.Add(person.Replace(DownloadAddonGitHub.WTF[indexAccount].Realms[indexRealm].Realm + "\\", ""));
+                    personsComboBox.Items.Add(person.Replace(DownloadAddonGitHub.WTF[indexAccount].Realms[indexRealm].Name + "\\", ""));
                 }
                 if (addon.SavedVariables == true)
                 {

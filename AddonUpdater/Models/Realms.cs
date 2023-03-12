@@ -8,7 +8,10 @@ namespace AddonUpdater.Models
 {
     class Realms
     {
-        public string Realm { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
         public List<string> Persons { get; set; }
+        public bool IsOnline { get; set; }
+        public int Online { get; set; }
     }
 }

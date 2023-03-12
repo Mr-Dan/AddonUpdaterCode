@@ -42,18 +42,7 @@ namespace AddonUpdater.Models
                 left.Files.SequenceEqual(right.Files);
         }
 
-        public static bool operator !=(GitHub left, GitHub right)
-        {
+         public static bool operator !=(GitHub left, GitHub right) => !(left == right);
 
-            return left.Name != right.Name || left.Link != right.Link || left.Directory != right.Directory ||
-                    left.Version != right.Version || left.MyVersion != right.MyVersion ||
-                    left.Branches != right.Branches || left.Description != right.Description ||
-                    left.Author != right.Author || left.GithubLink != right.GithubLink ||
-                    left.Forum != right.Forum || left.BugReport != right.BugReport ||
-                    left.Regex != right.Regex || left.Replace != right.Replace ||
-                    left.Category != right.Category || left.NeedUpdate != right.NeedUpdate ||
-                    left.SavedVariables != right.SavedVariables || left.SavedVariablesPerCharacter != right.SavedVariablesPerCharacter ||
-                    !left.Files.SequenceEqual(right.Files);
-        }
     }
 }

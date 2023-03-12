@@ -1,6 +1,6 @@
 ﻿namespace AddonUpdater.Controls
 {
-    partial class AddonUpdaterAboutFormControl
+    partial class AboutFormControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddonUpdaterAboutFormControl));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutFormControl));
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -38,11 +38,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonDiscord = new System.Windows.Forms.Button();
             this.buttonDonate = new System.Windows.Forms.Button();
-            this.button_GitHub = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel1.SuspendLayout();
+            this.panelBottom = new System.Windows.Forms.Panel();
+            this.panelBottomButtons = new System.Windows.Forms.Panel();
+            this.buttonForum = new System.Windows.Forms.Button();
+            this.panelRightForum = new System.Windows.Forms.Panel();
+            this.buttonGitHub = new System.Windows.Forms.Button();
+            this.panelRightGithub = new System.Windows.Forms.Panel();
+            this.buttonDiscord = new System.Windows.Forms.Button();
+            this.panelRightDiscord = new System.Windows.Forms.Panel();
+            this.panelBottomButtons.SuspendLayout();
             this.SuspendLayout();
             // 
             // label8
@@ -143,25 +148,6 @@
             this.label1.TabIndex = 27;
             this.label1.Text = "Addon Updater";
             // 
-            // buttonDiscord
-            // 
-            this.buttonDiscord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonDiscord.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDiscord.BackgroundImage")));
-            this.buttonDiscord.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDiscord.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonDiscord.FlatAppearance.BorderSize = 0;
-            this.buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDiscord.Location = new System.Drawing.Point(937, 0);
-            this.buttonDiscord.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonDiscord.Name = "buttonDiscord";
-            this.buttonDiscord.Size = new System.Drawing.Size(90, 80);
-            this.buttonDiscord.TabIndex = 36;
-            this.buttonDiscord.TabStop = false;
-            this.buttonDiscord.UseVisualStyleBackColor = false;
-            this.buttonDiscord.Click += new System.EventHandler(this.ButtonDiscord_Click);
-            // 
             // buttonDonate
             // 
             this.buttonDonate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
@@ -180,41 +166,116 @@
             this.buttonDonate.UseVisualStyleBackColor = false;
             this.buttonDonate.Click += new System.EventHandler(this.ButtonDonate_Click);
             // 
-            // button_GitHub
+            // panelBottom
             // 
-            this.button_GitHub.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.button_GitHub.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_GitHub.BackgroundImage")));
-            this.button_GitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button_GitHub.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button_GitHub.Dock = System.Windows.Forms.DockStyle.Right;
-            this.button_GitHub.FlatAppearance.BorderSize = 0;
-            this.button_GitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_GitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.button_GitHub.Location = new System.Drawing.Point(847, 0);
-            this.button_GitHub.Margin = new System.Windows.Forms.Padding(4);
-            this.button_GitHub.Name = "button_GitHub";
-            this.button_GitHub.Size = new System.Drawing.Size(90, 80);
-            this.button_GitHub.TabIndex = 33;
-            this.button_GitHub.TabStop = false;
-            this.button_GitHub.UseVisualStyleBackColor = false;
-            this.button_GitHub.Click += new System.EventHandler(this.Button_GitHub_Click);
+            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottom.Location = new System.Drawing.Point(0, 620);
+            this.panelBottom.Name = "panelBottom";
+            this.panelBottom.Size = new System.Drawing.Size(1070, 20);
+            this.panelBottom.TabIndex = 39;
             // 
-            // panel1
+            // panelBottomButtons
             // 
-            this.panel1.Controls.Add(this.button_GitHub);
-            this.panel1.Controls.Add(this.buttonDiscord);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 512);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1027, 80);
-            this.panel1.TabIndex = 39;
+            this.panelBottomButtons.Controls.Add(this.buttonForum);
+            this.panelBottomButtons.Controls.Add(this.panelRightForum);
+            this.panelBottomButtons.Controls.Add(this.buttonGitHub);
+            this.panelBottomButtons.Controls.Add(this.panelRightGithub);
+            this.panelBottomButtons.Controls.Add(this.buttonDiscord);
+            this.panelBottomButtons.Controls.Add(this.panelRightDiscord);
+            this.panelBottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottomButtons.Location = new System.Drawing.Point(0, 540);
+            this.panelBottomButtons.Name = "panelBottomButtons";
+            this.panelBottomButtons.Size = new System.Drawing.Size(1070, 80);
+            this.panelBottomButtons.TabIndex = 40;
             // 
-            // AddonUpdaterAboutFormControl
+            // buttonForum
+            // 
+            this.buttonForum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.buttonForum.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonForum.BackgroundImage")));
+            this.buttonForum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonForum.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonForum.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonForum.FlatAppearance.BorderSize = 0;
+            this.buttonForum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonForum.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonForum.Location = new System.Drawing.Point(700, 0);
+            this.buttonForum.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonForum.Name = "buttonForum";
+            this.buttonForum.Size = new System.Drawing.Size(80, 80);
+            this.buttonForum.TabIndex = 48;
+            this.buttonForum.TabStop = false;
+            this.buttonForum.UseVisualStyleBackColor = false;
+            this.buttonForum.Click += new System.EventHandler(this.ButtonForum_Click);
+            // 
+            // panelRightForum
+            // 
+            this.panelRightForum.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelRightForum.Location = new System.Drawing.Point(780, 0);
+            this.panelRightForum.Name = "panelRightForum";
+            this.panelRightForum.Size = new System.Drawing.Size(30, 80);
+            this.panelRightForum.TabIndex = 47;
+            // 
+            // buttonGitHub
+            // 
+            this.buttonGitHub.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.buttonGitHub.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonGitHub.BackgroundImage")));
+            this.buttonGitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonGitHub.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonGitHub.FlatAppearance.BorderSize = 0;
+            this.buttonGitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonGitHub.Location = new System.Drawing.Point(810, 0);
+            this.buttonGitHub.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonGitHub.Name = "buttonGitHub";
+            this.buttonGitHub.Size = new System.Drawing.Size(80, 80);
+            this.buttonGitHub.TabIndex = 46;
+            this.buttonGitHub.TabStop = false;
+            this.buttonGitHub.UseVisualStyleBackColor = false;
+            this.buttonGitHub.Click += new System.EventHandler(this.ButtonGitHub_Click);
+            // 
+            // panelRightGithub
+            // 
+            this.panelRightGithub.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelRightGithub.Location = new System.Drawing.Point(890, 0);
+            this.panelRightGithub.Name = "panelRightGithub";
+            this.panelRightGithub.Size = new System.Drawing.Size(30, 80);
+            this.panelRightGithub.TabIndex = 45;
+            // 
+            // buttonDiscord
+            // 
+            this.buttonDiscord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.buttonDiscord.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDiscord.BackgroundImage")));
+            this.buttonDiscord.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDiscord.Dock = System.Windows.Forms.DockStyle.Right;
+            this.buttonDiscord.FlatAppearance.BorderSize = 0;
+            this.buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonDiscord.Location = new System.Drawing.Point(920, 0);
+            this.buttonDiscord.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDiscord.Name = "buttonDiscord";
+            this.buttonDiscord.Size = new System.Drawing.Size(80, 80);
+            this.buttonDiscord.TabIndex = 42;
+            this.buttonDiscord.TabStop = false;
+            this.buttonDiscord.UseVisualStyleBackColor = false;
+            this.buttonDiscord.Click += new System.EventHandler(this.ButtonDiscord_Click);
+            // 
+            // panelRightDiscord
+            // 
+            this.panelRightDiscord.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelRightDiscord.Location = new System.Drawing.Point(1000, 0);
+            this.panelRightDiscord.Name = "panelRightDiscord";
+            this.panelRightDiscord.Size = new System.Drawing.Size(70, 80);
+            this.panelRightDiscord.TabIndex = 41;
+            // 
+            // AboutFormControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.panelBottomButtons);
+            this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
@@ -225,9 +286,9 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "AddonUpdaterAboutFormControl";
-            this.Size = new System.Drawing.Size(1027, 592);
-            this.panel1.ResumeLayout(false);
+            this.Name = "AboutFormControl";
+            this.Size = new System.Drawing.Size(1070, 640);
+            this.panelBottomButtons.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -235,16 +296,21 @@
         #endregion
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button buttonDiscord;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonDonate;
-        private System.Windows.Forms.Button button_GitHub;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelBottom;
+        private System.Windows.Forms.Panel panelBottomButtons;
+        private System.Windows.Forms.Button buttonDiscord;
+        private System.Windows.Forms.Panel panelRightDiscord;
+        private System.Windows.Forms.Button buttonForum;
+        private System.Windows.Forms.Panel panelRightForum;
+        private System.Windows.Forms.Button buttonGitHub;
+        private System.Windows.Forms.Panel panelRightGithub;
     }
 }

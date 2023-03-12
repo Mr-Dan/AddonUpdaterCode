@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,15 +21,19 @@ namespace AddonUpdater.Controls
         public FormMainMenu FormMainMenu;
         public AddonDropdownControl addonDropdown;
         public AddonDeleteSettingsControl deleteSettings;
+        public bool myAddon;
 
         private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
-        //private List<PanelAddon> panelAddons = new List<PanelAddon>();
         private PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
-        private int myCountAddon = 0;
         private List<AddonControl> addonControls = new List<AddonControl>();
-        private bool myAddon;
         private string pictureBoxFollowUpdateState = null;
 
+        public AddonFormControl()
+        {
+            InitializeComponent();
+            SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            UpdateStyles();
+        }
         public AddonFormControl(FormMainMenu owner, bool myAddon)
         {
             FormMainMenu = owner;
@@ -43,7 +48,6 @@ namespace AddonUpdater.Controls
             Controls.Add(deleteSettings);
             deleteSettings.Visible = false;
             deleteSettings.Location = new Point(350, 150);
-
             if (myAddon)
             {
                 SetMyAddon();
@@ -64,12 +68,10 @@ namespace AddonUpdater.Controls
                         FormMainMenu.labelInfo.Visible = true;
                     }
 
-                    
-                    //panelAddonsView.AutoScroll = true;
                     SetSettingsPanelAddon();
-                    myCountAddon = DownloadAddonGitHub.GitHubs.FindAll(count => count.MyVersion != null).Count;
                     DownloadAddonGitHub.UpdateInfo = true;
-                    UpdatePanelAddonsView();
+                    FillingAddonsPanel();
+
                 }
                 else
                 {
@@ -83,7 +85,6 @@ namespace AddonUpdater.Controls
                 MessageBox.Show("Укажите путь к игре в настройках", "Предупреждение");
             }
         }
-
 
         private void AddonFormControls_Load(object sender, EventArgs e)
         {
@@ -162,18 +163,18 @@ namespace AddonUpdater.Controls
                 };
                 if (pos.Y + addonDropdown.Height > panelAddonsView.Height && pos.Y + addonDropdown.Height - 120 < panelAddonsView.Height)
                 {
-                    addonDropdown.Location = new Point(220, pos.Y - 80);
+                    addonDropdown.Location = new Point(220, pos.Y - 90);
                 }
                 else if (pos.Y + addonDropdown.Height > panelAddonsView.Height)
                 {
-                    addonDropdown.Location = new Point(220, pos.Y - addonDropdown.Height + 80);
+                    addonDropdown.Location = new Point(220, pos.Y - addonDropdown.Height + 90);
                 }
                 else if (pos.Y + addonDropdown.Height < panelAddonsView.Height)
                 {
-                    addonDropdown.Location = new Point(220, pos.Y + 40);
+                    addonDropdown.Location = new Point(220, pos.Y + 30);
                 }
                 addonDropdown.SetAddon(addon, addonControls, this);
-                
+
                 addonDropdown.Visible = true;
                 addonDropdown.BringToFront();
             }
@@ -181,45 +182,51 @@ namespace AddonUpdater.Controls
 
         private void DowloadButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(Properties.Settings.Default.PathWow))
+            ActiveControl = null;
+            if (FormMainMenu.activity == null)
             {
-               
-                if (DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true).Count > 0)
+                if (Directory.Exists(Properties.Settings.Default.PathWow))
                 {
-                    FormMainMenu.ButtonOff();
-                    AddonDownload();
+
+                    if (DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true).Count > 0)
+                    {
+                        FormMainMenu.ButtonOff();
+                        AddonDownload();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Вы используете актуальные версии аддонов", "Ошибка");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Вы используете актуальные версии аддонов", "Ошибка");
+                    FormMainMenu.labelNeedUpdateMyAddon.Visible = false;
+                    MessageBox.Show("Не найдена папка с игрой", "Предупреждение");
                 }
-            }
-            else
-            {
-                FormMainMenu.labelNeedUpdateMyAddon.Visible = false;
-                MessageBox.Show("Не найдена папка с игрой", "Предупреждение");
             }
         }
 
         private void UpdateButton_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(Properties.Settings.Default.PathWow))
+            ActiveControl = null;
+            if (FormMainMenu.activity == null)
             {
-                ActiveControl = null;
-                FormMainMenu.ButtonOff();
-                ButtonOff();
-                DownloadAddonGitHub.UpdateInfo = false;
-                UpdatePanelAddonsView();
-            }
-            else
-            {
-                FormMainMenu.labelNeedUpdateMyAddon.Visible = false;
-                MessageBox.Show("Не найдена папка с игрой", "Предупреждение");
+                if (Directory.Exists(Properties.Settings.Default.PathWow))
+                {
+                    DownloadAddonGitHub.UpdateInfo = false;
+                    UpdatePanelAddonsView();
+                }
+                else
+                {
+                    FormMainMenu.labelNeedUpdateMyAddon.Visible = false;
+                    MessageBox.Show("Не найдена папка с игрой", "Предупреждение");
+                }
             }
         }
 
         private void LauncherButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             string pathLauncher = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Programs\\sirus-open-launcher\\Sirus Launcher.exe";
             string pathPlayExe = Properties.Settings.Default.PathWow + "\\run.exe";
             Process[] proc = Process.GetProcessesByName("Sirus Launcher");
@@ -275,7 +282,9 @@ namespace AddonUpdater.Controls
             }
             SetPictureBoxFollowUpdate();
         }
+        
         bool isShowContextMenuStripPaths = false;
+       
         private void PathsShowButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
@@ -296,7 +305,7 @@ namespace AddonUpdater.Controls
                     }
                 }
 
-                ContextMenuStripPaths.Show(pathsShowButton, new Point(0, -pathsShowButton.Height));
+                ContextMenuStripPaths.Show(pathsShowDowload, new Point(0, -pathsShowDowload.Height));
                 isShowContextMenuStripPaths = true;
             }
             else
@@ -306,7 +315,6 @@ namespace AddonUpdater.Controls
                 ButtonReset();
             }
         }
-
 
         private void ContextMenuStripPaths_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -322,6 +330,7 @@ namespace AddonUpdater.Controls
 
         private void FillingAddonsPanel()
         {
+            DownloadAddonGitHub.UpdateInfo = false;
             panelAddonsView.Controls.Clear();
             addonControls.Clear();
             List<GitHub> gitHubs;
@@ -340,13 +349,18 @@ namespace AddonUpdater.Controls
                 AddonControl AddonControl = new AddonControl(gitHubs[i], panelAddonSetings, this, i)
                 {
                     Location = location,
-                    Name= gitHubs[i].Name
+                    Name = gitHubs[i].Name,
                 };
                 panelAddonsView.Controls.Add(AddonControl);
                 addonControls.Add(AddonControl);
-
             }
+
+            panelAddonsView.AutoScroll = true;
+            if (!panelAddonsView.IsDisposed)
+            ShowScrollBar(panelAddonsView.Handle, SB_HORZ, false);
+
         }
+
 
         #region MouseMove/Leave
         private void ContextMenuStripPaths_MouseLeave(object sender, EventArgs e)
@@ -364,7 +378,7 @@ namespace AddonUpdater.Controls
 
         public void NameAddon_MouseHover(GitHub addon, Point location)
         {
-            
+
             if (addonDropdown.Visible == false && deleteSettings.Visible == false)
             {
                 if (Properties.Settings.Default.DescriptionBool)
@@ -375,18 +389,18 @@ namespace AddonUpdater.Controls
                             LabelDescription.Text = addon.Description;
                             Size len = TextRenderer.MeasureText(addon.Description, LabelDescription.Font);
                             int size = len.Width * len.Height;
-                            PanelDescription.Size = new Size(780, (size / 800) + 20);
+                            PanelDescription.Size = new Size(PanelDescription.Width, (size / 800) + 20);
                             Point pos = new Point
                             {
                                 Y = location.Y
                             };
                             if (pos.Y + PanelDescription.Height + 40 > panelAddonsView.Height)
                             {
-                                PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 50);
+                                PanelDescription.Location = new Point(0, pos.Y - PanelDescription.Height + 30);
                             }
                             else if (pos.Y + PanelDescription.Height < panelAddonsView.Height)
                             {
-                                PanelDescription.Location = new Point(0, pos.Y + 80);
+                                PanelDescription.Location = new Point(0, pos.Y + 70);
                             }
                             PanelDescription.Visible = true;
                             PanelDescription.BringToFront();
@@ -416,6 +430,7 @@ namespace AddonUpdater.Controls
             labelCategory.Visible = true;
             labelAuthor.Visible = true;
             labelDelete.Visible = true;
+
             SetPictureBoxFollowUpdate();
         }
 
@@ -429,31 +444,33 @@ namespace AddonUpdater.Controls
             labelDelete.Visible = false;
 
             dowloadButton.Visible = false;
-            pathsShowButton.Visible = false;
+            pathsShowDowload.Visible = false;
 
-            labelName.Width = 320;
+            panelRightDowload.Visible = false;
+
+            labelName.Width = 280;
             labelVersion.Width = 190;
             labelCategory.Width = 190;
             labelAuthor.Width = 190;
 
             launcherButton.Location = new Point(790, 445);
-            updateButton.Location = new Point(840, 445);    
+            updateButton.Location = new Point(840, 445);
         }
 
         private void SetSettingsPanelAddon()
         {
-
+            int height = 50;
             panelAddonSetings.Name = new Label
             {
-                Width = labelName.Width - 40,
-                Height = 40,
+                Width = labelName.Width,
+                Height = height,
                 Visible = labelName.Visible
             };
 
             panelAddonSetings.Version = new Button
             {
                 Width = labelVersion.Width,
-                Height = 40,
+                Height = height,
                 Visible = labelVersion.Visible
             };
             panelAddonSetings.Version.FlatAppearance.BorderSize = 0;
@@ -461,28 +478,28 @@ namespace AddonUpdater.Controls
             panelAddonSetings.Category = new Label
             {
                 Width = labelCategory.Width,
-                Height = 40,
+                Height = height,
                 Visible = labelCategory.Visible
             };
 
             panelAddonSetings.Author = new Label
             {
                 Width = labelAuthor.Width,
-                Height = 40,
+                Height = height,
                 Visible = labelAuthor.Visible
             };
 
             panelAddonSetings.ProgressBar = new ProgressBar
             {
                 Width = labelName.Width,
-                Height = 10,
+                Height = height,
                 Visible = false
             };
 
             panelAddonSetings.Delete = new Button
             {
                 Width = 40,
-                Height = 40,
+                Height = height,
                 Visible = labelDelete.Visible
             };
             panelAddonSetings.Delete.FlatAppearance.BorderSize = 0;
@@ -490,11 +507,35 @@ namespace AddonUpdater.Controls
             panelAddonSetings.Track = new PictureBox
             {
                 Width = 40,
-                Height = 40,
+                Height = height,
                 Visible = pictureBoxFollowUpdate.Visible
             };
 
-            panelAddonSetings.Width = panelAddonsView.Width + 5;
+            if (myAddon)
+            {
+                if (DownloadAddonGitHub.GitHubs.FindAll(adoon => adoon.MyVersion != null).Count < 10)
+                {
+                    panelAddonSetings.Width = panelAddonsView.Width;
+                }
+                else
+                {
+                    panelAddonSetings.Width = panelAddonsView.Width - 20;
+
+                }
+            }
+            else
+            {
+                if (DownloadAddonGitHub.GitHubs.Count < 10)
+                {
+                    panelAddonSetings.Width = panelAddonsView.Width;
+                }
+                else
+                {
+                    panelAddonSetings.Width = panelAddonsView.Width - 20;
+                }
+
+            }
+
 
         }
 
@@ -541,7 +582,7 @@ namespace AddonUpdater.Controls
             dowloadButton.Enabled = true;
             updateButton.Enabled = true;
             pictureBoxFollowUpdate.Enabled = true;
-            pathsShowButton.Enabled = true;
+            pathsShowDowload.Enabled = true;
         }
 
         public void ButtonOff()
@@ -549,9 +590,14 @@ namespace AddonUpdater.Controls
             dowloadButton.Enabled = false;
             updateButton.Enabled = false;
             pictureBoxFollowUpdate.Enabled = false;
-            pathsShowButton.Enabled = false;
+            pathsShowDowload.Enabled = false;
         }
         #endregion
+
+        const int SB_HORZ = 0;
+
+        [DllImport("user32.dll")]
+        static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
 
         #region Update
         public async void UpdatePanelAddonsView()
@@ -561,17 +607,7 @@ namespace AddonUpdater.Controls
             ButtonOff();
             if (DownloadAddonGitHub.UpdateInfo)
             {
-                int myCountAddonGitHub = DownloadAddonGitHub.GitHubs.FindAll(count => count.MyVersion != null).Count;
-                if (myCountAddon != myCountAddonGitHub)
-                {
-                    myCountAddon = myCountAddonGitHub;
-                    FillingAddonsPanel();
-                }
-                else
-                {
-                    UpdateInfoAddonsPabel();
-                    FillingAddonsPanel();
-                }
+                UpdatePanelAddons();
                 DownloadAddonGitHub.UpdateInfo = false;
             }
             else
@@ -582,37 +618,107 @@ namespace AddonUpdater.Controls
                 FormMainMenu.progressBar1.Maximum = 2;
                 FormMainMenu.progressBar1.Value++;
                 await downloadAddonGitHub.Aupdatecheck();
-                FillingAddonsPanel();
+                UpdatePanelAddons();
                 FormMainMenu.progressBar1.Value++;
                 FormMainMenu.progressBar1.Value = 0;
                 FormMainMenu.labelInfo.Text = "";
                 FormMainMenu.activity = null;
             }
 
-            if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.Update == true)
-            {
-                FormMainMenu.ButtonOff();
-                AddonDownload();
-            }
+     
             ButtonOn();
             FormMainMenu.ButtonOn();
             FormMainMenu.SetNotificationsAddons();
+           
         }
 
-        private void UpdateInfoAddonsPabel()
+        public void UpdatePanelAddons()
         {
-            List<GitHub> git = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-            for (int i = 0; i < git.Count; i++)
+            if (myAddon)
             {
-                int index = DownloadAddonGitHub.GitHubs.FindIndex(indx => indx.Name == git[i].Name);
-                if (index != -1)
+                List<GitHub> gitHubs = DownloadAddonGitHub.GitHubs.FindAll(f => f.MyVersion != null);
+                if (gitHubs.Count != addonControls.Count)
                 {
-                    DownloadAddonGitHub.GitHubs[index].MyVersion = downloadAddonGitHub.GetMyVersion(DownloadAddonGitHub.GitHubs[index].Directory, DownloadAddonGitHub.GitHubs[index].Regex);
-                    DownloadAddonGitHub.GitHubs[index].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(DownloadAddonGitHub.GitHubs[index].Version, DownloadAddonGitHub.GitHubs[index].MyVersion, downloadAddonGitHub.GetAddonUpdate(DownloadAddonGitHub.GitHubs[index].Name));
-                    DownloadAddonGitHub.GitHubs[index].SavedVariables = downloadAddonGitHub.GetSavedVariables(DownloadAddonGitHub.GitHubs[index].Directory);
-                    DownloadAddonGitHub.GitHubs[index].SavedVariablesPerCharacter = downloadAddonGitHub.GetSavedVariablesPerCharacter(DownloadAddonGitHub.GitHubs[index].Directory);
+                    UpdateControlAddon(gitHubs);
+                    PanelDescription.Visible = false;
+                    addonDropdown.Visible = false;
+                    deleteSettings.Visible = false;
+                }
+                else
+                {
+                    for (int i = 0; i < addonControls.Count; i++)
+                    {
+                        addonControls[i].UpdateControl(i);
+                    }
+                }
+
+            }
+            else
+            {
+                List<GitHub> gitHubs = DownloadAddonGitHub.GitHubs.FindAll(f => f.MyVersion == null);
+
+                if (gitHubs.Count != addonControls.Count)
+                {
+                    UpdateControlAddon(gitHubs);
+
+                    PanelDescription.Visible = false;
+                    addonDropdown.Visible = false;
+                    deleteSettings.Visible = false;
+                }
+                else
+                {
+                    for (int i = 0; i < addonControls.Count; i++)
+                    {
+                        addonControls[i].UpdateControl(i);
+                    }
+                }
+
+            }
+            addonControls.Sort((a, b) => a.Name.CompareTo(b.Name));
+            panelAddonsView.AutoScroll = true;
+            if(!panelAddonsView.IsDisposed)
+            ShowScrollBar(panelAddonsView.Handle, SB_HORZ, false);
+
+        }
+
+        private void UpdateControlAddon(List<GitHub> gitHubs)
+        {
+
+            for (int i = 0; i < addonControls.Count; i++)
+            {
+                if (gitHubs.FindIndex(addon => addon.Name == addonControls[i].Name) == -1)
+                {
+                    if (myAddon) addonControls[i].UnFollowUpdate();
+                    panelAddonsView.Controls.Remove(addonControls[i]);
+                    addonControls.Remove(addonControls[i]);
                 }
             }
+
+            for (int i = 0; i < gitHubs.Count; i++)
+            {
+                int index = addonControls.FindIndex(control => control.Name == gitHubs[i].Name);
+                if (index > -1)
+                {
+                    Point location = new Point(0, i * 40);
+                    addonControls[index].Location = location;
+                    addonControls[index].UpdateControl(i);
+                }
+                else
+                {
+                    Point location = new Point(0, i * 40);
+                    AddonControl AddonControl = new AddonControl(gitHubs[i], panelAddonSetings, this, i)
+                    {
+                        Location = location,
+                        Name = gitHubs[i].Name,
+                    };
+                    if (myAddon == false)
+                        AddonControl.UnFollowUpdate();
+                    panelAddonsView.Controls.Add(AddonControl);
+                    addonControls.Add(AddonControl);
+                }
+            }
+
+
         }
 
         #endregion

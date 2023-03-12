@@ -55,10 +55,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>88BBB00D3DFD4EF4DE755D23AD9C32A3854A99C1</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>0DE2AD9975CF8898275EA8FF20BE2FEB24FCDC86</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>AddonUpdater_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>AddonUpdater_2_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -70,6 +70,9 @@
     <ApplicationIcon>AddonUpdater.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
@@ -90,11 +93,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AddonUpdaterAboutFormControl.cs">
+    <Compile Include="Controls\AboutFormControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\AddonUpdaterAboutFormControl.Designer.cs">
-      <DependentUpon>AddonUpdaterAboutFormControl.cs</DependentUpon>
+    <Compile Include="Controls\AboutFormControl.Designer.cs">
+      <DependentUpon>AboutFormControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\AddonControl.cs">
       <SubType>UserControl</SubType>
@@ -120,11 +123,17 @@
     <Compile Include="Controls\AddonFormControl.Designer.cs">
       <DependentUpon>AddonFormControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\AddonUpdaterSettingsControl.cs">
+    <Compile Include="Controls\SettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\AddonUpdaterSettingsControl.Designer.cs">
-      <DependentUpon>AddonUpdaterSettingsControl.cs</DependentUpon>
+    <Compile Include="Controls\SettingsControl.Designer.cs">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\OnlineControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\OnlineControl.designer.cs">
+      <DependentUpon>OnlineControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DownloadAddonGitHub.cs" />
     <Compile Include="Form1.cs">
@@ -133,19 +142,17 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddonError.cs" />
     <Compile Include="Models\AddonUpdaterSettings.cs" />
     <Compile Include="Models\GitHub.cs" />
     <Compile Include="Models\LastUpdateAddon.cs" />
-    <Compile Include="Models\PanelAddon.cs" />
     <Compile Include="Models\PanelAddonSetings.cs" />
     <Compile Include="Models\Realms.cs" />
     <Compile Include="Models\Toc.cs" />
     <Compile Include="Models\WTF.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Controls\AddonUpdaterAboutFormControl.resx">
-      <DependentUpon>AddonUpdaterAboutFormControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\AboutFormControl.resx">
+      <DependentUpon>AboutFormControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\AddonControl.resx">
       <DependentUpon>AddonControl.cs</DependentUpon>
@@ -159,8 +166,11 @@
     <EmbeddedResource Include="Controls\AddonFormControl.resx">
       <DependentUpon>AddonFormControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Controls\AddonUpdaterSettingsControl.resx">
-      <DependentUpon>AddonUpdaterSettingsControl.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\SettingsControl.resx">
+      <DependentUpon>SettingsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\OnlineControl.resx">
+      <DependentUpon>OnlineControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -176,6 +186,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="AddonUpdater_1_TemporaryKey.pfx" />
+    <None Include="AddonUpdater_2_TemporaryKey.pfx" />
     <None Include="AddonUpdater_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -208,6 +219,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="bin\Debug\AddonUpdater.png" />
+    <None Include="bin\Debug\online.png" />
+    <None Include="bin\Debug\ofline.png" />
     <None Include="bin\Debug\notifications3.png" />
     <None Include="bin\Debug\notifications2.png" />
     <None Include="bin\Debug\notifications.png" />
