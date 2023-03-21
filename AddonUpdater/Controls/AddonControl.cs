@@ -15,11 +15,12 @@ namespace AddonUpdater.Controls
     public partial class AddonControl : UserControl
     {
         public GitHub addon;
+        public int row = 0;
 
         private PanelAddonSetings setings;
         private AddonFormControl addonForm;
         private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
-        private int row = 0;
+       
 
         public AddonControl(GitHub addon, PanelAddonSetings setings, AddonFormControl addonForm, int row)
         {

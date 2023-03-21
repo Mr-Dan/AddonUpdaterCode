@@ -37,25 +37,25 @@
             this.labelAuthor = new System.Windows.Forms.Label();
             this.labelCategory = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.pictureBoxFollowUpdate = new System.Windows.Forms.PictureBox();
             this.labelName = new System.Windows.Forms.Label();
             this.ContextMenuStripPaths = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panelBottom = new System.Windows.Forms.Panel();
             this.panelBottomButtons = new System.Windows.Forms.Panel();
-            this.launcherButton = new System.Windows.Forms.Button();
             this.panelRightLauncher = new System.Windows.Forms.Panel();
-            this.updateButton = new System.Windows.Forms.Button();
             this.panelRightUpdate = new System.Windows.Forms.Panel();
             this.dowloadButton = new System.Windows.Forms.Button();
             this.pathsShowDowload = new System.Windows.Forms.Button();
             this.panelRightDowload = new System.Windows.Forms.Panel();
             this.panelBottomButtonsUp = new System.Windows.Forms.Panel();
             this.panelAddonsView = new System.Windows.Forms.Panel();
+            this.launcherButton = new System.Windows.Forms.Button();
+            this.updateButton = new System.Windows.Forms.Button();
+            this.pictureBoxFollowUpdate = new System.Windows.Forms.PictureBox();
             this.PanelDescription.SuspendLayout();
             this.panelAddonsViewTitle.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFollowUpdate)).BeginInit();
             this.panelBottomButtons.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFollowUpdate)).BeginInit();
             this.SuspendLayout();
             // 
             // PanelDescription
@@ -146,19 +146,6 @@
             this.labelVersion.Text = "Версия";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pictureBoxFollowUpdate
-            // 
-            this.pictureBoxFollowUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxFollowUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxFollowUpdate.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBoxFollowUpdate.Location = new System.Drawing.Point(400, 0);
-            this.pictureBoxFollowUpdate.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxFollowUpdate.Name = "pictureBoxFollowUpdate";
-            this.pictureBoxFollowUpdate.Size = new System.Drawing.Size(50, 40);
-            this.pictureBoxFollowUpdate.TabIndex = 5;
-            this.pictureBoxFollowUpdate.TabStop = false;
-            this.pictureBoxFollowUpdate.Click += new System.EventHandler(this.PictureBoxFollowUpdate_Click);
-            // 
             // labelName
             // 
             this.labelName.Dock = System.Windows.Forms.DockStyle.Left;
@@ -212,23 +199,6 @@
             this.panelBottomButtons.Size = new System.Drawing.Size(1070, 50);
             this.panelBottomButtons.TabIndex = 39;
             // 
-            // launcherButton
-            // 
-            this.launcherButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.launcherButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("launcherButton.BackgroundImage")));
-            this.launcherButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.launcherButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.launcherButton.FlatAppearance.BorderSize = 0;
-            this.launcherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.launcherButton.ForeColor = System.Drawing.Color.White;
-            this.launcherButton.Location = new System.Drawing.Point(765, 0);
-            this.launcherButton.Name = "launcherButton";
-            this.launcherButton.Size = new System.Drawing.Size(50, 50);
-            this.launcherButton.TabIndex = 49;
-            this.launcherButton.TabStop = false;
-            this.launcherButton.UseVisualStyleBackColor = false;
-            this.launcherButton.Click += new System.EventHandler(this.LauncherButton_Click);
-            // 
             // panelRightLauncher
             // 
             this.panelRightLauncher.Dock = System.Windows.Forms.DockStyle.Right;
@@ -236,23 +206,6 @@
             this.panelRightLauncher.Name = "panelRightLauncher";
             this.panelRightLauncher.Size = new System.Drawing.Size(10, 50);
             this.panelRightLauncher.TabIndex = 48;
-            // 
-            // updateButton
-            // 
-            this.updateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.updateButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("updateButton.BackgroundImage")));
-            this.updateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.updateButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.updateButton.FlatAppearance.BorderSize = 0;
-            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateButton.ForeColor = System.Drawing.Color.White;
-            this.updateButton.Location = new System.Drawing.Point(825, 0);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(50, 50);
-            this.updateButton.TabIndex = 47;
-            this.updateButton.TabStop = false;
-            this.updateButton.UseVisualStyleBackColor = false;
-            this.updateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
             // panelRightUpdate
             // 
@@ -320,6 +273,53 @@
             this.panelAddonsView.Size = new System.Drawing.Size(1070, 500);
             this.panelAddonsView.TabIndex = 41;
             // 
+            // launcherButton
+            // 
+            this.launcherButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.launcherButton.BackgroundImage = global::AddonUpdater.Properties.Resources.sirusLauncher;
+            this.launcherButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.launcherButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.launcherButton.FlatAppearance.BorderSize = 0;
+            this.launcherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.launcherButton.ForeColor = System.Drawing.Color.White;
+            this.launcherButton.Location = new System.Drawing.Point(765, 0);
+            this.launcherButton.Name = "launcherButton";
+            this.launcherButton.Size = new System.Drawing.Size(50, 50);
+            this.launcherButton.TabIndex = 49;
+            this.launcherButton.TabStop = false;
+            this.launcherButton.UseVisualStyleBackColor = false;
+            this.launcherButton.Click += new System.EventHandler(this.LauncherButton_Click);
+            // 
+            // updateButton
+            // 
+            this.updateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.updateButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("updateButton.BackgroundImage")));
+            this.updateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.updateButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.updateButton.FlatAppearance.BorderSize = 0;
+            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.updateButton.ForeColor = System.Drawing.Color.White;
+            this.updateButton.Location = new System.Drawing.Point(825, 0);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(50, 50);
+            this.updateButton.TabIndex = 47;
+            this.updateButton.TabStop = false;
+            this.updateButton.UseVisualStyleBackColor = false;
+            this.updateButton.Click += new System.EventHandler(this.UpdateButton_Click);
+            // 
+            // pictureBoxFollowUpdate
+            // 
+            this.pictureBoxFollowUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBoxFollowUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBoxFollowUpdate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pictureBoxFollowUpdate.Location = new System.Drawing.Point(400, 0);
+            this.pictureBoxFollowUpdate.Margin = new System.Windows.Forms.Padding(0);
+            this.pictureBoxFollowUpdate.Name = "pictureBoxFollowUpdate";
+            this.pictureBoxFollowUpdate.Size = new System.Drawing.Size(50, 40);
+            this.pictureBoxFollowUpdate.TabIndex = 5;
+            this.pictureBoxFollowUpdate.TabStop = false;
+            this.pictureBoxFollowUpdate.Click += new System.EventHandler(this.PictureBoxFollowUpdate_Click);
+            // 
             // AddonFormControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -337,8 +337,8 @@
             this.Load += new System.EventHandler(this.AddonFormControls_Load);
             this.PanelDescription.ResumeLayout(false);
             this.panelAddonsViewTitle.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFollowUpdate)).EndInit();
             this.panelBottomButtons.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFollowUpdate)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -362,9 +362,9 @@
         private System.Windows.Forms.Button dowloadButton;
         private System.Windows.Forms.Button pathsShowDowload;
         private System.Windows.Forms.Panel panelRightDowload;
-        private System.Windows.Forms.Button launcherButton;
         private System.Windows.Forms.Panel panelRightLauncher;
         private System.Windows.Forms.Button updateButton;
         private System.Windows.Forms.Panel panelRightUpdate;
+        private System.Windows.Forms.Button launcherButton;
     }
 }

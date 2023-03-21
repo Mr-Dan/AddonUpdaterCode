@@ -113,7 +113,7 @@ namespace AddonUpdater.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1.25")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.27")]
         public string Version {
             get {
                 return ((string)(this["Version"]));

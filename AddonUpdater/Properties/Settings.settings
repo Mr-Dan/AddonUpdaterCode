@@ -30,7 +30,7 @@
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
     <Setting Name="Version" Type="System.String" Scope="User">
-      <Value Profile="(Default)">1.25</Value>
+      <Value Profile="(Default)">1.27</Value>
     </Setting>
   </Settings>
 </SettingsFile>

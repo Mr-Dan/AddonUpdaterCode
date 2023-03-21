@@ -42,8 +42,8 @@ namespace AddonUpdater
         public FormMainMenu()
         {
             InitializeComponent();
-
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.Selectable, false);
             UpdateStyles();
         }
 

@@ -32,6 +32,7 @@ namespace AddonUpdater.Controls
         {
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.Selectable, false);
             UpdateStyles();
         }
         public AddonFormControl(FormMainMenu owner, bool myAddon)
@@ -282,9 +283,9 @@ namespace AddonUpdater.Controls
             }
             SetPictureBoxFollowUpdate();
         }
-        
+
         bool isShowContextMenuStripPaths = false;
-       
+
         private void PathsShowButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
@@ -356,8 +357,7 @@ namespace AddonUpdater.Controls
             }
 
             panelAddonsView.AutoScroll = true;
-            if (!panelAddonsView.IsDisposed)
-            ShowScrollBar(panelAddonsView.Handle, SB_HORZ, false);
+           
 
         }
 
@@ -594,11 +594,6 @@ namespace AddonUpdater.Controls
         }
         #endregion
 
-        const int SB_HORZ = 0;
-
-        [DllImport("user32.dll")]
-        static extern bool ShowScrollBar(IntPtr hWnd, int wBar, bool bShow);
-
         #region Update
         public async void UpdatePanelAddonsView()
         {
@@ -625,11 +620,11 @@ namespace AddonUpdater.Controls
                 FormMainMenu.activity = null;
             }
 
-     
+
             ButtonOn();
             FormMainMenu.ButtonOn();
             FormMainMenu.SetNotificationsAddons();
-           
+
         }
 
         public void UpdatePanelAddons()
@@ -676,36 +671,59 @@ namespace AddonUpdater.Controls
             }
             addonControls.Sort((a, b) => a.Name.CompareTo(b.Name));
             panelAddonsView.AutoScroll = true;
-            if(!panelAddonsView.IsDisposed)
-            ShowScrollBar(panelAddonsView.Handle, SB_HORZ, false);
+           
 
         }
 
         private void UpdateControlAddon(List<GitHub> gitHubs)
         {
-
+            List<AddonControl> gitHubsDelete = new List<AddonControl>();
             for (int i = 0; i < addonControls.Count; i++)
             {
-                if (gitHubs.FindIndex(addon => addon.Name == addonControls[i].Name) == -1)
+                if (gitHubs.FindIndex(addon => addon.Name == addonControls[i].addon.Name) == -1)
                 {
+                    gitHubsDelete.Add(addonControls[i]);
                     if (myAddon) addonControls[i].UnFollowUpdate();
                     panelAddonsView.Controls.Remove(addonControls[i]);
-                    addonControls.Remove(addonControls[i]);
+                   addonControls.Remove(addonControls[i]);
+                    i--;
+
                 }
             }
 
+            List<AddonControl> gitHubsAdd = new List<AddonControl>();
+
+            
             for (int i = 0; i < gitHubs.Count; i++)
             {
                 int index = addonControls.FindIndex(control => control.Name == gitHubs[i].Name);
                 if (index > -1)
                 {
-                    Point location = new Point(0, i * 40);
-                    addonControls[index].Location = location;
-                    addonControls[index].UpdateControl(i);
+
+                    int row = gitHubsDelete.FindAll(addon => addon.row < addonControls[index].row).Count();
+                    if (row > -1)
+                    {
+                        addonControls[index].Location = new Point(0, addonControls[index].Location.Y - (row * 40));
+                        addonControls[index].UpdateControl(i);
+                    }
+
+                    row = gitHubsAdd.FindAll(addon => addon.row < addonControls[index].row).Count();
+                    if (row > -1)
+                    {
+                        addonControls[index].Location = new Point(0, addonControls[index].Location.Y + (row * 40));
+                        addonControls[index].UpdateControl(i);
+                    }
+
                 }
                 else
                 {
-                    Point location = new Point(0, i * 40);
+                    Point location = new Point(0, 0);
+                    if (i > 0)
+                    {
+                        AddonControl control = addonControls.Find(ctrl => ctrl.addon.Name == gitHubs[i - 1].Name);
+                        location = new Point(0, control.Location.Y + 40);
+                    }
+
                     AddonControl AddonControl = new AddonControl(gitHubs[i], panelAddonSetings, this, i)
                     {
                         Location = location,
@@ -715,6 +733,7 @@ namespace AddonUpdater.Controls
                         AddonControl.UnFollowUpdate();
                     panelAddonsView.Controls.Add(AddonControl);
                     addonControls.Add(AddonControl);
+                    gitHubsAdd.Add(AddonControl);
                 }
             }
 

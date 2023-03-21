@@ -50,12 +50,10 @@ D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.application
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.exe
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.pdb
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.sourcelink.json
-D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonUpdaterAboutFormControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonDeleteSettingsControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonDropdownControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonFormControl.resources
-D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonUpdaterSettingsControl.resources
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.AssemblyReference.cache
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.SuggestedBindingRedirects.cache
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AboutFormControl.resources
@@ -82,3 +80,9 @@ C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\bin\Debug\Newtonsoft.Json.x
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.exe.manifest
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.application
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.CopyComplete
+D:\GitHub\AddonUpdaterCode\AddonUpdater\bin\Debug\Newtonsoft.Json.dll
+D:\GitHub\AddonUpdaterCode\AddonUpdater\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AboutFormControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.SettingsControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.OnlineControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.CopyComplete

@@ -49,12 +49,10 @@ D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.exe.manifest
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.application
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.exe
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.pdb
-D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AddonUpdaterAboutFormControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AddonControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AddonDeleteSettingsControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AddonDropdownControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AddonFormControl.resources
-D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AddonUpdaterSettingsControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.sourcelink.json
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.csproj.AssemblyReference.cache
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.csproj.SuggestedBindingRedirects.cache
@@ -82,3 +80,9 @@ C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.ap
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.csproj.CopyComplete
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AboutFormControl.resources
 C:\Users\lopji\Desktop\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.SettingsControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\bin\Release\Newtonsoft.Json.dll
+D:\GitHub\AddonUpdaterCode\AddonUpdater\bin\Release\Newtonsoft.Json.xml
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AboutFormControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.SettingsControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.OnlineControl.resources
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.csproj.CopyComplete

@@ -16,6 +16,8 @@
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -32,8 +34,6 @@
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -219,6 +219,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="bin\Debug\update.png" />
+    <None Include="bin\Debug\icon.png" />
     <None Include="bin\Debug\AddonUpdater.png" />
     <None Include="bin\Debug\online.png" />
     <None Include="bin\Debug\ofline.png" />
