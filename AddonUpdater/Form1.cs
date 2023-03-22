@@ -21,6 +21,7 @@ using AddonUpdater.Models;
 using Newtonsoft.Json;
 using System.Timers;
 
+
 namespace AddonUpdater
 {
     public partial class FormMainMenu : Form
@@ -655,8 +656,27 @@ namespace AddonUpdater
 
 
 
+
         #endregion
 
+        [DllImport("patchCreator.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool CreatePatchFunction(string a);
+        private void CreatePatch_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string a = Properties.Settings.Default.PathWow;
+                CreatePatchFunction(Properties.Settings.Default.PathWow);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
+        }
 
     }
+    
 }

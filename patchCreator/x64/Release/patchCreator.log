@@ -1,0 +1,52 @@
+﻿     Создается библиотека C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\x64\Release\patchCreator.lib и объект C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\x64\Release\patchCreator.exp
+  Создание кода
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 215 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+StormLibRUD.lib(SFileExtractFile.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileExtractFile.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileAddFile.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileAddFile.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileOpenArchive.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileOpenArchive.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileCreateArchive.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileCreateArchive.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(FileStream.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(FileStream.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileOpenFileEx.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileOpenFileEx.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileReadFile.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileReadFile.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SCompression.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SCompression.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(adler32.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(adler32.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(crc32.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(crc32.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LibTomCrypt.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LibTomCrypt.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SBaseCommon.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SBaseCommon.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SBaseFileTable.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SBaseFileTable.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFilePatchArchives.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFilePatchArchives.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileListFile.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileListFile.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SBaseSubTypes.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SBaseSubTypes.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileAttributes.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileAttributes.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileVerify.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileVerify.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(implode.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(implode.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(explode.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(explode.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(huff.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(huff.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(adpcm.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(adpcm.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(sparse.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(sparse.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LzmaEnc.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LzmaEnc.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LzmaDec.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LzmaDec.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(deflate.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(deflate.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(inflate.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(inflate.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(bzlib.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(bzlib.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(lookup3.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(lookup3.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LibTomMathDesc.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LibTomMathDesc.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileGetFileInfo.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileGetFileInfo.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(SFileFindFile.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(SFileFindFile.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LzFind.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LzFind.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LzFindMt.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LzFindMt.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(trees.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(trees.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(zutil.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(zutil.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(inftrees.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(inftrees.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(inffast.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(inffast.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(compress.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(compress.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(decompress.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(decompress.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(randtable.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(randtable.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(crctable.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(crctable.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(LibTomMath.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(LibTomMath.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(Threads.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(Threads.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(blocksort.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(blocksort.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+StormLibRUD.lib(huffman.obj) : warning LNK4099: "" PDB не найден с "StormLibRUD.lib(huffman.obj)" или на ""; компоновка объекта выполняется как при отсутствии отладочных данных
+  patchCreator.vcxproj -> C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\x64\Release\patchCreator.dll

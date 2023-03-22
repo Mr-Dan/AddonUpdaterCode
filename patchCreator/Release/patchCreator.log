@@ -1,0 +1,7 @@
+﻿  dllmain.cpp
+     Создается библиотека C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\bin\Release\patchCreator.lib и объект C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\bin\Release\patchCreator.exp
+  Создание кода
+  Previous IPDB not found, fall back to full compilation.
+  All 236 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Создание кода завершено
+  patchCreator.vcxproj -> C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\bin\Release\patchCreator.dll

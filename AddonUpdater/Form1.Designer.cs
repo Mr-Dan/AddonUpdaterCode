@@ -46,6 +46,7 @@ namespace AddonUpdater
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.CreatePatch = new System.Windows.Forms.Button();
             this.labelNeedUpdateMyAddon = new System.Windows.Forms.Label();
             this.buttonAbout = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
@@ -251,6 +252,7 @@ namespace AddonUpdater
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.panelMenu.Controls.Add(this.CreatePatch);
             this.panelMenu.Controls.Add(this.labelNeedUpdateMyAddon);
             this.panelMenu.Controls.Add(this.buttonAbout);
             this.panelMenu.Controls.Add(this.buttonSettings);
@@ -263,6 +265,16 @@ namespace AddonUpdater
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(230, 670);
             this.panelMenu.TabIndex = 15;
+            // 
+            // CreatePatch
+            // 
+            this.CreatePatch.Location = new System.Drawing.Point(12, 418);
+            this.CreatePatch.Name = "CreatePatch";
+            this.CreatePatch.Size = new System.Drawing.Size(197, 79);
+            this.CreatePatch.TabIndex = 25;
+            this.CreatePatch.Text = "CreatePatch";
+            this.CreatePatch.UseVisualStyleBackColor = true;
+            this.CreatePatch.Click += new System.EventHandler(this.CreatePatch_Click);
             // 
             // labelNeedUpdateMyAddon
             // 
@@ -478,6 +490,7 @@ namespace AddonUpdater
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer timerLocal;
         private System.Windows.Forms.Timer timerUpdate;
+        private System.Windows.Forms.Button CreatePatch;
     }
 }
 

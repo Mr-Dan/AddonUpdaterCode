@@ -86,3 +86,16 @@ D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AboutFor
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.SettingsControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.OnlineControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.CopyComplete
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.AssemblyReference.cache
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.SuggestedBindingRedirects.cache
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AboutFormControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonDeleteSettingsControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonDropdownControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.AddonFormControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.SettingsControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.Controls.OnlineControl.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.FormMainMenu.resources
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.csproj.GenerateResource.cache
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.exe
+C:\Users\fxpw\source\repos\fxpw\AddonUpdaterCode\AddonUpdater\obj\Debug\AddonUpdater.pdb
