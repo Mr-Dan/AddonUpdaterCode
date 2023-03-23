@@ -666,7 +666,7 @@ namespace AddonUpdater
 
             try
             {
-                string a = Properties.Settings.Default.PathWow;
+                //string a = Properties.Settings.Default.PathWow;
                 CreatePatchFunction(Properties.Settings.Default.PathWow);
             }
             catch (Exception)

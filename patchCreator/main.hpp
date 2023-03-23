@@ -539,15 +539,18 @@ bool ChangeSpellItemEnchantmentDBC(std::string path = "error") {
 bool CreateMPQ(std::string path = "error") {
     //std::cout << "**********************************CreateMPQ************************************\n\n\n";
     HANDLE mpq;
-
+    remove((path + std::string("/Data/ruRU/patch-ruRU-x.mpq")).c_str());
     SFileCreateArchive(ConverterToWChar((path + std::string("/Data/ruRU/patch-ruRU-x.mpq")).c_str()), MPQ_CREATE_ATTRIBUTES + MPQ_CREATE_ARCHIVE_V2, 0x000000010, &mpq);
 
     SFileAddFileEx(mpq, ConverterToWChar("./Spell.dbc"), "DBFilesClient\\Spell.dbc", MPQ_FILE_COMPRESS + MPQ_FILE_REPLACEEXISTING, MPQ_COMPRESSION_ZLIB, MPQ_COMPRESSION_NEXT_SAME);
+    remove("./Spell.dbc");
     //std::cout << "added Spell.dbc" << std::endl;
     SFileAddFileEx(mpq, ConverterToWChar("./ItemDisplayInfo.dbc"), "DBFilesClient\\ItemDisplayInfo.dbc", MPQ_FILE_COMPRESS + MPQ_FILE_REPLACEEXISTING, MPQ_COMPRESSION_ZLIB, MPQ_COMPRESSION_NEXT_SAME);
     //std::cout << "added ItemDisplayInfo.dbc" << std::endl;
+    remove("./ItemDisplayInfo.dbc");
     SFileAddFileEx(mpq, ConverterToWChar("./SpellItemEnchantment.dbc"), "DBFilesClient\\SpellItemEnchantment.dbc", MPQ_FILE_COMPRESS + MPQ_FILE_REPLACEEXISTING, MPQ_COMPRESSION_ZLIB, MPQ_COMPRESSION_NEXT_SAME);
     //std::cout << "added SpellItemEnchantment.dbc" << std::endl;
+    remove("./SpellItemEnchantment.dbc");
     //std::cout << "End create MPQ" << std::endl;
 
     SFileCloseArchive(mpq);
