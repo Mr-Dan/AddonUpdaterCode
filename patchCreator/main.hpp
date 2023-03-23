@@ -13,7 +13,7 @@
 #include "dbc.hpp"
 
 #include <map>
-//#include <nlohmann/json.hpp>
+#include <nlohmann/json.hpp>
 #include <fstream>
 
 #include <string>
@@ -29,7 +29,7 @@ inline unsigned int stringToUInt(const std::string& s)
     return result;
 }
 
-//using json = nlohmann::json;
+using json = nlohmann::json;
 
 #define SQL_INSERTS_PER_QUERY 300
 #define SLASH_BUFFER2000
@@ -324,25 +324,35 @@ int MainFunction(std::string path = "error") {
 
     return 0;
 }
-
+static size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp) {
+    ((std::string*)userp)->append((char*)contents, size * nmemb);
+    return size * nmemb;
+}
 bool parseJsons(std::string path = "error") {
     CURL* curl;
-    CURLcode res;
+    //CURLcode res;
+    std::string readBuffer;
     curl = curl_easy_init();
     if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL, "http://www.cnn.com/");
-        res = curl_easy_perform(curl);
-        /* always cleanup */
-        curl_easy_cleanup(curl);
+        curl_easy_setopt(curl, CURLOPT_URL, "https://raw.githubusercontent.com/fxpw/AddonUpdaterCode/main/patchCreator/jsons/Spell.dbc.parser.json");
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+        curl_easy_perform(curl);
+        // curl_easy_cleanup(curl);
+        // Debug::Print(readBuffer);
+        std::string responce = std::string(readBuffer);
     }
-    return
+    else {
+        return false;
+    }
+    
     /////////////////////
     //std::ifstream f1("./jsons/Spell.dbc.parser.json");
-    //json data1 = json::parse(f1);
-    //for (json::iterator it = data1.begin(); it != data1.end(); ++it) {
-    //    // std::cout << "Spell.dbc add" << it.key() << " " <<it.value() << '\n';
-    //    SpellChange[stringToUInt(it.key())] = it.value();
-    //}
+    json data1 = json::parse(readBuffer);
+    for (json::iterator it = data1.begin(); it != data1.end(); ++it) {
+        // std::cout << "Spell.dbc add" << it.key() << " " <<it.value() << '\n';
+        SpellChange[stringToUInt(it.key())] = it.value();
+    }
     /////////////////////
     //std::ifstream f2("./jsons/CreatureDusplayInfo.dbc.json");
     //json data2 = json::parse(f2);

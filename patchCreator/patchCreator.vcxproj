@@ -79,7 +79,7 @@
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib_dll\Win32\Release;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAS;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAD;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\lib;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\bin;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib_dll\Win32\Release;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAS;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAD;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1\builds\libcurl-vc-x86-release-static-ipv6-sspi-schannel\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>C:\Users\fxpw\source\repos\fxpw\StormLib\src;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\include;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)AddonUpdater\bin\Release\</OutDir>
   </PropertyGroup>
@@ -117,7 +117,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>StormLib.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>StormLib.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;libcurl_a.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -169,7 +169,17 @@
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets" Condition="Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\nlohmann.json.3.11.2\build\native\nlohmann.json.targets'))" />
+  </Target>
 </Project>
