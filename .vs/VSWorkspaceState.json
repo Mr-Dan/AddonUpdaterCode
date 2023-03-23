@@ -1,7 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\patchCreator"
   ],
-  "SelectedNode": "\\AddonUpdater.sln",
+  "SelectedNode": "\\patchCreator\\mpq.hpp",
   "PreviewInSolutionExplorer": false
 }

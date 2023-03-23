@@ -2,6 +2,9 @@
 #define __MAIN_H__
 
 
+//#define test
+
+
 
 #include <iostream>
 #include <cstring>
@@ -16,6 +19,7 @@
 #include <string>
 #include <stdexcept>
 #include "mpq.hpp"
+#include <curl/curl.h>
 
 inline unsigned int stringToUInt(const std::string& s)
 {
@@ -35,6 +39,7 @@ DBCFileLoader DBCCreatureDusplayInfo;
 DBCFileLoader DBCItemDisplayInfo;
 DBCFileLoader DBCSpellItemEnchantment;
 
+#ifdef test
 std::map<uint32, uint32> SpellChange{
     {34161,0},
     {48438,0},
@@ -286,7 +291,9 @@ std::map<uint32, uint32> SpellChange{
     {315046,0},
     {321414,0}
 };
-
+#else
+std::map<uint32, uint32> SpellChange{};
+#endif
 std::map<uint32, uint32> CreatureDusplayInfoChange{};
 std::map<uint32, uint32> ItemDisplayInfoChange{};
 std::map<uint32, uint32> SpellItemEnchantmentChange{};
@@ -319,6 +326,16 @@ int MainFunction(std::string path = "error") {
 }
 
 bool parseJsons(std::string path = "error") {
+    CURL* curl;
+    CURLcode res;
+    curl = curl_easy_init();
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, "http://www.cnn.com/");
+        res = curl_easy_perform(curl);
+        /* always cleanup */
+        curl_easy_cleanup(curl);
+    }
+    return
     /////////////////////
     //std::ifstream f1("./jsons/Spell.dbc.parser.json");
     //json data1 = json::parse(f1);

@@ -79,8 +79,8 @@
     <CopyLocalDeploymentContent>true</CopyLocalDeploymentContent>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib_dll\Win32\Release;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAS;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAD;$(LibraryPath)</LibraryPath>
-    <SourcePath>C:\Users\fxpw\source\repos\fxpw\StormLib\src;$(SourcePath)</SourcePath>
+    <LibraryPath>C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib_dll\Win32\Release;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAS;C:\Users\fxpw\source\repos\fxpw\StormLib\bin\StormLib\Win32\ReleaseAD;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\lib;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\bin;$(LibraryPath)</LibraryPath>
+    <SourcePath>C:\Users\fxpw\source\repos\fxpw\StormLib\src;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\include;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)AddonUpdater\bin\Release\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -104,11 +104,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;PATCHCREATOR_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;PATCHCREATOR_EXPORTS;_WINDOWS;_USRDLL;CURL_STATICLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\fxpw\source\repos\fxpw\StormLib\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\fxpw\source\repos\fxpw\StormLib\src;C:\Program Files %28x86%29\Windows Kits\curl-8.0.1_2-win32-mingw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -117,7 +117,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalDependencies>StormLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>StormLib.lib;Ws2_32.lib;Wldap32.lib;Crypt32.lib;Normaliz.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
