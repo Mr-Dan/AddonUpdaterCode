@@ -1,6 +1,8 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\patchCreator"
   ],
+  "SelectedNode": "\\patchCreator\\main.hpp",
   "PreviewInSolutionExplorer": false
 }
