@@ -69,6 +69,29 @@
   <PropertyGroup>
     <ApplicationIcon>AddonUpdater.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -123,6 +146,12 @@
     <Compile Include="Controls\AddonFormControl.Designer.cs">
       <DependentUpon>AddonFormControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ModificationsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ModificationsControl.Designer.cs">
+      <DependentUpon>ModificationsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\SettingsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -142,7 +171,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\AddonUpdaterSettings.cs" />
+    <Compile Include="Models\AddonUpdaterSetting.cs" />
     <Compile Include="Models\GitHub.cs" />
     <Compile Include="Models\LastUpdateAddon.cs" />
     <Compile Include="Models\PanelAddonSetings.cs" />
@@ -166,6 +195,9 @@
     <EmbeddedResource Include="Controls\AddonFormControl.resx">
       <DependentUpon>AddonFormControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ModificationsControl.resx">
+      <DependentUpon>ModificationsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\SettingsControl.resx">
       <DependentUpon>SettingsControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -177,14 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <None Include="AddonUpdater_1_TemporaryKey.pfx" />
     <None Include="AddonUpdater_2_TemporaryKey.pfx" />
     <None Include="AddonUpdater_TemporaryKey.pfx" />
@@ -193,6 +220,11 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -219,6 +251,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
+    <None Include="img\logo-sirus.png" />
+    <None Include="img\qiwi.png" />
+    <None Include="img\AddonUpdater.png" />
+    <None Include="img\notifications.png" />
+    <None Include="img\sirusLauncher.png" />
+    <None Include="img\ofline.png" />
+    <None Include="img\online.png" />
+    <None Include="img\update.png" />
+    <None Include="img\PatchX.png" />
+    <None Include="img\eyes open.png" />
+    <None Include="img\eyes mixed.png" />
+    <None Include="img\eyes closed.png" />
+    <None Include="img\delete.png" />
+    <None Include="bin\Debug\PatchX.png" />
     <None Include="bin\Debug\update.png" />
     <None Include="bin\Debug\icon.png" />
     <None Include="bin\Debug\AddonUpdater.png" />

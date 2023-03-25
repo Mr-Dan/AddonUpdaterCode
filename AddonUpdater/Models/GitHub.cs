@@ -21,7 +21,7 @@ namespace AddonUpdater.Models
         public string Forum { get; set; } // Ссылка на форум
         public string BugReport { get; set; } // Ссылка на BugReport
         public string Regex { get; set; } // Регулярное выражение
-        public string Replace { get; set; } // Замена для регулярного выражения
+       // public string Replace { get; set; } // Замена для регулярного выражения
         public string Category { get; set; } // Категория
         public bool NeedUpdate { get; set; } // Нужно обновление
         //public bool DownloadMyAddon { get; set; } // Скачать ?
@@ -36,7 +36,7 @@ namespace AddonUpdater.Models
                 left.Branches == right.Branches && left.Description == right.Description &&
                 left.Author == right.Author && left.GithubLink == right.GithubLink &&
                 left.Forum == right.Forum && left.BugReport == right.BugReport &&
-                left.Regex == right.Regex && left.Replace == right.Replace &&
+                left.Regex == right.Regex && 
                 left.Category == right.Category && left.NeedUpdate == right.NeedUpdate &&
                 left.SavedVariables == right.SavedVariables && left.SavedVariablesPerCharacter == right.SavedVariablesPerCharacter &&
                 left.Files.SequenceEqual(right.Files);

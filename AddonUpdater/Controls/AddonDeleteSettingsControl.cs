@@ -20,6 +20,12 @@ namespace AddonUpdater.Controls
             InitializeComponent();
         }
 
+        public AddonDeleteSettingsControl(GitHub addon)
+        {
+            this.addon = addon;
+            InitializeComponent();
+            SetAddon(addon);
+        }
         private void ClearComboBox()
         {
             accountComboBox.Items.Clear();
@@ -35,6 +41,7 @@ namespace AddonUpdater.Controls
         #region Click
         private void DeleteSettingsButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             DialogResult dialogResult = MessageBox.Show(
                    $"Вы точно хотите удалить {settingsComboBox.SelectedItem} настройки для {addon.Name}?",
                    "Подтверждение",

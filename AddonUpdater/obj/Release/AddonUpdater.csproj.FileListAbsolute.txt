@@ -86,3 +86,4 @@ D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.AboutF
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.SettingsControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.OnlineControl.resources
 D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.csproj.CopyComplete
+D:\GitHub\AddonUpdaterCode\AddonUpdater\obj\Release\AddonUpdater.Controls.ModificationsControl.resources

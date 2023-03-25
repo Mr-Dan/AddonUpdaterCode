@@ -20,6 +20,7 @@ using System.Security.Policy;
 using AddonUpdater.Models;
 using Newtonsoft.Json;
 using System.Timers;
+using Newtonsoft.Json.Linq;
 
 namespace AddonUpdater
 {
@@ -29,7 +30,6 @@ namespace AddonUpdater
         private Button currentButton = new Button();
         public static string activity = null;
 
-        public static bool test = false;
 
         private AddonFormControl formControl = null;
 
@@ -74,7 +74,7 @@ namespace AddonUpdater
             }
             catch (Exception ex)
             {
-                if(ex.HResult == -2146233079)
+                if (ex.HResult == -2146233079)
                 {
                     MessageBox.Show("Ошибка подключения, повторите попытку позже", "Ошибка Addon Updater");
 
@@ -135,6 +135,7 @@ namespace AddonUpdater
             }
         }
 
+
         private void ButtonSettings_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
@@ -194,6 +195,23 @@ namespace AddonUpdater
             }
         }
 
+        private void buttonModifications_Click(object sender, EventArgs e)
+        {
+            ActiveControl = null;
+            if (activity != null)
+                MessageBox.Show($"Дождитесь окончания {activity}");
+            else
+            {
+                if (progressBar1.Visible == true)
+                {
+                    progressBar1.Visible = false;
+                    labelInfo.Visible = false;
+                }
+                OpenChildForm(new ModificationsControl(this), sender);
+                openFormAddons = false;
+            }
+        }
+
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (activity != null)
@@ -239,8 +257,8 @@ namespace AddonUpdater
 
         private void LabelVersion_Click(object sender, EventArgs e)
         {
-            if (DownloadAddonGitHub.AddonUpdaterSettings.LinkLastUpdate != null)
-                Process.Start(DownloadAddonGitHub.AddonUpdaterSettings.LinkLastUpdate);
+            if (DownloadAddonGitHub.AddonUpdaterSettings.News != null)
+                Process.Start(DownloadAddonGitHub.AddonUpdaterSettings.News);
         }
 
         private void ButtonClose_MouseMove(object sender, MouseEventArgs e)
@@ -441,11 +459,11 @@ namespace AddonUpdater
         {
             if (DownloadAddonGitHub.UpdateInfo)
             {
-                if(formControl != null)
+                if (formControl != null)
                 {
                     formControl.UpdatePanelAddonsView();
                 }
-               
+
             }
         }
 
@@ -605,6 +623,7 @@ namespace AddonUpdater
             buttonAllAddons.Enabled = false;
             buttonSettings.Enabled = false;
             buttonClose.Enabled = false;
+            buttonModifications.Enabled = false;
         }
 
         public void ButtonOn()
@@ -614,6 +633,7 @@ namespace AddonUpdater
             buttonAllAddons.Enabled = true;
             buttonSettings.Enabled = true;
             buttonClose.Enabled = true;
+            buttonModifications.Enabled = true;
         }
 
         private void VisibleOn()
@@ -621,9 +641,9 @@ namespace AddonUpdater
             buttonAbout.Visible = true;
             buttonAddons.Visible = true;
             buttonSettings.Visible = true;
+            buttonModifications.Visible = true;
             buttonAllAddons.Visible = true;
-            labelTitleName.Visible = true;
-            // labelTitle.Visible = true;
+            labelTitleName.Visible = true;      
             LabelVersion.Visible = true;
             buttonClose.Visible = true;
             buttonResize.Visible = true;
@@ -655,8 +675,9 @@ namespace AddonUpdater
 
 
 
+
         #endregion
-
-
+         
     }
+
 }

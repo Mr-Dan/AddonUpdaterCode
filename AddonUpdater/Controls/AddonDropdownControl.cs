@@ -27,6 +27,7 @@ namespace AddonUpdater.Controls
         #region Click
         private async void ReinstallButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             if (form.AllUpdate == false)
             {
                 Visible = false;
@@ -40,29 +41,34 @@ namespace AddonUpdater.Controls
 
         private void TrackButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             addonControls.FollowUpdate();
             trackButton.BackColor = downloadAddonGitHub.GetAddonUpdate(addon.Name) ? Color.FromArgb(44, 177, 128) : Color.FromArgb(191, 48, 48);
         }
 
         private void BugReportButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             if (addon.BugReport != "")
                 Process.Start(addon.BugReport);
         }
 
         private void ForumButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             if (addon.Forum != "")
                 Process.Start(addon.Forum);
         }
 
         private void GitHubButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             if (addon.GithubLink != "")
                 Process.Start(addon.GithubLink);
         }
         private void DeleteSettingsButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             if (FormMainMenu.activity == null)
             {             
                 form.deleteSettings.SetAddon(addon);
@@ -77,6 +83,7 @@ namespace AddonUpdater.Controls
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
+            ActiveControl = null;
             addonControls.DeleteAddon();
         }
 

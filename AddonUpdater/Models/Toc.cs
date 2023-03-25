@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddonUpdater.Models
 {
-    class Toc
+   /* class Toc
     {
         public Toc(string line)
         {
@@ -18,5 +18,5 @@ namespace AddonUpdater.Models
         public string GitHubToc { get; set; }
         public string GitHubTocRegex { get; set; }
         public string GitHubTocReplase { get; set; }
-    }
+    }*/
 }

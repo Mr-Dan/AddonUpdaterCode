@@ -46,9 +46,10 @@ namespace AddonUpdater
             this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.CloseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.labelNeedUpdateMyAddon = new System.Windows.Forms.Label();
             this.buttonAbout = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
+            this.buttonModifications = new System.Windows.Forms.Button();
+            this.labelNeedUpdateMyAddon = new System.Windows.Forms.Label();
             this.LabelVersion = new System.Windows.Forms.Label();
             this.labelInfo = new System.Windows.Forms.Label();
             this.timerKill = new System.Windows.Forms.Timer(this.components);
@@ -251,9 +252,10 @@ namespace AddonUpdater
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.panelMenu.Controls.Add(this.labelNeedUpdateMyAddon);
             this.panelMenu.Controls.Add(this.buttonAbout);
             this.panelMenu.Controls.Add(this.buttonSettings);
+            this.panelMenu.Controls.Add(this.buttonModifications);
+            this.panelMenu.Controls.Add(this.labelNeedUpdateMyAddon);
             this.panelMenu.Controls.Add(this.LabelVersion);
             this.panelMenu.Controls.Add(this.buttonAllAddons);
             this.panelMenu.Controls.Add(this.buttonAddons);
@@ -263,6 +265,66 @@ namespace AddonUpdater
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(230, 670);
             this.panelMenu.TabIndex = 15;
+            // 
+            // buttonAbout
+            // 
+            this.buttonAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonAbout.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonAbout.FlatAppearance.BorderSize = 0;
+            this.buttonAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonAbout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonAbout.Location = new System.Drawing.Point(0, 320);
+            this.buttonAbout.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonAbout.Name = "buttonAbout";
+            this.buttonAbout.Size = new System.Drawing.Size(230, 80);
+            this.buttonAbout.TabIndex = 27;
+            this.buttonAbout.TabStop = false;
+            this.buttonAbout.Text = "           О программе";
+            this.buttonAbout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonAbout.UseVisualStyleBackColor = false;
+            this.buttonAbout.Visible = false;
+            this.buttonAbout.Click += new System.EventHandler(this.ButtonAbout_Click);
+            // 
+            // buttonSettings
+            // 
+            this.buttonSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonSettings.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonSettings.FlatAppearance.BorderSize = 0;
+            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonSettings.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonSettings.Location = new System.Drawing.Point(0, 240);
+            this.buttonSettings.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonSettings.Name = "buttonSettings";
+            this.buttonSettings.Size = new System.Drawing.Size(230, 80);
+            this.buttonSettings.TabIndex = 26;
+            this.buttonSettings.TabStop = false;
+            this.buttonSettings.Text = "           Настройки";
+            this.buttonSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonSettings.UseVisualStyleBackColor = false;
+            this.buttonSettings.Visible = false;
+            this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
+            // 
+            // buttonModifications
+            // 
+            this.buttonModifications.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
+            this.buttonModifications.Dock = System.Windows.Forms.DockStyle.Top;
+            this.buttonModifications.FlatAppearance.BorderSize = 0;
+            this.buttonModifications.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonModifications.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonModifications.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonModifications.Location = new System.Drawing.Point(0, 160);
+            this.buttonModifications.Margin = new System.Windows.Forms.Padding(0);
+            this.buttonModifications.Name = "buttonModifications";
+            this.buttonModifications.Size = new System.Drawing.Size(230, 80);
+            this.buttonModifications.TabIndex = 25;
+            this.buttonModifications.TabStop = false;
+            this.buttonModifications.Text = "           Доп. возможности";
+            this.buttonModifications.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonModifications.UseVisualStyleBackColor = false;
+            this.buttonModifications.Visible = false;
+            this.buttonModifications.Click += new System.EventHandler(this.buttonModifications_Click);
             // 
             // labelNeedUpdateMyAddon
             // 
@@ -279,46 +341,6 @@ namespace AddonUpdater
             this.labelNeedUpdateMyAddon.Text = "1";
             this.labelNeedUpdateMyAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.labelNeedUpdateMyAddon.Visible = false;
-            // 
-            // buttonAbout
-            // 
-            this.buttonAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.buttonAbout.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonAbout.FlatAppearance.BorderSize = 0;
-            this.buttonAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonAbout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonAbout.Location = new System.Drawing.Point(0, 240);
-            this.buttonAbout.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonAbout.Name = "buttonAbout";
-            this.buttonAbout.Size = new System.Drawing.Size(230, 80);
-            this.buttonAbout.TabIndex = 23;
-            this.buttonAbout.TabStop = false;
-            this.buttonAbout.Text = "           О программе";
-            this.buttonAbout.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonAbout.UseVisualStyleBackColor = false;
-            this.buttonAbout.Visible = false;
-            this.buttonAbout.Click += new System.EventHandler(this.ButtonAbout_Click);
-            // 
-            // buttonSettings
-            // 
-            this.buttonSettings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.buttonSettings.Dock = System.Windows.Forms.DockStyle.Top;
-            this.buttonSettings.FlatAppearance.BorderSize = 0;
-            this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSettings.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonSettings.Location = new System.Drawing.Point(0, 160);
-            this.buttonSettings.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonSettings.Name = "buttonSettings";
-            this.buttonSettings.Size = new System.Drawing.Size(230, 80);
-            this.buttonSettings.TabIndex = 5;
-            this.buttonSettings.TabStop = false;
-            this.buttonSettings.Text = "           Настройки";
-            this.buttonSettings.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonSettings.UseVisualStyleBackColor = false;
-            this.buttonSettings.Visible = false;
-            this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             // 
             // LabelVersion
             // 
@@ -461,8 +483,6 @@ namespace AddonUpdater
         public System.Windows.Forms.Label labelInfo;
         public System.Windows.Forms.Button buttonAddons;
         public System.Windows.Forms.Button buttonAllAddons;
-        public System.Windows.Forms.Button buttonSettings;
-        public System.Windows.Forms.Button buttonAbout;
         public System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.ToolTip ToolTip;
         public System.Windows.Forms.Label labelNeedUpdateMyAddon;
@@ -478,6 +498,9 @@ namespace AddonUpdater
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Timer timerLocal;
         private System.Windows.Forms.Timer timerUpdate;
+        public System.Windows.Forms.Button buttonAbout;
+        public System.Windows.Forms.Button buttonSettings;
+        public System.Windows.Forms.Button buttonModifications;
     }
 }
 

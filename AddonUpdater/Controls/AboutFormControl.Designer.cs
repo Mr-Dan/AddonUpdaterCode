@@ -38,15 +38,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.buttonDonate = new System.Windows.Forms.Button();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.panelBottomButtons = new System.Windows.Forms.Panel();
-            this.buttonForum = new System.Windows.Forms.Button();
             this.panelRightForum = new System.Windows.Forms.Panel();
-            this.buttonGitHub = new System.Windows.Forms.Button();
             this.panelRightGithub = new System.Windows.Forms.Panel();
-            this.buttonDiscord = new System.Windows.Forms.Button();
             this.panelRightDiscord = new System.Windows.Forms.Panel();
+            this.buttonForum = new System.Windows.Forms.Button();
+            this.buttonGitHub = new System.Windows.Forms.Button();
+            this.buttonDiscord = new System.Windows.Forms.Button();
+            this.buttonDonate = new System.Windows.Forms.Button();
             this.panelBottomButtons.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -148,24 +148,6 @@
             this.label1.TabIndex = 27;
             this.label1.Text = "Addon Updater";
             // 
-            // buttonDonate
-            // 
-            this.buttonDonate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonDonate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDonate.BackgroundImage")));
-            this.buttonDonate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonDonate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDonate.FlatAppearance.BorderSize = 0;
-            this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDonate.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDonate.Location = new System.Drawing.Point(334, 331);
-            this.buttonDonate.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonDonate.Name = "buttonDonate";
-            this.buttonDonate.Size = new System.Drawing.Size(79, 61);
-            this.buttonDonate.TabIndex = 34;
-            this.buttonDonate.TabStop = false;
-            this.buttonDonate.UseVisualStyleBackColor = false;
-            this.buttonDonate.Click += new System.EventHandler(this.ButtonDonate_Click);
-            // 
             // panelBottom
             // 
             this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -188,10 +170,34 @@
             this.panelBottomButtons.Size = new System.Drawing.Size(1070, 80);
             this.panelBottomButtons.TabIndex = 40;
             // 
+            // panelRightForum
+            // 
+            this.panelRightForum.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelRightForum.Location = new System.Drawing.Point(780, 0);
+            this.panelRightForum.Name = "panelRightForum";
+            this.panelRightForum.Size = new System.Drawing.Size(30, 80);
+            this.panelRightForum.TabIndex = 47;
+            // 
+            // panelRightGithub
+            // 
+            this.panelRightGithub.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelRightGithub.Location = new System.Drawing.Point(890, 0);
+            this.panelRightGithub.Name = "panelRightGithub";
+            this.panelRightGithub.Size = new System.Drawing.Size(30, 80);
+            this.panelRightGithub.TabIndex = 45;
+            // 
+            // panelRightDiscord
+            // 
+            this.panelRightDiscord.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panelRightDiscord.Location = new System.Drawing.Point(1000, 0);
+            this.panelRightDiscord.Name = "panelRightDiscord";
+            this.panelRightDiscord.Size = new System.Drawing.Size(70, 80);
+            this.panelRightDiscord.TabIndex = 41;
+            // 
             // buttonForum
             // 
             this.buttonForum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonForum.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonForum.BackgroundImage")));
+            this.buttonForum.BackgroundImage = global::AddonUpdater.Properties.Resources.logo_sirus;
             this.buttonForum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonForum.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonForum.Dock = System.Windows.Forms.DockStyle.Right;
@@ -206,14 +212,6 @@
             this.buttonForum.TabStop = false;
             this.buttonForum.UseVisualStyleBackColor = false;
             this.buttonForum.Click += new System.EventHandler(this.ButtonForum_Click);
-            // 
-            // panelRightForum
-            // 
-            this.panelRightForum.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightForum.Location = new System.Drawing.Point(780, 0);
-            this.panelRightForum.Name = "panelRightForum";
-            this.panelRightForum.Size = new System.Drawing.Size(30, 80);
-            this.panelRightForum.TabIndex = 47;
             // 
             // buttonGitHub
             // 
@@ -234,14 +232,6 @@
             this.buttonGitHub.UseVisualStyleBackColor = false;
             this.buttonGitHub.Click += new System.EventHandler(this.ButtonGitHub_Click);
             // 
-            // panelRightGithub
-            // 
-            this.panelRightGithub.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightGithub.Location = new System.Drawing.Point(890, 0);
-            this.panelRightGithub.Name = "panelRightGithub";
-            this.panelRightGithub.Size = new System.Drawing.Size(30, 80);
-            this.panelRightGithub.TabIndex = 45;
-            // 
             // buttonDiscord
             // 
             this.buttonDiscord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
@@ -261,13 +251,23 @@
             this.buttonDiscord.UseVisualStyleBackColor = false;
             this.buttonDiscord.Click += new System.EventHandler(this.ButtonDiscord_Click);
             // 
-            // panelRightDiscord
+            // buttonDonate
             // 
-            this.panelRightDiscord.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightDiscord.Location = new System.Drawing.Point(1000, 0);
-            this.panelRightDiscord.Name = "panelRightDiscord";
-            this.panelRightDiscord.Size = new System.Drawing.Size(70, 80);
-            this.panelRightDiscord.TabIndex = 41;
+            this.buttonDonate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
+            this.buttonDonate.BackgroundImage = global::AddonUpdater.Properties.Resources.qiwi;
+            this.buttonDonate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.buttonDonate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonDonate.FlatAppearance.BorderSize = 0;
+            this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDonate.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.buttonDonate.Location = new System.Drawing.Point(334, 331);
+            this.buttonDonate.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonDonate.Name = "buttonDonate";
+            this.buttonDonate.Size = new System.Drawing.Size(79, 61);
+            this.buttonDonate.TabIndex = 34;
+            this.buttonDonate.TabStop = false;
+            this.buttonDonate.UseVisualStyleBackColor = false;
+            this.buttonDonate.Click += new System.EventHandler(this.ButtonDonate_Click);
             // 
             // AboutFormControl
             // 

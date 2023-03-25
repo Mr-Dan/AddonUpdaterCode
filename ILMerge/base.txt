@@ -1,1 +1,1 @@
-ilmerge AddonUpdater.exe Newtonsoft.Json.dll /out:new.exe
+ilmerge AddonUpdater.exe Newtonsoft.Json.dll PatchCreator.dll /out:new.exe

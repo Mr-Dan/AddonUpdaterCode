@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 
 namespace AddonUpdater
 {
@@ -23,7 +24,7 @@ namespace AddonUpdater
 
         public static List<WTF> WTF = new List<WTF>();
         public static List<LastUpdateAddon> lastUpdateAddon = new List<LastUpdateAddon>();
-        public static AddonUpdaterSettings AddonUpdaterSettings = new AddonUpdaterSettings();
+        public static AddonUpdaterSetting AddonUpdaterSettings = new AddonUpdaterSetting();
 
         public Task Aupdatecheck()
         {
@@ -34,7 +35,7 @@ namespace AddonUpdater
 
                 foreach (Toc toc in AddonUpdaterSettings.Tocs)
                 {
-                    GitHubsNew.AddRange(AupdatecheckToc(toc.GitHubToc, toc.GitHubTocRegex, toc.GitHubTocReplase));
+                    GitHubsNew.AddRange(AupdatecheckToc(toc.Link, toc.Regex));
 
                 }
                 GitHubsNew.Sort((left, right) => left.Name.CompareTo(right.Name));
@@ -49,7 +50,7 @@ namespace AddonUpdater
                         UpdateGitHub(GitHubsNew);
                         UpdateInfo = true;
                     }
-                    
+
                 }
 
                 GetWTF();
@@ -73,7 +74,7 @@ namespace AddonUpdater
         {
             var getVersion = Task.Factory.StartNew(() =>
             {
-            
+
                 for (int i = 0; i < GitHubs.Count; i++)
                 {
                     string myVersion = GetMyVersion(GitHubs[i].Directory, GitHubs[i].Regex);
@@ -102,7 +103,7 @@ namespace AddonUpdater
             return getVersion;
         }
 
-        public List<GitHub> AupdatecheckToc(string link, string regex, string replace)
+        public List<GitHub> AupdatecheckToc(string link, string regex)
         {
             List<GitHub> GitHubsNew = new List<GitHub>();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
@@ -136,7 +137,6 @@ namespace AddonUpdater
                     BugReport = GetValues(url_addons[i], "BugReport"),
                     Author = GetValues(url_addons[i], "Author"),
                     Regex = regex,
-                    Replace = replace,
                     SavedVariables = GetSavedVariables(directory),
                     SavedVariablesPerCharacter = GetSavedVariablesPerCharacter(directory),
                     Category = GetValues(url_addons[i], "Category")
@@ -230,37 +230,9 @@ namespace AddonUpdater
 
         private void GetSettings()
         {
-
-            AddonUpdaterSettings = new AddonUpdaterSettings
-            {
-                Tocs = new List<Toc>()
-            };
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            string getUrlGithub = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterMainSettings");
-            string[] url_addons = getUrlGithub.Split('\n');
-
-            for (int i = 0; i < url_addons.Length - 1; i++)
-            {
-                string deleteDirectory = GetValues(url_addons[i], "DeleteDirectory");
-                string listAddons = GetValues(url_addons[i], "ListsAddons");
-
-                if (deleteDirectory != null)
-                    AddonUpdaterSettings.DeleteDirectory = deleteDirectory.Split(',').ToList();
-
-                if (listAddons != null)
-                {
-                    string[] listsAddons = listAddons.Split('|');
-
-                    if (listsAddons.Length > 0)
-                    {
-                        foreach (string line in listsAddons)
-                        {
-                            AddonUpdaterSettings.Tocs.Add(new Toc(line));
-                        }
-                    }
-                }
-                AddonUpdaterSettings.LinkLastUpdate = GetValues(url_addons[i], "LinkLastUpdate");
-            }
+            string getUrlGithub = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings");
+            AddonUpdaterSettings = JsonConvert.DeserializeObject<AddonUpdaterSetting>(getUrlGithub);
         }
 
         private string GetVersion(string link, string regex)
@@ -714,7 +686,6 @@ namespace AddonUpdater
                     GitHubs[i].Forum = gitHub[i].Forum;
                     GitHubs[i].BugReport = gitHub[i].BugReport;
                     GitHubs[i].Regex = gitHub[i].Regex;
-                    GitHubs[i].Replace = gitHub[i].Replace;
                     GitHubs[i].Category = gitHub[i].Category;
                     GitHubs[i].NeedUpdate = gitHub[i].NeedUpdate;
                     GitHubs[i].SavedVariables = gitHub[i].SavedVariables;

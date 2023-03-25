@@ -12,3 +12,7 @@ C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.exe.manifest
 C:\Users\Дан\source\repos\AddonUpdater\Updater\bin\Debug\Updater.application
 C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.exe.manifest
 C:\Users\Дан\source\repos\AddonUpdater\Updater\obj\Debug\Updater.application
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.AssemblyReference.cache
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.SuggestedBindingRedirects.cache
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.exe
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.pdb
