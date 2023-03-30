@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AddonUpdater.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -9,6 +11,8 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,8 +25,8 @@ namespace Updater
         public Form1()
         {
             InitializeComponent();
-        }    
-        
+        }
+
         public void DirectoryDelete(string path)
         {
             DirectoryInfo directory = new DirectoryInfo(path);
@@ -36,8 +40,8 @@ namespace Updater
                 MessageBox.Show(ex.ToString(), "Предупреждение");
             }
         }
-        
-        private Task DownloadAppTask(string link )
+
+        private Task DownloadAppTask(string link)
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             using (WebClient webClient = new WebClient())
@@ -45,80 +49,61 @@ namespace Updater
                 return webClient.DownloadFileTaskAsync(link, "AddonUpdater.zip");
             }
         }
+        AddonUpdaterSetting setting;
+       
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Backup(AddonUpdaterSetting setting)
         {
-         
-           
-        }
-
-        private async void buttonYes_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-         
-            buttonNo.Visible = false;
-            buttonYes.Visible = false;
-            button_Close.Enabled = false;
-            label1.Text = "Идет обновление";
-
-            Process[] proc = Process.GetProcessesByName("AddonUpdater");
-            if (proc.Length > 0) proc[0].Kill();
-
-            DirectoryDelete("Backup");
-            Directory.CreateDirectory("Backup");
-            if (File.Exists("AddonUpdater.exe")) File.Move("AddonUpdater.exe", "Backup\\AddonUpdater.exe");
-
-            try
+            if(setting != null)
+            if (Directory.Exists("Backup"))
             {
-                await DownloadAppTask("https://github.com/Mr-Dan/AddonUpdaterExe/archive/refs/heads/main.zip");
-
-            }
-            catch 
-            {
-               
-                if (File.Exists("AddonUpdater.exe")) File.Delete("AddonUpdater.exe");
-
-                if(File.Exists("Backup\\AddonUpdater.exe"))
+                for (int i = 0; i < setting.Files.Count; i++)
                 {
-                    File.Move("Backup\\AddonUpdater.exe", "AddonUpdater.exe");
-                    DirectoryDelete("Backup");
-                    MessageBox.Show("Ошибка подключения, повторите попытку позже", "Ошибка Addon Updater");                 
+                    if (File.Exists(setting.Files[i])) File.Delete(setting.Files[i]);
                 }
-                Application.Exit();
-            }
 
-            try
-            {            
-                ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
-                File.Move("AddonUpdaterExe-main\\AddonUpdater.exe", Directory.GetCurrentDirectory() + "\\AddonUpdater.exe");
-                Process.Start("AddonUpdater.exe");
+                for (int i = 0; i < setting.Files.Count; i++)
+                {
+                    if (File.Exists($"Backup\\{setting.Files[i]}")) File.Move($"Backup\\{setting.Files[i]}", setting.Files[i]);
+                }
                 File.Delete("AddonUpdater.zip");
-                DirectoryDelete("AddonUpdaterExe-main");
-                DirectoryDelete("Backup");            
-
+                DirectoryDelete("AddonUpdater-main");
+                DirectoryDelete("Backup");
             }
-            catch 
+            Application.Exit();
+        }
+
+        private void Extract(AddonUpdaterSetting setting)
+        {
+            ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
+
+            for (int i = 0; i < setting.Files.Count; i++)
             {
-                
+                if (File.Exists($"AddonUpdater-main\\{setting.Files[i]}")) File.Move($"AddonUpdater-main\\{setting.Files[i]}", Directory.GetCurrentDirectory() + $"\\{setting.Files[i]}");
             }
-            Application.Exit();
+            Process.Start("AddonUpdater.exe");
+            File.Delete("AddonUpdater.zip");
+            DirectoryDelete("AddonUpdater-main");          
         }
 
-        private void buttonNo_Click(object sender, EventArgs e)
+        private void ErrorMsg(int hResult)
         {
-            Application.Exit();
-        }
+            if (hResult == -2146233079)
+            {
+                MessageBox.Show("Ошибка подключения, повторите попытку позже.", "Ошибка");
 
-        private void button_Close_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
+            }
+            if (hResult == -2147467259)
+            {
+                MessageBox.Show("Операция была отменена пользователем.", "Ошибка");
+            }
         }
 
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
-        [DllImportAttribute("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImportAttribute("user32.dll")]
+        [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
@@ -133,6 +118,83 @@ namespace Updater
         private void button_Resize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
+        }
+
+        public string GetContent(string url)
+        {
+            string result = null;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            WebClient client = new WebClient();
+            try
+            {
+                Stream stream = client.OpenRead(url);
+                StreamReader reader = new StreamReader(stream);
+                result = reader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                ErrorMsg(ex.HResult);
+            }
+            return result;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(setting != null)
+            {
+                if (File.Exists("Backup")) {                   
+                    Backup(setting);
+                }
+               
+            }
+        }
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+            Process[] proc = Process.GetProcessesByName("AddonUpdater");
+            if (proc.Length > 0) proc[0].Kill();
+
+            try
+            {
+                string content = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings");
+                if (content != null)
+                {
+                    setting = JsonConvert.DeserializeObject<AddonUpdaterSetting>(content);
+                    if (Directory.Exists("AddonUpdater-main")) DirectoryDelete("AddonUpdater-main");
+                    if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
+                    await DownloadAppTask("https://github.com/Mr-Dan/AddonUpdater/archive/refs/heads/main.zip");
+
+                    if (File.Exists("Backup")) DirectoryDelete("Backup");
+                    Directory.CreateDirectory("Backup");
+
+                    for (int i = 0; i < setting.Files.Count; i++)
+                    {
+                        if (File.Exists(setting.Files[i])) File.Move(setting.Files[i], $"Backup\\{setting.Files[i]}");
+                    }
+                    try
+                    {
+                        Extract(setting);
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorMsg(ex.HResult);
+                        Backup(setting);
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorMsg(ex.HResult);
+                Backup(setting);
+            }
+
+
+            if (Directory.Exists("Backup")) DirectoryDelete("Backup");
+
+            Application.Exit();
         }
     }
 }

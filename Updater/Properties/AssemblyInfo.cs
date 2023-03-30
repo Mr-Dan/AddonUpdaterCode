@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Общие сведения об этой сборке предоставляются следующим набором
 // набора атрибутов. Измените значения этих атрибутов для изменения сведений,
 // связанных со сборкой.
-[assembly: AssemblyTitle("Updater")]
-[assembly: AssemblyDescription("Updater")]
+[assembly: AssemblyTitle("Update")]
+[assembly: AssemblyDescription("Update")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Mr-Dan")]
-[assembly: AssemblyProduct("Updater")]
+[assembly: AssemblyProduct("Update")]
 [assembly: AssemblyCopyright("Copyright 2022 Mr-Dan")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

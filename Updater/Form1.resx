@@ -118,26 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="button_Close.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAGYktHRAD/AP8A/6C9p5MAAAJTSURBVGhD7dnRatRAFMbxBdu3sNd9odILfTuxSKvgi6lYL1WI
-        39n555tNN7M58WJ2C/nBQPvNOcxJ0hTr7jabzeZyDcNwo/VF65dWb3HmV61bxllHjTH8d61z+6F1w1h5
-        aoo7fymeGCtPTef4sWl5Zqw8Go24G4414jz6jLgbjjXiPPqMuBuONeI8+oy4G4414jz6jHhC8RutD1rv
-        idLUc6f1SeuaaEL5BHEefUZsimL4h/3mMPzVSl+EamP4P9Eon7WOLqJsVcR59BmxKRqHH8VA92w3RQ21
-        hx7YNnIjzqPPiE1R3MXf+83q5JPQ3uGdH0XPO0qsbFXEefQZ8YTi9EUoSw8fynZFnEefER/R1uJF6OtV
-        w4dSUhHn0WfEs7TdvAit1cOHUlYR59FnxE0qmXs54/u5LPOyTxDn0WfEJ6ls7kkcWrzzo1JeEefRZ8SL
-        VNq6iPTwobRUxHn0GfEilc79zIf9O0HZotJSEefRZ8Qnqaw1/Ch9EaW8Is6jz4ibVPJ6X2JtN39Vas29
-        E4tPopRVxHn0GfERbTWHp2SsWXURpaQizqPPiCcULw4/UrbqIsp2RZxHnxGbovTwI+2lL6JsVcR59Bmx
-        KXr1/5yOP2g+7jcX7vxLqj18EvEHzRVbVrYq4jz6jHhC8ZVWPInFO/9S9NB7NHxQPkGcR58Rd8OxRpxH
-        nxF3w7FGnEefEXfDsUacR58Rd8OxRpynnkv6z92fjJWnpvhw4VI8Mlaemm614sOFc/um9Zax1lFjfErz
-        pPWs1Vuc+aj1f8NvNptNB7vdPyefOT4yFQwGAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="button_Resize.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAIGNIUk0AAHolAACAgwAA+f8AAIDoAABS
-        CAABFVgAADqXAAAXb9daH5AAAAAJcEhZcwAACxEAAAsRAX9kX5EAAAISSURBVGhD7Zk9TsNAEIXD/0+H
+        CAABFVgAADqXAAAXb9daH5AAAAAJcEhZcwAACw4AAAsOAUC+4UEAAAISSURBVGhD7Zk9TsNAEIXD/0+H
         RAlUSIiWFokaCu5CDQWHoQIhcREqTkEBCLiAmZfsWrvPz0msZG2v8JM+2fsy2ZkxjtasR0VRZI00c0Ka
         OSHNnJBmi6w41GdzIc0eU2k2GoRAdjw0no1fo20h54txYvi61oLzMdGAQPGfRtf6MlALamrUAK58X/Rk
         oKZ1dyyJBkQXt02dfgzUtOGOJdGAYKmYlLDgNbqFWComJSx4q+5YEg0IlopJCQte9n+B4RZqExa8+Vdi

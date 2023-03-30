@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddonUpdater", "AddonUpdater\AddonUpdater.csproj", "{96D538A2-BF48-445C-92B0-7CF77C272E17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{2FA893DA-9E77-40B0-AF04-60CE46F3168C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Update", "Updater\Update.csproj", "{2FA893DA-9E77-40B0-AF04-60CE46F3168C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

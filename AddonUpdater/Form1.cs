@@ -21,6 +21,7 @@ using AddonUpdater.Models;
 using Newtonsoft.Json;
 using System.Timers;
 using Newtonsoft.Json.Linq;
+using AddonUpdater.Properties;
 
 namespace AddonUpdater
 {
@@ -30,6 +31,7 @@ namespace AddonUpdater
         private Button currentButton = new Button();
         public static string activity = null;
 
+        private string version = "1.28";
 
         private AddonFormControl formControl = null;
 
@@ -47,7 +49,7 @@ namespace AddonUpdater
             UpdateStyles();
         }
 
-        private void CheckVersion()
+        private async Task<bool> CheckVersion()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             string result;
@@ -58,18 +60,35 @@ namespace AddonUpdater
                 StreamReader streamReader = new StreamReader(stream);
                 result = streamReader.ReadToEnd().Replace("\n", "").Trim();
                 LabelVersion.Text = "v." + Properties.Settings.Default.Version.Trim();
-                if (Properties.Settings.Default.Version != result)
-                {
-                    if (File.Exists("Updater.exe"))
+               
+                  if(!File.Exists("debug"))
+                    if (File.Exists("Update.exe"))
                     {
-                        Process p = Process.Start("Updater.exe");
-                        Thread.Sleep(5000);
+                        if (Properties.Settings.Default.Version.Trim() != result)
+                        {
+                            Process p = Process.Start("Update.exe");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Не найден файл Updater.exe. Попробуйте переустановить приложение", "Ошибка");
+                        if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
+                        if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
+                        if (File.Exists("Updater.exe")) File.Delete("Updater.exe");
+
+                        await DownloadUpdaterTask("https://github.com/Mr-Dan/AddonUpdater/archive/refs/heads/main.zip");
+                        ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
+
+                        if (File.Exists($"AddonUpdater-main\\Update.exe"))
+                        {
+                            File.Move($"AddonUpdater-main\\Update.exe", Directory.GetCurrentDirectory() + $"\\Update.exe");
+                            Process.Start("Update.exe");
+                        }
+                        if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
+                        if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
+
                         Application.Exit();
-                    }
+                    
+
                 }
             }
             catch (Exception ex)
@@ -81,8 +100,19 @@ namespace AddonUpdater
                 }
                 if (ex.HResult == -2147467259)
                 {
-                    //MessageBox.Show("Необходимо открыть от имени администратора", "Ошибка Addon Updater");
+                    // MessageBox.Show("Необходимо открыть от имени администратора", "Ошибка Addon Updater");
                 }
+                return false;
+            }
+            return true;
+        }
+
+        private Task DownloadUpdaterTask(string link)
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            using (WebClient webClient = new WebClient())
+            {
+                return webClient.DownloadFileTaskAsync(link, "AddonUpdater.zip");
             }
         }
 
@@ -326,27 +356,27 @@ namespace AddonUpdater
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            CheckVersion();
-            PathCheck();
-            GetOnline();
-            if (File.Exists("Updater.exe") == false)
+            bool isSucsses = await CheckVersion();
+            if (isSucsses)
             {
-                MessageBox.Show("Не найден файл Updater.exe. Попробуйте переустановить приложение", "Ошибка");
-                Application.Exit();
+                PathCheck();
+                GetOnline();
+                await downloadAddonGitHub.Aupdatecheck();
+                SetNotificationsAddons();
+                timerGithub.Start();
+                timerLocal.Start();
+                timerUpdate.Start();
+                timerKill.Start();
+                timerSirus.Start();
             }
-            await downloadAddonGitHub.Aupdatecheck();
             VisibleOn();
-            SetNotificationsAddons();
-            timerGithub.Start();
-            timerLocal.Start();
-            timerUpdate.Start();
-            timerKill.Start();
-            timerSirus.Start();
+
             OpenChildForm(new AddonFormControl(this, true), buttonAddons);
             AutoUpdate();
             openFormAddons = true;
             labelNeedUpdateMyAddon.Parent = buttonAddons;
             labelNeedUpdateMyAddon.Location = new Point(0, 12);
+
         }
 
         #region MoveForm
@@ -643,7 +673,7 @@ namespace AddonUpdater
             buttonSettings.Visible = true;
             buttonModifications.Visible = true;
             buttonAllAddons.Visible = true;
-            labelTitleName.Visible = true;      
+            labelTitleName.Visible = true;
             LabelVersion.Visible = true;
             buttonClose.Visible = true;
             buttonResize.Visible = true;
@@ -677,7 +707,7 @@ namespace AddonUpdater
 
 
         #endregion
-         
+
     }
 
 }

@@ -32,7 +32,7 @@ namespace AddonUpdater
             {
                 GetSettings();
                 List<GitHub> GitHubsNew = new List<GitHub>();
-
+                if(AddonUpdaterSettings!= null)
                 foreach (Toc toc in AddonUpdaterSettings.Tocs)
                 {
                     GitHubsNew.AddRange(AupdatecheckToc(toc.Link, toc.Regex));
@@ -231,7 +231,8 @@ namespace AddonUpdater
         private void GetSettings()
         {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            string getUrlGithub = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings");
+            //string getUrlGithub = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings");
+            string getUrlGithub = "{\"DeleteDirectory\":[\".github\",\".vs\",\".vscode\"],\"ter\":[\".github\",\".vs\",\".vscode\"],\"Tocs\":[{\"Link\":\"https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterLinks\",\"Regex\":\"## Version:\\\\s*((?:\\\\d\\\\.*)*)\"},{\"Link\":\"https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterSirusLinks\",\"Regex\":\"@Version:\\\\s*(\\\\d*)\"}\r\n    ],\r\n  \"News\":\"https://forum.sirus.su/threads/addon-updater.205056/post-2510642\",\r\n  \"ListSpells\":\"https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/PatcherSpell\"\r\n}";
             AddonUpdaterSettings = JsonConvert.DeserializeObject<AddonUpdaterSetting>(getUrlGithub);
         }
 

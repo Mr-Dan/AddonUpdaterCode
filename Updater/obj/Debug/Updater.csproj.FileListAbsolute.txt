@@ -16,3 +16,17 @@ D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.AssemblyReference.ca
 D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.SuggestedBindingRedirects.cache
 D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.exe
 D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.pdb
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.Form1.resources
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.Properties.Resources.resources
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.GenerateResource.cache
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.CoreCompileInputs.cache
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Updater.exe.config
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Updater.exe.manifest
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Updater.application
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Updater.exe
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Updater.pdb
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Newtonsoft.Json.dll
+D:\GitHub\AddonUpdaterCode\Updater\bin\Debug\Newtonsoft.Json.xml
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.exe.manifest
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.application
+D:\GitHub\AddonUpdaterCode\Updater\obj\Debug\Updater.csproj.CopyComplete

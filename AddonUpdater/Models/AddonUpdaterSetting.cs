@@ -15,6 +15,8 @@ namespace AddonUpdater.Models
 
         public string ListSpells { get; set; }
 
+        public List<string> Files { get; set; }
+
     }
 
     class Toc
