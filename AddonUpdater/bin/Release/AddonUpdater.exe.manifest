@@ -50,7 +50,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>WU6zNKJ1FluTwsRXMYAEq0G4MMSZWhHeNz7/jTWgL+w=</dsig:DigestValue>
+        <dsig:DigestValue>Hby6/6EZ0ZkDdwEoCaJirNrmv8hpwepgoM06tPfdhms=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -72,7 +72,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>KTXugH+GD7fl99/J18x3jNBxduRs7OsSuGYT3XJFdcc=</dsig:DigestValue>
+      <dsig:DigestValue>SLC0llJB08UdiYXb416gv/N3SIV4JbJP6Xff5+oSoxQ=</dsig:DigestValue>
     </hash>
   </file>
   <file name="AddonUpdater.ico" size="20974">

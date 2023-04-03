@@ -14,6 +14,7 @@ namespace AddonUpdater.Models
         public string News { get; set; }
 
         public string ListSpells { get; set; }
+        public string ListSpellVisualKit { get; set; }
 
         public List<string> Files { get; set; }
 

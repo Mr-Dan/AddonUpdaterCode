@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,15 +26,15 @@ namespace AddonUpdater.Controls
         }
 
         [DllImport("PatchCreator.dll", CallingConvention = CallingConvention.Cdecl)]
-        public static extern bool PatchCreate(Spell[] spells, int count, string path);
+        public static extern bool PatchCreate(SpellMap[] SpellDBC, int SpellDBCCount, SpellMap[] SpellVisualKitDBC, int SpellVisualKitDBCCount, string path);
 
-        private Task<bool> PatchLoad(Spell[] spells, int count, string path)
+        private Task<bool> PatchLoad(SpellMap[] SpellDBC, int SpellDBCCount, SpellMap[] SpellVisualKitDBC, int SpellVisualKitDBCCount, string path)
         {
             var test = Task.Run(() =>
             {
                 try
                 {
-                     return PatchCreate(spells, count, path);                 
+                    return PatchCreate(SpellDBC, SpellDBCCount, SpellVisualKitDBC,SpellVisualKitDBCCount, path);
                 }
                 catch (Exception ex)
                 {
@@ -59,40 +60,43 @@ namespace AddonUpdater.Controls
             {
                 if (Properties.Settings.Default.PathWow != null)
                 {
-                    formMainMenu.ButtonOff();
-                    buttonPatchLoad.Enabled = false;
-                    buttonDeletePath.Enabled = false;
-                    progressBar1.Maximum = 2;
-                    progressBar1.Visible = true;
-                    using (WebClient webClient = new WebClient())
+                    try
                     {
-                        try
-                        {
-                            using (Stream stream = webClient.OpenRead(DownloadAddonGitHub.AddonUpdaterSettings.ListSpells))
-                            {
-                                using (StreamReader streamReader = new StreamReader(stream))
-                                {
-                                    string result = streamReader.ReadToEnd().Replace("\n", "").Trim();
-                                    Spell[] spells = JsonConvert.DeserializeObject<Spell[]>(result);
-                                    progressBar1.Value++;
-                                    bool isCreate = await PatchLoad(spells, spells.Length, Properties.Settings.Default.PathWow);
-                                    progressBar1.Value++;
-                                    if (isCreate)
-                                    {
-                                        MessageBox.Show("Патч создан");
-                                    }
-                                    else
-                                    {
-                                        MessageBox.Show("Ошибка. Убедитесь, что :\n 1. Игра не запущена. \n 2. patch-ruRU-x.mpq не открыт в другой программе. \n 3. Присутствует данный файл /Data/ruRU/patch-ruRU-4.mpq.");
-                                    }
+                        formMainMenu.ButtonOff();
+                        buttonPatchLoad.Enabled = false;
+                        buttonDeletePath.Enabled = false;
+                        progressBar1.Maximum = 3;
+                        progressBar1.Visible = true;
+                        progressBar1.Value++;
 
-                                }
-                            }
-                        }
-                        catch (Exception ex)
+                        SpellMap[] SpellDBC = GetSpell(DownloadAddonGitHub.AddonUpdaterSettings.ListSpells);
+                        if (SpellDBC == null)
                         {
-                            MessageBox.Show(ex.Message);
+                            throw new Exception();
                         }
+
+                        SpellMap[] SpellVisualKitDBC = GetSpell(DownloadAddonGitHub.AddonUpdaterSettings.ListSpellVisualKit);
+                        if (SpellVisualKitDBC == null)
+                        {
+                            throw new Exception();
+                        }
+                      
+                        bool isCreate = await PatchLoad(SpellDBC, SpellDBC.Length, SpellVisualKitDBC, SpellVisualKitDBC.Length, Properties.Settings.Default.PathWow);
+                        progressBar1.Value++;
+                        if (isCreate)
+                        {
+                            MessageBox.Show("Патч создан");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка. Убедитесь, что :\n 1. Игра не запущена. \n 2. patch-ruRU-[.mpq не открыт в другой программе. \n 3. Присутствует данный файл /Data/ruRU/patch-ruRU-4.mpq. \n 4. Необходимо обновить Microsoft Visual C++ Redistributable до последней версии.");
+                        }
+
+
+                    }
+                    catch(Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
                     }
                     progressBar1.Value = 0;
                     progressBar1.Visible = false;
@@ -108,7 +112,7 @@ namespace AddonUpdater.Controls
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        public struct Spell
+        public struct SpellMap
         {
             public int Key { get; set; }
             public int Value { get; set; }
@@ -129,9 +133,9 @@ namespace AddonUpdater.Controls
                 {
                     try
                     {
-                        if (File.Exists(Properties.Settings.Default.PathWow + "/Data/ruRU/patch-ruRU-x.mpq"))
+                        if (File.Exists(Properties.Settings.Default.PathWow + "/Data/ruRU/patch-ruRU-[.mpq"))
                         {
-                            File.Delete(Properties.Settings.Default.PathWow + "/Data/ruRU/patch-ruRU-x.mpq");
+                            File.Delete(Properties.Settings.Default.PathWow + "/Data/ruRU/patch-ruRU-[.mpq");
                             MessageBox.Show("Патч удален.");
                         }
                         else
@@ -141,9 +145,9 @@ namespace AddonUpdater.Controls
                     }
                     catch
                     {
-                        MessageBox.Show("Ошибка. Убедитесь, что :\n 1. Игра не запущена. \n 2. patch-ruRU-x.mpq не открыт в другой программе.");
+                        MessageBox.Show("Ошибка. Убедитесь, что :\n 1. Игра не запущена. \n 2. patch-ruRU-[.mpq не открыт в другой программе.");
                     }
-                   
+
                 }
                 else
                 {
@@ -151,5 +155,32 @@ namespace AddonUpdater.Controls
                 }
             }
         }
+
+        private SpellMap[] GetSpell(string url)
+        {
+            using (WebClient webClient = new WebClient())
+            {
+                try
+                {
+                    using (Stream stream = webClient.OpenRead(url))
+                    {
+                        using (StreamReader streamReader = new StreamReader(stream))
+                        {
+                            string result = streamReader.ReadToEnd().Replace("\n", "").Trim();
+                            SpellMap[] spells = JsonConvert.DeserializeObject<SpellMap[]>(result);
+                            return spells;
+
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return null;
+                }
+            }
+        }
+
+
     }
 }
