@@ -55,24 +55,24 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Update.exe" size="88984">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Update.exe" size="88064">
       <assemblyIdentity name="Update" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>XDVmheEkk8faZqPMDqZKn/a/jZOqgbd9Opq/iEOcd/8=</dsig:DigestValue>
+        <dsig:DigestValue>jbDgLwfuJK18GtgGx1X2RIyKr00kSIjhsmC0xHnR71k=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="Update.exe.config" size="189">
+  <file name="Update.exe.config" size="186">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-      <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+      <dsig:DigestValue>Gzd2Nq2uFMFSpX8O7vwhr6hYsb+/2crNIQns3ZxraLY=</dsig:DigestValue>
     </hash>
   </file>
   <file name="Update.ico" size="36100">

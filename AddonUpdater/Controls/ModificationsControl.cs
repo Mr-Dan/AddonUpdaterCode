@@ -8,19 +8,28 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
+
+
 namespace AddonUpdater.Controls
 {
     public partial class ModificationsControl : UserControl
     {
+        //public static HttpClient httpClient;
+        //public static HttpRequestMessage requestForCheck;
         private FormMainMenu formMainMenu;
         public ModificationsControl(FormMainMenu owner)
         {
+            //httpClient = new HttpClient();
+            //requestForCheck = new HttpRequestMessage(HttpMethod.Get, "http://51.15.228.31:8080/api/client/patches");
+
             formMainMenu = owner;
             InitializeComponent();
         }
@@ -181,6 +190,112 @@ namespace AddonUpdater.Controls
             }
         }
 
+        /////////////////////////////////////////////////////////////////
+        public static string pathToWow = "D:\\games\\sirus\\World of Warcraft Sirus";
 
+        static HttpClient httpClient = new HttpClient();
+
+        #region Check Patch whit md5
+        [DllImport("PatchChecker.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+        public static extern bool CheckPatch(string pathToFile, string md5);
+        #endregion
+
+        #region get md5 from file
+        public delegate void ResponseDelegate(string s);
+        [DllImport("PatchChecker.dll", EntryPoint = "GetMD5", CallingConvention = CallingConvention.StdCall)]
+        /*
+         *  GetMD5(pathToWow, pathToFileFromWowDir, s =>
+            {
+                Console.WriteLine(s);
+            });
+         */
+        public static extern void GetMD5(string pathToFile, ResponseDelegate response);
+        #endregion
+
+        public static async Task CheckPatchAsync(Newtonsoft.Json.Linq.JToken info,ProgressBar bar)
+        {
+            //Console.WriteLine(info);
+            //var time = DateTime.Parse((string)info?["updated_at"], DateTimeFormatInfo.InvariantInfo);
+            //var timeNow = DateTime.Now;
+            var pathToFile = pathToWow + (string)info?["path"] + (string)info?["filename"];
+            var urlForDownload = (string)info?["host"] + (string)info?["storage_path"];
+
+            var isUpdated = CheckPatch(pathToFile, (string)info?["md5"]);
+            if (!isUpdated)
+            {
+                using (HttpClient client = new System.Net.Http.HttpClient())
+                {
+                    if (File.Exists(pathToFile))
+                    {
+                        // If file found, delete it    
+                        File.Delete(pathToFile);
+                        //Console.WriteLine(pathToFile);
+                    }
+                    var uri = new Uri(urlForDownload);
+                    await httpClient.DownloadFileTaskAsync(uri, pathToFile);
+
+                }
+            }
+            bar.Invoke((MethodInvoker)delegate
+            {
+                bar.Value++;
+            });
+        }
+
+        static async Task MainFunction(ProgressBar bar)
+        {
+            List<Task> tasks = new List<Task>();
+            // запросики
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, "http://51.15.228.31:8080/api/client/patches");
+                var response = await client.SendAsync(request);
+                string content = await response.Content.ReadAsStringAsync();
+
+                Newtonsoft.Json.Linq.JObject obj = Newtonsoft.Json.Linq.JObject.Parse(content);
+                // проверка патчей
+                bar.Invoke((MethodInvoker)delegate
+                {
+                    bar.Maximum = (int)obj?["patches"]?.Count();
+                    bar.Visible = true;
+                    bar.Value = 0;
+                });
+                for (int i = 1; i < obj?["patches"]?.Count(); i++)
+                {
+                    var info = obj?["patches"]?[i];
+                    tasks.Add(Task.Run(() => CheckPatchAsync(info,bar)));
+
+                }
+                await Task.WhenAll(tasks);
+                bar.Invoke((MethodInvoker)delegate
+                {
+                    bar.Visible = false;
+                    bar.Value = 0;
+                });
+                MessageBox.Show("Клиент проверен успешно");
+            }
+
+        }
+
+        /////////////////////////////////////////////////////////////////
+        private void CheckPatch_Click(object sender, EventArgs e)
+        {
+            Task.Run(() => MainFunction(CheckPatchProgressBar));
+        }
     }
+
+    public static class HttpClientUtils
+    {
+        public static async Task DownloadFileTaskAsync(this HttpClient client, Uri uri, string FileName)
+        {
+            using (var s = await client.GetStreamAsync(uri))
+            {
+                using (var fs = new FileStream(FileName, FileMode.CreateNew))
+                {
+                    await s.CopyToAsync(fs);
+                }
+            }
+        }
+    }
+
 }
