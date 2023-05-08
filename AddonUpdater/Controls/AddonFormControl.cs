@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace AddonUpdater.Controls
 {
     public partial class AddonFormControl : UserControl
