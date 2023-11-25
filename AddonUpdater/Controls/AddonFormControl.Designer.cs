@@ -28,319 +28,318 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddonFormControl));
-            this.PanelDescription = new System.Windows.Forms.Panel();
-            this.LabelDescription = new System.Windows.Forms.Label();
-            this.panelAddonsViewTitle = new System.Windows.Forms.Panel();
-            this.labelDelete = new System.Windows.Forms.Label();
-            this.labelAuthor = new System.Windows.Forms.Label();
-            this.labelCategory = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.labelName = new System.Windows.Forms.Label();
-            this.ContextMenuStripPaths = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.panelBottom = new System.Windows.Forms.Panel();
-            this.panelBottomButtons = new System.Windows.Forms.Panel();
-            this.panelRightLauncher = new System.Windows.Forms.Panel();
-            this.panelRightUpdate = new System.Windows.Forms.Panel();
-            this.dowloadButton = new System.Windows.Forms.Button();
-            this.pathsShowDowload = new System.Windows.Forms.Button();
-            this.panelRightDowload = new System.Windows.Forms.Panel();
-            this.panelBottomButtonsUp = new System.Windows.Forms.Panel();
-            this.panelAddonsView = new System.Windows.Forms.Panel();
-            this.launcherButton = new System.Windows.Forms.Button();
-            this.updateButton = new System.Windows.Forms.Button();
-            this.pictureBoxFollowUpdate = new System.Windows.Forms.PictureBox();
-            this.PanelDescription.SuspendLayout();
-            this.panelAddonsViewTitle.SuspendLayout();
-            this.panelBottomButtons.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFollowUpdate)).BeginInit();
-            this.SuspendLayout();
+            PanelDescription = new System.Windows.Forms.Panel();
+            LabelDescription = new System.Windows.Forms.Label();
+            panelAddonsViewTitle = new System.Windows.Forms.Panel();
+            labelDelete = new System.Windows.Forms.Label();
+            labelAuthor = new System.Windows.Forms.Label();
+            labelCategory = new System.Windows.Forms.Label();
+            labelVersion = new System.Windows.Forms.Label();
+            pictureBoxFollowUpdate = new System.Windows.Forms.PictureBox();
+            labelName = new System.Windows.Forms.Label();
+            ContextMenuStripPaths = new System.Windows.Forms.ContextMenuStrip(components);
+            ToolTip = new System.Windows.Forms.ToolTip(components);
+            panelBottom = new System.Windows.Forms.Panel();
+            panelBottomButtons = new System.Windows.Forms.Panel();
+            launcherButton = new System.Windows.Forms.Button();
+            panelRightLauncher = new System.Windows.Forms.Panel();
+            updateButton = new System.Windows.Forms.Button();
+            panelRightUpdate = new System.Windows.Forms.Panel();
+            dowloadButton = new System.Windows.Forms.Button();
+            pathsShowDowload = new System.Windows.Forms.Button();
+            panelRightDowload = new System.Windows.Forms.Panel();
+            panelBottomButtonsUp = new System.Windows.Forms.Panel();
+            panelAddonsView = new System.Windows.Forms.Panel();
+            PanelDescription.SuspendLayout();
+            panelAddonsViewTitle.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxFollowUpdate).BeginInit();
+            panelBottomButtons.SuspendLayout();
+            SuspendLayout();
             // 
             // PanelDescription
             // 
-            this.PanelDescription.Controls.Add(this.LabelDescription);
-            this.PanelDescription.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.PanelDescription.Location = new System.Drawing.Point(19, 378);
-            this.PanelDescription.MaximumSize = new System.Drawing.Size(940, 300);
-            this.PanelDescription.Name = "PanelDescription";
-            this.PanelDescription.Size = new System.Drawing.Size(940, 15);
-            this.PanelDescription.TabIndex = 31;
-            this.PanelDescription.Visible = false;
+            PanelDescription.Controls.Add(LabelDescription);
+            PanelDescription.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            PanelDescription.Location = new System.Drawing.Point(19, 378);
+            PanelDescription.MaximumSize = new System.Drawing.Size(940, 300);
+            PanelDescription.Name = "PanelDescription";
+            PanelDescription.Size = new System.Drawing.Size(940, 15);
+            PanelDescription.TabIndex = 31;
+            PanelDescription.Visible = false;
             // 
             // LabelDescription
             // 
-            this.LabelDescription.AutoEllipsis = true;
-            this.LabelDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.LabelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LabelDescription.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.LabelDescription.Location = new System.Drawing.Point(0, 0);
-            this.LabelDescription.Name = "LabelDescription";
-            this.LabelDescription.Size = new System.Drawing.Size(940, 15);
-            this.LabelDescription.TabIndex = 1;
+            LabelDescription.AutoEllipsis = true;
+            LabelDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            LabelDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            LabelDescription.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            LabelDescription.Location = new System.Drawing.Point(0, 0);
+            LabelDescription.Name = "LabelDescription";
+            LabelDescription.Size = new System.Drawing.Size(940, 15);
+            LabelDescription.TabIndex = 1;
             // 
             // panelAddonsViewTitle
             // 
-            this.panelAddonsViewTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(132)))), ((int)(((byte)(130)))), ((int)(((byte)(159)))));
-            this.panelAddonsViewTitle.Controls.Add(this.labelDelete);
-            this.panelAddonsViewTitle.Controls.Add(this.labelAuthor);
-            this.panelAddonsViewTitle.Controls.Add(this.labelCategory);
-            this.panelAddonsViewTitle.Controls.Add(this.labelVersion);
-            this.panelAddonsViewTitle.Controls.Add(this.pictureBoxFollowUpdate);
-            this.panelAddonsViewTitle.Controls.Add(this.labelName);
-            this.panelAddonsViewTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelAddonsViewTitle.Location = new System.Drawing.Point(0, 0);
-            this.panelAddonsViewTitle.Name = "panelAddonsViewTitle";
-            this.panelAddonsViewTitle.Size = new System.Drawing.Size(1070, 40);
-            this.panelAddonsViewTitle.TabIndex = 32;
+            panelAddonsViewTitle.BackColor = System.Drawing.Color.FromArgb(132, 130, 159);
+            panelAddonsViewTitle.Controls.Add(labelDelete);
+            panelAddonsViewTitle.Controls.Add(labelAuthor);
+            panelAddonsViewTitle.Controls.Add(labelCategory);
+            panelAddonsViewTitle.Controls.Add(labelVersion);
+            panelAddonsViewTitle.Controls.Add(pictureBoxFollowUpdate);
+            panelAddonsViewTitle.Controls.Add(labelName);
+            panelAddonsViewTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            panelAddonsViewTitle.Location = new System.Drawing.Point(0, 0);
+            panelAddonsViewTitle.Name = "panelAddonsViewTitle";
+            panelAddonsViewTitle.Size = new System.Drawing.Size(1070, 40);
+            panelAddonsViewTitle.TabIndex = 32;
             // 
             // labelDelete
             // 
-            this.labelDelete.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelDelete.ForeColor = System.Drawing.Color.White;
-            this.labelDelete.Location = new System.Drawing.Point(990, 0);
-            this.labelDelete.Margin = new System.Windows.Forms.Padding(0);
-            this.labelDelete.Name = "labelDelete";
-            this.labelDelete.Size = new System.Drawing.Size(50, 40);
-            this.labelDelete.TabIndex = 11;
-            this.labelDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelDelete.Dock = System.Windows.Forms.DockStyle.Left;
+            labelDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelDelete.ForeColor = System.Drawing.Color.White;
+            labelDelete.Location = new System.Drawing.Point(990, 0);
+            labelDelete.Margin = new System.Windows.Forms.Padding(0);
+            labelDelete.Name = "labelDelete";
+            labelDelete.Size = new System.Drawing.Size(50, 40);
+            labelDelete.TabIndex = 11;
+            labelDelete.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelAuthor
             // 
-            this.labelAuthor.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelAuthor.ForeColor = System.Drawing.Color.White;
-            this.labelAuthor.Location = new System.Drawing.Point(810, 0);
-            this.labelAuthor.Margin = new System.Windows.Forms.Padding(0);
-            this.labelAuthor.Name = "labelAuthor";
-            this.labelAuthor.Size = new System.Drawing.Size(180, 40);
-            this.labelAuthor.TabIndex = 10;
-            this.labelAuthor.Text = "Автор";
-            this.labelAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelAuthor.Dock = System.Windows.Forms.DockStyle.Left;
+            labelAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelAuthor.ForeColor = System.Drawing.Color.White;
+            labelAuthor.Location = new System.Drawing.Point(810, 0);
+            labelAuthor.Margin = new System.Windows.Forms.Padding(0);
+            labelAuthor.Name = "labelAuthor";
+            labelAuthor.Size = new System.Drawing.Size(180, 40);
+            labelAuthor.TabIndex = 10;
+            labelAuthor.Text = "Автор";
+            labelAuthor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelCategory
             // 
-            this.labelCategory.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelCategory.ForeColor = System.Drawing.Color.White;
-            this.labelCategory.Location = new System.Drawing.Point(630, 0);
-            this.labelCategory.Margin = new System.Windows.Forms.Padding(0);
-            this.labelCategory.Name = "labelCategory";
-            this.labelCategory.Size = new System.Drawing.Size(180, 40);
-            this.labelCategory.TabIndex = 9;
-            this.labelCategory.Text = "Категория";
-            this.labelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            labelCategory.Dock = System.Windows.Forms.DockStyle.Left;
+            labelCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelCategory.ForeColor = System.Drawing.Color.White;
+            labelCategory.Location = new System.Drawing.Point(630, 0);
+            labelCategory.Margin = new System.Windows.Forms.Padding(0);
+            labelCategory.Name = "labelCategory";
+            labelCategory.Size = new System.Drawing.Size(180, 40);
+            labelCategory.TabIndex = 9;
+            labelCategory.Text = "Категория";
+            labelCategory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelVersion
             // 
-            this.labelVersion.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVersion.ForeColor = System.Drawing.Color.White;
-            this.labelVersion.Location = new System.Drawing.Point(450, 0);
-            this.labelVersion.Margin = new System.Windows.Forms.Padding(0);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(180, 40);
-            this.labelVersion.TabIndex = 7;
-            this.labelVersion.Text = "Версия";
-            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelName
-            // 
-            this.labelName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelName.ForeColor = System.Drawing.Color.White;
-            this.labelName.Location = new System.Drawing.Point(0, 0);
-            this.labelName.Margin = new System.Windows.Forms.Padding(0);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(400, 40);
-            this.labelName.TabIndex = 1;
-            this.labelName.Text = "Название";
-            this.labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // ContextMenuStripPaths
-            // 
-            this.ContextMenuStripPaths.BackColor = System.Drawing.Color.LightGray;
-            this.ContextMenuStripPaths.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.ContextMenuStripPaths.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.ContextMenuStripPaths.Name = "ContextMenuStripPaths";
-            this.ContextMenuStripPaths.ShowImageMargin = false;
-            this.ContextMenuStripPaths.Size = new System.Drawing.Size(36, 4);
-            this.ContextMenuStripPaths.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.ContextMenuStripPaths_ItemClicked);
-            this.ContextMenuStripPaths.MouseLeave += new System.EventHandler(this.ContextMenuStripPaths_MouseLeave);
-            // 
-            // ToolTip
-            // 
-            this.ToolTip.AutoPopDelay = 5000;
-            this.ToolTip.InitialDelay = 200;
-            this.ToolTip.ReshowDelay = 100;
-            // 
-            // panelBottom
-            // 
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 600);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(1070, 10);
-            this.panelBottom.TabIndex = 38;
-            // 
-            // panelBottomButtons
-            // 
-            this.panelBottomButtons.Controls.Add(this.launcherButton);
-            this.panelBottomButtons.Controls.Add(this.panelRightLauncher);
-            this.panelBottomButtons.Controls.Add(this.updateButton);
-            this.panelBottomButtons.Controls.Add(this.panelRightUpdate);
-            this.panelBottomButtons.Controls.Add(this.dowloadButton);
-            this.panelBottomButtons.Controls.Add(this.pathsShowDowload);
-            this.panelBottomButtons.Controls.Add(this.panelRightDowload);
-            this.panelBottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomButtons.Location = new System.Drawing.Point(0, 550);
-            this.panelBottomButtons.Name = "panelBottomButtons";
-            this.panelBottomButtons.Size = new System.Drawing.Size(1070, 50);
-            this.panelBottomButtons.TabIndex = 39;
-            // 
-            // panelRightLauncher
-            // 
-            this.panelRightLauncher.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightLauncher.Location = new System.Drawing.Point(815, 0);
-            this.panelRightLauncher.Name = "panelRightLauncher";
-            this.panelRightLauncher.Size = new System.Drawing.Size(10, 50);
-            this.panelRightLauncher.TabIndex = 48;
-            // 
-            // panelRightUpdate
-            // 
-            this.panelRightUpdate.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightUpdate.Location = new System.Drawing.Point(875, 0);
-            this.panelRightUpdate.Name = "panelRightUpdate";
-            this.panelRightUpdate.Size = new System.Drawing.Size(10, 50);
-            this.panelRightUpdate.TabIndex = 46;
-            // 
-            // dowloadButton
-            // 
-            this.dowloadButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(177)))), ((int)(((byte)(128)))));
-            this.dowloadButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.dowloadButton.FlatAppearance.BorderSize = 0;
-            this.dowloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.dowloadButton.ForeColor = System.Drawing.Color.White;
-            this.dowloadButton.Location = new System.Drawing.Point(885, 0);
-            this.dowloadButton.Name = "dowloadButton";
-            this.dowloadButton.Size = new System.Drawing.Size(150, 50);
-            this.dowloadButton.TabIndex = 43;
-            this.dowloadButton.TabStop = false;
-            this.dowloadButton.Text = "Обновить все";
-            this.dowloadButton.UseVisualStyleBackColor = false;
-            this.dowloadButton.Click += new System.EventHandler(this.DowloadButton_Click);
-            // 
-            // pathsShowDowload
-            // 
-            this.pathsShowDowload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(177)))), ((int)(((byte)(128)))));
-            this.pathsShowDowload.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pathsShowDowload.FlatAppearance.BorderSize = 0;
-            this.pathsShowDowload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.pathsShowDowload.ForeColor = System.Drawing.Color.White;
-            this.pathsShowDowload.Location = new System.Drawing.Point(1035, 0);
-            this.pathsShowDowload.Name = "pathsShowDowload";
-            this.pathsShowDowload.Size = new System.Drawing.Size(25, 50);
-            this.pathsShowDowload.TabIndex = 42;
-            this.pathsShowDowload.TabStop = false;
-            this.pathsShowDowload.Text = "▼";
-            this.pathsShowDowload.UseVisualStyleBackColor = false;
-            this.pathsShowDowload.Click += new System.EventHandler(this.PathsShowButton_Click);
-            // 
-            // panelRightDowload
-            // 
-            this.panelRightDowload.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightDowload.Location = new System.Drawing.Point(1060, 0);
-            this.panelRightDowload.Name = "panelRightDowload";
-            this.panelRightDowload.Size = new System.Drawing.Size(10, 50);
-            this.panelRightDowload.TabIndex = 41;
-            // 
-            // panelBottomButtonsUp
-            // 
-            this.panelBottomButtonsUp.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomButtonsUp.Location = new System.Drawing.Point(0, 540);
-            this.panelBottomButtonsUp.Name = "panelBottomButtonsUp";
-            this.panelBottomButtonsUp.Size = new System.Drawing.Size(1070, 10);
-            this.panelBottomButtonsUp.TabIndex = 40;
-            // 
-            // panelAddonsView
-            // 
-            this.panelAddonsView.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(232)))), ((int)(((byte)(232)))));
-            this.panelAddonsView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelAddonsView.Location = new System.Drawing.Point(0, 40);
-            this.panelAddonsView.Margin = new System.Windows.Forms.Padding(0);
-            this.panelAddonsView.Name = "panelAddonsView";
-            this.panelAddonsView.Size = new System.Drawing.Size(1070, 500);
-            this.panelAddonsView.TabIndex = 41;
-            // 
-            // launcherButton
-            // 
-            this.launcherButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.launcherButton.BackgroundImage = global::AddonUpdater.Properties.Resources.sirusLauncher;
-            this.launcherButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.launcherButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.launcherButton.FlatAppearance.BorderSize = 0;
-            this.launcherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.launcherButton.ForeColor = System.Drawing.Color.White;
-            this.launcherButton.Location = new System.Drawing.Point(765, 0);
-            this.launcherButton.Name = "launcherButton";
-            this.launcherButton.Size = new System.Drawing.Size(50, 50);
-            this.launcherButton.TabIndex = 49;
-            this.launcherButton.TabStop = false;
-            this.launcherButton.UseVisualStyleBackColor = false;
-            this.launcherButton.Click += new System.EventHandler(this.LauncherButton_Click);
-            // 
-            // updateButton
-            // 
-            this.updateButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.updateButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("updateButton.BackgroundImage")));
-            this.updateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.updateButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.updateButton.FlatAppearance.BorderSize = 0;
-            this.updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.updateButton.ForeColor = System.Drawing.Color.White;
-            this.updateButton.Location = new System.Drawing.Point(825, 0);
-            this.updateButton.Name = "updateButton";
-            this.updateButton.Size = new System.Drawing.Size(50, 50);
-            this.updateButton.TabIndex = 47;
-            this.updateButton.TabStop = false;
-            this.updateButton.UseVisualStyleBackColor = false;
-            this.updateButton.Click += new System.EventHandler(this.UpdateButton_Click);
+            labelVersion.Dock = System.Windows.Forms.DockStyle.Left;
+            labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelVersion.ForeColor = System.Drawing.Color.White;
+            labelVersion.Location = new System.Drawing.Point(450, 0);
+            labelVersion.Margin = new System.Windows.Forms.Padding(0);
+            labelVersion.Name = "labelVersion";
+            labelVersion.Size = new System.Drawing.Size(180, 40);
+            labelVersion.TabIndex = 7;
+            labelVersion.Text = "Версия";
+            labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pictureBoxFollowUpdate
             // 
-            this.pictureBoxFollowUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pictureBoxFollowUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBoxFollowUpdate.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pictureBoxFollowUpdate.Location = new System.Drawing.Point(400, 0);
-            this.pictureBoxFollowUpdate.Margin = new System.Windows.Forms.Padding(0);
-            this.pictureBoxFollowUpdate.Name = "pictureBoxFollowUpdate";
-            this.pictureBoxFollowUpdate.Size = new System.Drawing.Size(50, 40);
-            this.pictureBoxFollowUpdate.TabIndex = 5;
-            this.pictureBoxFollowUpdate.TabStop = false;
-            this.pictureBoxFollowUpdate.Click += new System.EventHandler(this.PictureBoxFollowUpdate_Click);
+            pictureBoxFollowUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            pictureBoxFollowUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            pictureBoxFollowUpdate.Dock = System.Windows.Forms.DockStyle.Left;
+            pictureBoxFollowUpdate.Location = new System.Drawing.Point(400, 0);
+            pictureBoxFollowUpdate.Margin = new System.Windows.Forms.Padding(0);
+            pictureBoxFollowUpdate.Name = "pictureBoxFollowUpdate";
+            pictureBoxFollowUpdate.Size = new System.Drawing.Size(50, 40);
+            pictureBoxFollowUpdate.TabIndex = 5;
+            pictureBoxFollowUpdate.TabStop = false;
+            pictureBoxFollowUpdate.Click += PictureBoxFollowUpdate_Click;
+            // 
+            // labelName
+            // 
+            labelName.Dock = System.Windows.Forms.DockStyle.Left;
+            labelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            labelName.ForeColor = System.Drawing.Color.White;
+            labelName.Location = new System.Drawing.Point(0, 0);
+            labelName.Margin = new System.Windows.Forms.Padding(0);
+            labelName.Name = "labelName";
+            labelName.Size = new System.Drawing.Size(400, 40);
+            labelName.TabIndex = 1;
+            labelName.Text = "Название";
+            labelName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ContextMenuStripPaths
+            // 
+            ContextMenuStripPaths.BackColor = System.Drawing.Color.LightGray;
+            ContextMenuStripPaths.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            ContextMenuStripPaths.ImageScalingSize = new System.Drawing.Size(20, 20);
+            ContextMenuStripPaths.Name = "ContextMenuStripPaths";
+            ContextMenuStripPaths.ShowImageMargin = false;
+            ContextMenuStripPaths.Size = new System.Drawing.Size(36, 4);
+            ContextMenuStripPaths.ItemClicked += ContextMenuStripPaths_ItemClicked;
+            ContextMenuStripPaths.MouseLeave += ContextMenuStripPaths_MouseLeave;
+            // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.InitialDelay = 200;
+            ToolTip.ReshowDelay = 100;
+            // 
+            // panelBottom
+            // 
+            panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelBottom.Location = new System.Drawing.Point(0, 605);
+            panelBottom.Name = "panelBottom";
+            panelBottom.Size = new System.Drawing.Size(1070, 15);
+            panelBottom.TabIndex = 38;
+            // 
+            // panelBottomButtons
+            // 
+            panelBottomButtons.Controls.Add(launcherButton);
+            panelBottomButtons.Controls.Add(panelRightLauncher);
+            panelBottomButtons.Controls.Add(updateButton);
+            panelBottomButtons.Controls.Add(panelRightUpdate);
+            panelBottomButtons.Controls.Add(dowloadButton);
+            panelBottomButtons.Controls.Add(pathsShowDowload);
+            panelBottomButtons.Controls.Add(panelRightDowload);
+            panelBottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelBottomButtons.Location = new System.Drawing.Point(0, 555);
+            panelBottomButtons.Name = "panelBottomButtons";
+            panelBottomButtons.Size = new System.Drawing.Size(1070, 50);
+            panelBottomButtons.TabIndex = 39;
+            // 
+            // launcherButton
+            // 
+            launcherButton.BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            launcherButton.BackgroundImage = Properties.Resources.sirusLauncher;
+            launcherButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            launcherButton.Dock = System.Windows.Forms.DockStyle.Right;
+            launcherButton.FlatAppearance.BorderSize = 0;
+            launcherButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            launcherButton.ForeColor = System.Drawing.Color.White;
+            launcherButton.Location = new System.Drawing.Point(765, 0);
+            launcherButton.Name = "launcherButton";
+            launcherButton.Size = new System.Drawing.Size(50, 50);
+            launcherButton.TabIndex = 49;
+            launcherButton.TabStop = false;
+            launcherButton.UseVisualStyleBackColor = false;
+            launcherButton.Click += LauncherButton_Click;
+            // 
+            // panelRightLauncher
+            // 
+            panelRightLauncher.Dock = System.Windows.Forms.DockStyle.Right;
+            panelRightLauncher.Location = new System.Drawing.Point(815, 0);
+            panelRightLauncher.Name = "panelRightLauncher";
+            panelRightLauncher.Size = new System.Drawing.Size(10, 50);
+            panelRightLauncher.TabIndex = 48;
+            // 
+            // updateButton
+            // 
+            updateButton.BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            updateButton.BackgroundImage = (System.Drawing.Image)resources.GetObject("updateButton.BackgroundImage");
+            updateButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            updateButton.Dock = System.Windows.Forms.DockStyle.Right;
+            updateButton.FlatAppearance.BorderSize = 0;
+            updateButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            updateButton.ForeColor = System.Drawing.Color.White;
+            updateButton.Location = new System.Drawing.Point(825, 0);
+            updateButton.Name = "updateButton";
+            updateButton.Size = new System.Drawing.Size(50, 50);
+            updateButton.TabIndex = 47;
+            updateButton.TabStop = false;
+            updateButton.UseVisualStyleBackColor = false;
+            updateButton.Click += UpdateButton_Click;
+            // 
+            // panelRightUpdate
+            // 
+            panelRightUpdate.Dock = System.Windows.Forms.DockStyle.Right;
+            panelRightUpdate.Location = new System.Drawing.Point(875, 0);
+            panelRightUpdate.Name = "panelRightUpdate";
+            panelRightUpdate.Size = new System.Drawing.Size(10, 50);
+            panelRightUpdate.TabIndex = 46;
+            // 
+            // dowloadButton
+            // 
+            dowloadButton.BackColor = System.Drawing.Color.FromArgb(44, 177, 128);
+            dowloadButton.Dock = System.Windows.Forms.DockStyle.Right;
+            dowloadButton.FlatAppearance.BorderSize = 0;
+            dowloadButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            dowloadButton.ForeColor = System.Drawing.Color.White;
+            dowloadButton.Location = new System.Drawing.Point(885, 0);
+            dowloadButton.Name = "dowloadButton";
+            dowloadButton.Size = new System.Drawing.Size(150, 50);
+            dowloadButton.TabIndex = 43;
+            dowloadButton.TabStop = false;
+            dowloadButton.Text = "Обновить все";
+            dowloadButton.UseVisualStyleBackColor = false;
+            dowloadButton.Click += DowloadButton_Click;
+            // 
+            // pathsShowDowload
+            // 
+            pathsShowDowload.BackColor = System.Drawing.Color.FromArgb(44, 177, 128);
+            pathsShowDowload.Dock = System.Windows.Forms.DockStyle.Right;
+            pathsShowDowload.FlatAppearance.BorderSize = 0;
+            pathsShowDowload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            pathsShowDowload.ForeColor = System.Drawing.Color.White;
+            pathsShowDowload.Location = new System.Drawing.Point(1035, 0);
+            pathsShowDowload.Name = "pathsShowDowload";
+            pathsShowDowload.Size = new System.Drawing.Size(25, 50);
+            pathsShowDowload.TabIndex = 42;
+            pathsShowDowload.TabStop = false;
+            pathsShowDowload.Text = "▼";
+            pathsShowDowload.UseVisualStyleBackColor = false;
+            pathsShowDowload.Click += PathsShowButton_Click;
+            // 
+            // panelRightDowload
+            // 
+            panelRightDowload.Dock = System.Windows.Forms.DockStyle.Right;
+            panelRightDowload.Location = new System.Drawing.Point(1060, 0);
+            panelRightDowload.Name = "panelRightDowload";
+            panelRightDowload.Size = new System.Drawing.Size(10, 50);
+            panelRightDowload.TabIndex = 41;
+            // 
+            // panelBottomButtonsUp
+            // 
+            panelBottomButtonsUp.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelBottomButtonsUp.Location = new System.Drawing.Point(0, 540);
+            panelBottomButtonsUp.Name = "panelBottomButtonsUp";
+            panelBottomButtonsUp.Size = new System.Drawing.Size(1070, 15);
+            panelBottomButtonsUp.TabIndex = 40;
+            // 
+            // panelAddonsView
+            // 
+            panelAddonsView.BackColor = System.Drawing.Color.FromArgb(232, 232, 232);
+            panelAddonsView.Dock = System.Windows.Forms.DockStyle.Fill;
+            panelAddonsView.Location = new System.Drawing.Point(0, 40);
+            panelAddonsView.Margin = new System.Windows.Forms.Padding(0);
+            panelAddonsView.Name = "panelAddonsView";
+            panelAddonsView.Size = new System.Drawing.Size(1070, 500);
+            panelAddonsView.TabIndex = 41;
             // 
             // AddonFormControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.Controls.Add(this.panelAddonsView);
-            this.Controls.Add(this.panelBottomButtonsUp);
-            this.Controls.Add(this.panelBottomButtons);
-            this.Controls.Add(this.panelBottom);
-            this.Controls.Add(this.PanelDescription);
-            this.Controls.Add(this.panelAddonsViewTitle);
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "AddonFormControl";
-            this.Size = new System.Drawing.Size(1070, 610);
-            this.Load += new System.EventHandler(this.AddonFormControls_Load);
-            this.PanelDescription.ResumeLayout(false);
-            this.panelAddonsViewTitle.ResumeLayout(false);
-            this.panelBottomButtons.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFollowUpdate)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            Controls.Add(panelAddonsView);
+            Controls.Add(panelBottomButtonsUp);
+            Controls.Add(panelBottomButtons);
+            Controls.Add(panelBottom);
+            Controls.Add(PanelDescription);
+            Controls.Add(panelAddonsViewTitle);
+            Margin = new System.Windows.Forms.Padding(0);
+            Name = "AddonFormControl";
+            Size = new System.Drawing.Size(1070, 620);
+            Load += AddonFormControls_Load;
+            PanelDescription.ResumeLayout(false);
+            panelAddonsViewTitle.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBoxFollowUpdate).EndInit();
+            panelBottomButtons.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion

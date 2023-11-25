@@ -20,8 +20,8 @@ namespace AddonUpdater.Controls
 
         private PanelAddonSetings setings;
         private AddonFormControl addonForm;
-        private DownloadAddonGitHub downloadAddonGitHub = new ();
-       
+        private DownloadAddonGitHub downloadAddonGitHub = new();
+
 
         public AddonControl(GitHub addon, PanelAddonSetings setings, AddonFormControl addonForm, int row)
         {

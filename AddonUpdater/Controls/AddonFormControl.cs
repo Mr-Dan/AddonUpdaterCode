@@ -24,9 +24,9 @@ namespace AddonUpdater.Controls
         public AddonDeleteSettingsControl deleteSettings;
         public bool myAddon;
 
-        private DownloadAddonGitHub downloadAddonGitHub = new ();
-        private PanelAddonSetings panelAddonSetings = new ();
-        private List<AddonControl> addonControls = new ();
+        private DownloadAddonGitHub downloadAddonGitHub = new();
+        private PanelAddonSetings panelAddonSetings = new();
+        private List<AddonControl> addonControls = new();
         private string pictureBoxFollowUpdateState = null;
 
         public AddonFormControl()
@@ -122,7 +122,7 @@ namespace AddonUpdater.Controls
                     FormMainMenu.progressBar1.Maximum = NeedUpdate.Count;
                     for (int i = 0; i < NeedUpdate.Count; i++)
                     {
-                        FormMainMenu.labelInfo.Text =NeedUpdate[i].Name;
+                        FormMainMenu.labelInfo.Text = NeedUpdate[i].Name;
                         await downloadAddonGitHub.DownloadAddonGitHubTask(NeedUpdate[i].Name, NeedUpdate[i].GithubLink, NeedUpdate[i].Branches);
                         FormMainMenu.progressBar1.Value++;
                     }
@@ -170,15 +170,15 @@ namespace AddonUpdater.Controls
                 };
                 if (pos.Y + addonDropdown.Height > panelAddonsView.Height && pos.Y + addonDropdown.Height - 120 < panelAddonsView.Height)
                 {
-                    addonDropdown.Location = new Point(220, pos.Y - 90);
+                    addonDropdown.Location = new Point(220, pos.Y - 98);
                 }
                 else if (pos.Y + addonDropdown.Height > panelAddonsView.Height)
                 {
-                    addonDropdown.Location = new Point(220, pos.Y - addonDropdown.Height + 90);
+                    addonDropdown.Location = new Point(220, pos.Y - addonDropdown.Height + 80);
                 }
                 else if (pos.Y + addonDropdown.Height < panelAddonsView.Height)
                 {
-                    addonDropdown.Location = new Point(220, pos.Y + 30);
+                    addonDropdown.Location = new Point(220, pos.Y + 32);
                 }
                 addonDropdown.SetAddon(addon, addonControls, this);
 
@@ -352,8 +352,8 @@ namespace AddonUpdater.Controls
             }
             for (int i = 0; i < gitHubs.Count; i++)
             {
-                Point location = new (0, i * 40);
-                AddonControl AddonControl = new (gitHubs[i], panelAddonSetings, this, i)
+                Point location = new(0, i * 50);
+                AddonControl AddonControl = new(gitHubs[i], panelAddonSetings, this, i)
                 {
                     Location = location,
                     Name = gitHubs[i].Name,
@@ -363,7 +363,7 @@ namespace AddonUpdater.Controls
             }
 
             panelAddonsView.AutoScroll = true;
-           
+
 
         }
 
@@ -465,7 +465,7 @@ namespace AddonUpdater.Controls
 
         private void SetSettingsPanelAddon()
         {
-            int height = 50;
+            int height = 60;
             panelAddonSetings.Name = new Label
             {
                 Width = labelName.Width,
@@ -677,13 +677,13 @@ namespace AddonUpdater.Controls
             }
             addonControls.Sort((a, b) => a.Name.CompareTo(b.Name));
             panelAddonsView.AutoScroll = true;
-           
+
 
         }
 
         private void UpdateControlAddon(List<GitHub> gitHubs)
         {
-            List<AddonControl> gitHubsDelete = new ();
+            List<AddonControl> gitHubsDelete = new();
             for (int i = 0; i < addonControls.Count; i++)
             {
                 if (gitHubs.FindIndex(addon => addon.Name == addonControls[i].addon.Name) == -1)
@@ -691,15 +691,15 @@ namespace AddonUpdater.Controls
                     gitHubsDelete.Add(addonControls[i]);
                     if (myAddon) addonControls[i].UnFollowUpdate();
                     panelAddonsView.Controls.Remove(addonControls[i]);
-                   addonControls.Remove(addonControls[i]);
+                    addonControls.Remove(addonControls[i]);
                     i--;
 
                 }
             }
 
-            List<AddonControl> gitHubsAdd = new ();
+            List<AddonControl> gitHubsAdd = new();
 
-            
+
             for (int i = 0; i < gitHubs.Count; i++)
             {
                 int index = addonControls.FindIndex(control => control.Name == gitHubs[i].Name);
@@ -723,14 +723,14 @@ namespace AddonUpdater.Controls
                 }
                 else
                 {
-                    Point location = new (0, 0);
+                    Point location = new(0, 0);
                     if (i > 0)
                     {
                         AddonControl control = addonControls.Find(ctrl => ctrl.addon.Name == gitHubs[i - 1].Name);
-                        location = new (0, control.Location.Y + 40);
+                        location = new(0, control.Location.Y + 40);
                     }
 
-                    AddonControl AddonControl = new (gitHubs[i], panelAddonSetings, this, i)
+                    AddonControl AddonControl = new(gitHubs[i], panelAddonSetings, this, i)
                     {
                         Location = location,
                         Name = gitHubs[i].Name,

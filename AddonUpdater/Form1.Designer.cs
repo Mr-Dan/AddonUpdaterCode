@@ -261,7 +261,7 @@ namespace AddonUpdater
             panelMenu.Location = new System.Drawing.Point(0, 50);
             panelMenu.Margin = new System.Windows.Forms.Padding(0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new System.Drawing.Size(230, 670);
+            panelMenu.Size = new System.Drawing.Size(230, 680);
             panelMenu.TabIndex = 15;
             // 
             // buttonAbout
@@ -346,7 +346,7 @@ namespace AddonUpdater
             LabelVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
             LabelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             LabelVersion.ForeColor = System.Drawing.Color.White;
-            LabelVersion.Location = new System.Drawing.Point(0, 620);
+            LabelVersion.Location = new System.Drawing.Point(0, 630);
             LabelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             LabelVersion.Name = "LabelVersion";
             LabelVersion.Size = new System.Drawing.Size(230, 50);
@@ -399,7 +399,7 @@ namespace AddonUpdater
             panelBottom.Controls.Add(progressBar1);
             panelBottom.Controls.Add(labelInfo);
             panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            panelBottom.Location = new System.Drawing.Point(230, 660);
+            panelBottom.Location = new System.Drawing.Point(230, 670);
             panelBottom.Name = "panelBottom";
             panelBottom.Size = new System.Drawing.Size(1070, 60);
             panelBottom.TabIndex = 21;
@@ -412,7 +412,7 @@ namespace AddonUpdater
             panelDesktopPane.Location = new System.Drawing.Point(230, 50);
             panelDesktopPane.Margin = new System.Windows.Forms.Padding(0);
             panelDesktopPane.Name = "panelDesktopPane";
-            panelDesktopPane.Size = new System.Drawing.Size(1070, 610);
+            panelDesktopPane.Size = new System.Drawing.Size(1070, 620);
             panelDesktopPane.TabIndex = 22;
             // 
             // label2
@@ -442,7 +442,7 @@ namespace AddonUpdater
             AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
-            ClientSize = new System.Drawing.Size(1300, 720);
+            ClientSize = new System.Drawing.Size(1300, 730);
             Controls.Add(panelDesktopPane);
             Controls.Add(panelBottom);
             Controls.Add(panelMenu);
@@ -451,8 +451,8 @@ namespace AddonUpdater
             Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(6, 5, 6, 5);
             MaximizeBox = false;
-            MaximumSize = new System.Drawing.Size(1390, 720);
-            MinimumSize = new System.Drawing.Size(1200, 720);
+            MaximumSize = new System.Drawing.Size(1390, 730);
+            MinimumSize = new System.Drawing.Size(1200, 730);
             Name = "FormMainMenu";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "AddonUpdater";

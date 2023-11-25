@@ -28,134 +28,131 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.nameAddon = new System.Windows.Forms.Label();
-            this.trackImage = new System.Windows.Forms.PictureBox();
-            this.versionButton = new System.Windows.Forms.Button();
-            this.categoryAddon = new System.Windows.Forms.Label();
-            this.authorAddon = new System.Windows.Forms.Label();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.addonProgressBar = new System.Windows.Forms.ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.trackImage)).BeginInit();
-            this.SuspendLayout();
+            nameAddon = new System.Windows.Forms.Label();
+            trackImage = new System.Windows.Forms.PictureBox();
+            versionButton = new System.Windows.Forms.Button();
+            categoryAddon = new System.Windows.Forms.Label();
+            authorAddon = new System.Windows.Forms.Label();
+            deleteButton = new System.Windows.Forms.Button();
+            addonProgressBar = new System.Windows.Forms.ProgressBar();
+            ((System.ComponentModel.ISupportInitialize)trackImage).BeginInit();
+            SuspendLayout();
             // 
             // nameAddon
             // 
-            this.nameAddon.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.nameAddon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.nameAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.nameAddon.Location = new System.Drawing.Point(0, 0);
-            this.nameAddon.Margin = new System.Windows.Forms.Padding(0);
-            this.nameAddon.Name = "nameAddon";
-            this.nameAddon.Size = new System.Drawing.Size(320, 50);
-            this.nameAddon.TabIndex = 1;
-            this.nameAddon.Text = "Addon имя";
-            this.nameAddon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.nameAddon.Click += new System.EventHandler(this.NameAddon_Click);
-            this.nameAddon.MouseLeave += new System.EventHandler(this.NameAddon_MouseLeave);
-            this.nameAddon.MouseHover += new System.EventHandler(this.NameAddon_MouseHover);
+            nameAddon.Cursor = System.Windows.Forms.Cursors.Hand;
+            nameAddon.Dock = System.Windows.Forms.DockStyle.Left;
+            nameAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            nameAddon.Location = new System.Drawing.Point(0, 0);
+            nameAddon.Margin = new System.Windows.Forms.Padding(0);
+            nameAddon.Name = "nameAddon";
+            nameAddon.Size = new System.Drawing.Size(320, 60);
+            nameAddon.TabIndex = 1;
+            nameAddon.Text = "Addon имя";
+            nameAddon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            nameAddon.Click += NameAddon_Click;
+            nameAddon.MouseLeave += NameAddon_MouseLeave;
+            nameAddon.MouseHover += NameAddon_MouseHover;
             // 
             // trackImage
             // 
-            this.trackImage.BackColor = System.Drawing.SystemColors.Control;
-            this.trackImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.trackImage.Dock = System.Windows.Forms.DockStyle.Left;
-            this.trackImage.Location = new System.Drawing.Point(320, 0);
-            this.trackImage.Margin = new System.Windows.Forms.Padding(0);
-            this.trackImage.Name = "trackImage";
-            this.trackImage.Size = new System.Drawing.Size(50, 50);
-            this.trackImage.TabIndex = 2;
-            this.trackImage.TabStop = false;
-            this.trackImage.Click += new System.EventHandler(this.TrackImage_Click);
-            this.trackImage.MouseHover += new System.EventHandler(this.TrackImage_MouseHover);
+            trackImage.BackColor = System.Drawing.SystemColors.Control;
+            trackImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            trackImage.Dock = System.Windows.Forms.DockStyle.Left;
+            trackImage.Location = new System.Drawing.Point(320, 0);
+            trackImage.Margin = new System.Windows.Forms.Padding(0);
+            trackImage.Name = "trackImage";
+            trackImage.Size = new System.Drawing.Size(50, 62);
+            trackImage.TabIndex = 2;
+            trackImage.TabStop = false;
+            trackImage.Click += TrackImage_Click;
+            trackImage.MouseHover += TrackImage_MouseHover;
             // 
             // versionButton
             // 
-            this.versionButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.versionButton.FlatAppearance.BorderSize = 0;
-            this.versionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.versionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.versionButton.Location = new System.Drawing.Point(370, 0);
-            this.versionButton.Margin = new System.Windows.Forms.Padding(0);
-            this.versionButton.Name = "versionButton";
-            this.versionButton.Size = new System.Drawing.Size(160, 50);
-            this.versionButton.TabIndex = 3;
-            this.versionButton.TabStop = false;
-            this.versionButton.Text = "Версия";
-            this.versionButton.UseVisualStyleBackColor = true;
-            this.versionButton.Click += new System.EventHandler(this.VersionButton_Click);
-            this.versionButton.MouseHover += new System.EventHandler(this.VersionButton_MouseHover);
+            versionButton.Dock = System.Windows.Forms.DockStyle.Left;
+            versionButton.FlatAppearance.BorderSize = 0;
+            versionButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            versionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            versionButton.Location = new System.Drawing.Point(370, 0);
+            versionButton.Margin = new System.Windows.Forms.Padding(0);
+            versionButton.Name = "versionButton";
+            versionButton.Size = new System.Drawing.Size(160, 62);
+            versionButton.TabIndex = 3;
+            versionButton.TabStop = false;
+            versionButton.Text = "Версия";
+            versionButton.UseVisualStyleBackColor = true;
+            versionButton.Click += VersionButton_Click;
+            versionButton.MouseHover += VersionButton_MouseHover;
             // 
             // categoryAddon
             // 
-            this.categoryAddon.Cursor = System.Windows.Forms.Cursors.Default;
-            this.categoryAddon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.categoryAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.categoryAddon.Location = new System.Drawing.Point(530, 0);
-            this.categoryAddon.Margin = new System.Windows.Forms.Padding(0);
-            this.categoryAddon.Name = "categoryAddon";
-            this.categoryAddon.Size = new System.Drawing.Size(170, 50);
-            this.categoryAddon.TabIndex = 4;
-            this.categoryAddon.Text = "Тип";
-            this.categoryAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            categoryAddon.Dock = System.Windows.Forms.DockStyle.Left;
+            categoryAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            categoryAddon.Location = new System.Drawing.Point(530, 0);
+            categoryAddon.Margin = new System.Windows.Forms.Padding(0);
+            categoryAddon.Name = "categoryAddon";
+            categoryAddon.Size = new System.Drawing.Size(170, 60);
+            categoryAddon.TabIndex = 4;
+            categoryAddon.Text = "Тип";
+            categoryAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // authorAddon
             // 
-            this.authorAddon.Cursor = System.Windows.Forms.Cursors.Default;
-            this.authorAddon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.authorAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.authorAddon.Location = new System.Drawing.Point(700, 0);
-            this.authorAddon.Margin = new System.Windows.Forms.Padding(0);
-            this.authorAddon.Name = "authorAddon";
-            this.authorAddon.Size = new System.Drawing.Size(170, 50);
-            this.authorAddon.TabIndex = 5;
-            this.authorAddon.Text = "Автор";
-            this.authorAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            authorAddon.Dock = System.Windows.Forms.DockStyle.Left;
+            authorAddon.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            authorAddon.Location = new System.Drawing.Point(700, 0);
+            authorAddon.Margin = new System.Windows.Forms.Padding(0);
+            authorAddon.Name = "authorAddon";
+            authorAddon.Size = new System.Drawing.Size(170, 60);
+            authorAddon.TabIndex = 5;
+            authorAddon.Text = "Автор";
+            authorAddon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // deleteButton
             // 
-            this.deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.deleteButton.Dock = System.Windows.Forms.DockStyle.Left;
-            this.deleteButton.FlatAppearance.BorderSize = 0;
-            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteButton.Image = global::AddonUpdater.Properties.Resources.delete;
-            this.deleteButton.Location = new System.Drawing.Point(870, 0);
-            this.deleteButton.Margin = new System.Windows.Forms.Padding(0);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(40, 50);
-            this.deleteButton.TabIndex = 6;
-            this.deleteButton.TabStop = false;
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
-            this.deleteButton.MouseHover += new System.EventHandler(this.DeleteButton_MouseHover);
+            deleteButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            deleteButton.Dock = System.Windows.Forms.DockStyle.Left;
+            deleteButton.FlatAppearance.BorderSize = 0;
+            deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            deleteButton.Image = Properties.Resources.delete;
+            deleteButton.Location = new System.Drawing.Point(870, 0);
+            deleteButton.Margin = new System.Windows.Forms.Padding(0);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new System.Drawing.Size(40, 62);
+            deleteButton.TabIndex = 6;
+            deleteButton.TabStop = false;
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += DeleteButton_Click;
+            deleteButton.MouseHover += DeleteButton_MouseHover;
             // 
             // addonProgressBar
             // 
-            this.addonProgressBar.Location = new System.Drawing.Point(0, 35);
-            this.addonProgressBar.Margin = new System.Windows.Forms.Padding(0);
-            this.addonProgressBar.Name = "addonProgressBar";
-            this.addonProgressBar.Size = new System.Drawing.Size(320, 15);
-            this.addonProgressBar.TabIndex = 7;
-            this.addonProgressBar.Visible = false;
+            addonProgressBar.Location = new System.Drawing.Point(0, 45);
+            addonProgressBar.Margin = new System.Windows.Forms.Padding(0);
+            addonProgressBar.Name = "addonProgressBar";
+            addonProgressBar.Size = new System.Drawing.Size(320, 15);
+            addonProgressBar.TabIndex = 7;
+            addonProgressBar.Visible = false;
             // 
             // AddonControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.Controls.Add(this.addonProgressBar);
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.authorAddon);
-            this.Controls.Add(this.categoryAddon);
-            this.Controls.Add(this.versionButton);
-            this.Controls.Add(this.trackImage);
-            this.Controls.Add(this.nameAddon);
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "AddonControl";
-            this.Size = new System.Drawing.Size(1070, 50);
-            ((System.ComponentModel.ISupportInitialize)(this.trackImage)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
+            BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            Controls.Add(addonProgressBar);
+            Controls.Add(deleteButton);
+            Controls.Add(authorAddon);
+            Controls.Add(categoryAddon);
+            Controls.Add(versionButton);
+            Controls.Add(trackImage);
+            Controls.Add(nameAddon);
+            Margin = new System.Windows.Forms.Padding(0);
+            Name = "AddonControl";
+            Size = new System.Drawing.Size(1070, 60);
+            ((System.ComponentModel.ISupportInitialize)trackImage).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion

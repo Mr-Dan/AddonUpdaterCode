@@ -70,10 +70,10 @@ namespace AddonUpdater.Controls
         {
             ActiveControl = null;
             if (FormMainMenu.activity == null)
-            {             
+            {
                 form.deleteSettings.SetAddon(addon);
-                Visible= false;
-                form.lastAddon= null;
+                Visible = false;
+                form.lastAddon = null;
             }
             else
             {
@@ -134,7 +134,7 @@ namespace AddonUpdater.Controls
         #region Set
         public void SetMyAddons()
         {
-            Height = 300;
+            Height = 310;
             reinstallButton.Visible = true;
             trackButton.Visible = true;
             bugReportButton.Visible = true;
@@ -147,7 +147,7 @@ namespace AddonUpdater.Controls
 
         public void SetAllAddons()
         {
-            Height = 120;
+            Height = 130;
             reinstallButton.Visible = true;
             trackButton.Visible = false;
             bugReportButton.Visible = false;

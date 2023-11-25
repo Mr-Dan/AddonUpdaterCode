@@ -28,156 +28,163 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.reinstallButton = new System.Windows.Forms.Button();
-            this.trackButton = new System.Windows.Forms.Button();
-            this.bugReportButton = new System.Windows.Forms.Button();
-            this.forumButton = new System.Windows.Forms.Button();
-            this.gitHubButton = new System.Windows.Forms.Button();
-            this.deleteSettingsButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            this.SuspendLayout();
+            reinstallButton = new System.Windows.Forms.Button();
+            trackButton = new System.Windows.Forms.Button();
+            bugReportButton = new System.Windows.Forms.Button();
+            forumButton = new System.Windows.Forms.Button();
+            gitHubButton = new System.Windows.Forms.Button();
+            deleteSettingsButton = new System.Windows.Forms.Button();
+            deleteButton = new System.Windows.Forms.Button();
+            SuspendLayout();
             // 
             // reinstallButton
             // 
-            this.reinstallButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.reinstallButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.reinstallButton.FlatAppearance.BorderSize = 0;
-            this.reinstallButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.reinstallButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.reinstallButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.reinstallButton.Location = new System.Drawing.Point(0, 0);
-            this.reinstallButton.Name = "reinstallButton";
-            this.reinstallButton.Size = new System.Drawing.Size(160, 50);
-            this.reinstallButton.TabIndex = 3;
-            this.reinstallButton.TabStop = false;
-            this.reinstallButton.Text = "Переустановить";
-            this.reinstallButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.reinstallButton.UseVisualStyleBackColor = false;
-            this.reinstallButton.Click += new System.EventHandler(this.ReinstallButton_Click);
+            reinstallButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            reinstallButton.Dock = System.Windows.Forms.DockStyle.Top;
+            reinstallButton.FlatAppearance.BorderSize = 0;
+            reinstallButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            reinstallButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            reinstallButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            reinstallButton.Location = new System.Drawing.Point(0, 0);
+            reinstallButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            reinstallButton.Name = "reinstallButton";
+            reinstallButton.Size = new System.Drawing.Size(160, 60);
+            reinstallButton.TabIndex = 3;
+            reinstallButton.TabStop = false;
+            reinstallButton.Text = "Переустановить";
+            reinstallButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            reinstallButton.UseVisualStyleBackColor = false;
+            reinstallButton.Click += ReinstallButton_Click;
             // 
             // trackButton
             // 
-            this.trackButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.trackButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.trackButton.FlatAppearance.BorderSize = 0;
-            this.trackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.trackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.trackButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.trackButton.Location = new System.Drawing.Point(0, 50);
-            this.trackButton.Name = "trackButton";
-            this.trackButton.Size = new System.Drawing.Size(160, 60);
-            this.trackButton.TabIndex = 4;
-            this.trackButton.TabStop = false;
-            this.trackButton.Text = "Cледить за обновлением";
-            this.trackButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.trackButton.UseVisualStyleBackColor = false;
-            this.trackButton.Click += new System.EventHandler(this.TrackButton_Click);
+            trackButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            trackButton.Dock = System.Windows.Forms.DockStyle.Top;
+            trackButton.FlatAppearance.BorderSize = 0;
+            trackButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            trackButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            trackButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            trackButton.Location = new System.Drawing.Point(0, 60);
+            trackButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            trackButton.Name = "trackButton";
+            trackButton.Size = new System.Drawing.Size(160, 60);
+            trackButton.TabIndex = 4;
+            trackButton.TabStop = false;
+            trackButton.Text = "Cледить за обновлением";
+            trackButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            trackButton.UseVisualStyleBackColor = false;
+            trackButton.Click += TrackButton_Click;
             // 
             // bugReportButton
             // 
-            this.bugReportButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.bugReportButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.bugReportButton.FlatAppearance.BorderSize = 0;
-            this.bugReportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.bugReportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.bugReportButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.bugReportButton.Location = new System.Drawing.Point(0, 110);
-            this.bugReportButton.Name = "bugReportButton";
-            this.bugReportButton.Size = new System.Drawing.Size(160, 50);
-            this.bugReportButton.TabIndex = 5;
-            this.bugReportButton.TabStop = false;
-            this.bugReportButton.Text = "Сообщить о баге";
-            this.bugReportButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.bugReportButton.UseVisualStyleBackColor = false;
-            this.bugReportButton.Click += new System.EventHandler(this.BugReportButton_Click);
+            bugReportButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            bugReportButton.Dock = System.Windows.Forms.DockStyle.Top;
+            bugReportButton.FlatAppearance.BorderSize = 0;
+            bugReportButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            bugReportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            bugReportButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            bugReportButton.Location = new System.Drawing.Point(0, 120);
+            bugReportButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            bugReportButton.Name = "bugReportButton";
+            bugReportButton.Size = new System.Drawing.Size(160, 60);
+            bugReportButton.TabIndex = 5;
+            bugReportButton.TabStop = false;
+            bugReportButton.Text = "Сообщить о баге";
+            bugReportButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            bugReportButton.UseVisualStyleBackColor = false;
+            bugReportButton.Click += BugReportButton_Click;
             // 
             // forumButton
             // 
-            this.forumButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.forumButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.forumButton.FlatAppearance.BorderSize = 0;
-            this.forumButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.forumButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.forumButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.forumButton.Location = new System.Drawing.Point(0, 160);
-            this.forumButton.Name = "forumButton";
-            this.forumButton.Size = new System.Drawing.Size(160, 50);
-            this.forumButton.TabIndex = 6;
-            this.forumButton.TabStop = false;
-            this.forumButton.Text = "Форум";
-            this.forumButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.forumButton.UseVisualStyleBackColor = false;
-            this.forumButton.Click += new System.EventHandler(this.ForumButton_Click);
+            forumButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            forumButton.Dock = System.Windows.Forms.DockStyle.Top;
+            forumButton.FlatAppearance.BorderSize = 0;
+            forumButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            forumButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            forumButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            forumButton.Location = new System.Drawing.Point(0, 180);
+            forumButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            forumButton.Name = "forumButton";
+            forumButton.Size = new System.Drawing.Size(160, 60);
+            forumButton.TabIndex = 6;
+            forumButton.TabStop = false;
+            forumButton.Text = "Форум";
+            forumButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            forumButton.UseVisualStyleBackColor = false;
+            forumButton.Click += ForumButton_Click;
             // 
             // gitHubButton
             // 
-            this.gitHubButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.gitHubButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gitHubButton.FlatAppearance.BorderSize = 0;
-            this.gitHubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gitHubButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.gitHubButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.gitHubButton.Location = new System.Drawing.Point(0, 210);
-            this.gitHubButton.Name = "gitHubButton";
-            this.gitHubButton.Size = new System.Drawing.Size(160, 50);
-            this.gitHubButton.TabIndex = 7;
-            this.gitHubButton.TabStop = false;
-            this.gitHubButton.Text = "GitHub";
-            this.gitHubButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.gitHubButton.UseVisualStyleBackColor = false;
-            this.gitHubButton.Click += new System.EventHandler(this.GitHubButton_Click);
+            gitHubButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            gitHubButton.Dock = System.Windows.Forms.DockStyle.Top;
+            gitHubButton.FlatAppearance.BorderSize = 0;
+            gitHubButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            gitHubButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            gitHubButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            gitHubButton.Location = new System.Drawing.Point(0, 240);
+            gitHubButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            gitHubButton.Name = "gitHubButton";
+            gitHubButton.Size = new System.Drawing.Size(160, 60);
+            gitHubButton.TabIndex = 7;
+            gitHubButton.TabStop = false;
+            gitHubButton.Text = "GitHub";
+            gitHubButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            gitHubButton.UseVisualStyleBackColor = false;
+            gitHubButton.Click += GitHubButton_Click;
             // 
             // deleteSettingsButton
             // 
-            this.deleteSettingsButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.deleteSettingsButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.deleteSettingsButton.FlatAppearance.BorderSize = 0;
-            this.deleteSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteSettingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.deleteSettingsButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.deleteSettingsButton.Location = new System.Drawing.Point(0, 260);
-            this.deleteSettingsButton.Name = "deleteSettingsButton";
-            this.deleteSettingsButton.Size = new System.Drawing.Size(160, 60);
-            this.deleteSettingsButton.TabIndex = 8;
-            this.deleteSettingsButton.TabStop = false;
-            this.deleteSettingsButton.Text = "Удалить настройки";
-            this.deleteSettingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.deleteSettingsButton.UseVisualStyleBackColor = false;
-            this.deleteSettingsButton.Click += new System.EventHandler(this.DeleteSettingsButton_Click);
+            deleteSettingsButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            deleteSettingsButton.Dock = System.Windows.Forms.DockStyle.Top;
+            deleteSettingsButton.FlatAppearance.BorderSize = 0;
+            deleteSettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            deleteSettingsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            deleteSettingsButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            deleteSettingsButton.Location = new System.Drawing.Point(0, 300);
+            deleteSettingsButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            deleteSettingsButton.Name = "deleteSettingsButton";
+            deleteSettingsButton.Size = new System.Drawing.Size(160, 60);
+            deleteSettingsButton.TabIndex = 8;
+            deleteSettingsButton.TabStop = false;
+            deleteSettingsButton.Text = "Удалить настройки";
+            deleteSettingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            deleteSettingsButton.UseVisualStyleBackColor = false;
+            deleteSettingsButton.Click += DeleteSettingsButton_Click;
             // 
             // deleteButton
             // 
-            this.deleteButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(35)))), ((int)(((byte)(47)))));
-            this.deleteButton.Dock = System.Windows.Forms.DockStyle.Top;
-            this.deleteButton.FlatAppearance.BorderSize = 0;
-            this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.deleteButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.deleteButton.Location = new System.Drawing.Point(0, 320);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(160, 50);
-            this.deleteButton.TabIndex = 9;
-            this.deleteButton.TabStop = false;
-            this.deleteButton.Text = "Удалить";
-            this.deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.deleteButton.UseVisualStyleBackColor = false;
-            this.deleteButton.Click += new System.EventHandler(this.DeleteButton_Click);
+            deleteButton.BackColor = System.Drawing.Color.FromArgb(37, 35, 47);
+            deleteButton.Dock = System.Windows.Forms.DockStyle.Top;
+            deleteButton.FlatAppearance.BorderSize = 0;
+            deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            deleteButton.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            deleteButton.Location = new System.Drawing.Point(0, 360);
+            deleteButton.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new System.Drawing.Size(160, 60);
+            deleteButton.TabIndex = 9;
+            deleteButton.TabStop = false;
+            deleteButton.Text = "Удалить";
+            deleteButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            deleteButton.UseVisualStyleBackColor = false;
+            deleteButton.Click += DeleteButton_Click;
             // 
-            // AddonDropdown
+            // AddonDropdownControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.deleteSettingsButton);
-            this.Controls.Add(this.gitHubButton);
-            this.Controls.Add(this.forumButton);
-            this.Controls.Add(this.bugReportButton);
-            this.Controls.Add(this.trackButton);
-            this.Controls.Add(this.reinstallButton);
-            this.Name = "AddonDropdown";
-            this.Size = new System.Drawing.Size(160, 370);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            Controls.Add(deleteButton);
+            Controls.Add(deleteSettingsButton);
+            Controls.Add(gitHubButton);
+            Controls.Add(forumButton);
+            Controls.Add(bugReportButton);
+            Controls.Add(trackButton);
+            Controls.Add(reinstallButton);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "AddonDropdownControl";
+            Size = new System.Drawing.Size(160, 420);
+            ResumeLayout(false);
         }
 
         #endregion
