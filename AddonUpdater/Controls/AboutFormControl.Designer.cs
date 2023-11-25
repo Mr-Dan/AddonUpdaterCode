@@ -29,279 +29,270 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutFormControl));
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.labelVersion = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.panelBottom = new System.Windows.Forms.Panel();
-            this.panelBottomButtons = new System.Windows.Forms.Panel();
-            this.panelRightForum = new System.Windows.Forms.Panel();
-            this.panelRightGithub = new System.Windows.Forms.Panel();
-            this.panelRightDiscord = new System.Windows.Forms.Panel();
-            this.buttonForum = new System.Windows.Forms.Button();
-            this.buttonGitHub = new System.Windows.Forms.Button();
-            this.buttonDiscord = new System.Windows.Forms.Button();
-            this.buttonDonate = new System.Windows.Forms.Button();
-            this.panelBottomButtons.SuspendLayout();
-            this.SuspendLayout();
+            lblThx = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
+            lblContacts = new System.Windows.Forms.Label();
+            lblVersion = new System.Windows.Forms.Label();
+            lblAuthor = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label1 = new System.Windows.Forms.Label();
+            panelBottom = new System.Windows.Forms.Panel();
+            panelBottomButtons = new System.Windows.Forms.Panel();
+            buttonForum = new System.Windows.Forms.Button();
+            panelRightForum = new System.Windows.Forms.Panel();
+            buttonGitHub = new System.Windows.Forms.Button();
+            panelRightGithub = new System.Windows.Forms.Panel();
+            buttonDiscord = new System.Windows.Forms.Button();
+            panelRightDiscord = new System.Windows.Forms.Panel();
+            buttonDonate = new System.Windows.Forms.Button();
+            panel1 = new System.Windows.Forms.Panel();
+            panelBottomButtons.SuspendLayout();
+            panel1.SuspendLayout();
+            SuspendLayout();
             // 
-            // label8
+            // lblThx
             // 
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.ForeColor = System.Drawing.Color.White;
-            this.label8.Location = new System.Drawing.Point(15, 439);
-            this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(797, 43);
-            this.label8.TabIndex = 38;
-            this.label8.Text = "Благодарность за аддоны : Fxpw, Fallafell, Waini, Qb.";
-            // 
-            // label7
-            // 
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.ForeColor = System.Drawing.Color.White;
-            this.label7.Location = new System.Drawing.Point(15, 390);
-            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(891, 43);
-            this.label7.TabIndex = 37;
-            this.label7.Text = "Спасибо за помощь игрокам: Fxpw, Чистыйснег, Gracy.\r\n";
+            lblThx.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblThx.ForeColor = System.Drawing.Color.White;
+            lblThx.Location = new System.Drawing.Point(40, 500);
+            lblThx.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblThx.Name = "lblThx";
+            lblThx.Size = new System.Drawing.Size(840, 54);
+            lblThx.TabIndex = 38;
+            lblThx.Text = "Благодарность за аддоны : Fxpw, Fallafell, Waini, Qb.";
             // 
             // label5
             // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(15, 341);
-            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(333, 43);
-            this.label5.TabIndex = 35;
-            this.label5.Text = "Поддержать проект:";
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label5.ForeColor = System.Drawing.Color.White;
+            label5.Location = new System.Drawing.Point(40, 430);
+            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(327, 54);
+            label5.TabIndex = 35;
+            label5.Text = "Поддержать проект:";
             // 
-            // label6
+            // lblContacts
             // 
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.ForeColor = System.Drawing.Color.White;
-            this.label6.Location = new System.Drawing.Point(15, 291);
-            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(467, 43);
-            this.label6.TabIndex = 32;
-            this.label6.Text = "Контакты: Discord(Дан#7156).";
+            lblContacts.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblContacts.ForeColor = System.Drawing.Color.White;
+            lblContacts.Location = new System.Drawing.Point(40, 360);
+            lblContacts.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblContacts.Name = "lblContacts";
+            lblContacts.Size = new System.Drawing.Size(840, 54);
+            lblContacts.TabIndex = 32;
+            lblContacts.Text = "Контакты:";
             // 
-            // labelVersion
+            // lblVersion
             // 
-            this.labelVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelVersion.ForeColor = System.Drawing.Color.White;
-            this.labelVersion.Location = new System.Drawing.Point(335, 248);
-            this.labelVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(240, 43);
-            this.labelVersion.TabIndex = 31;
+            lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblVersion.ForeColor = System.Drawing.Color.White;
+            lblVersion.Location = new System.Drawing.Point(40, 290);
+            lblVersion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new System.Drawing.Size(840, 54);
+            lblVersion.TabIndex = 30;
+            lblVersion.Text = "Версия программы:";
             // 
-            // label4
+            // lblAuthor
             // 
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.ForeColor = System.Drawing.Color.White;
-            this.label4.Location = new System.Drawing.Point(15, 248);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(327, 43);
-            this.label4.TabIndex = 30;
-            this.label4.Text = "Версия программы:";
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(15, 205);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(767, 43);
-            this.label3.TabIndex = 29;
-            this.label3.Text = "Автор: Дан (Днюша)(Mr-Dan).";
+            lblAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            lblAuthor.ForeColor = System.Drawing.Color.White;
+            lblAuthor.Location = new System.Drawing.Point(40, 230);
+            lblAuthor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            lblAuthor.Name = "lblAuthor";
+            lblAuthor.Size = new System.Drawing.Size(840, 54);
+            lblAuthor.TabIndex = 29;
+            lblAuthor.Text = "Автор: Дан (Днюша)(Mr-Dan).";
             // 
             // label2
             // 
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(15, 119);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(840, 74);
-            this.label2.TabIndex = 28;
-            this.label2.Text = "Addon Updater - программа для обновлений аддонов для игры World Of Warcraft.";
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.ForeColor = System.Drawing.Color.White;
+            label2.Location = new System.Drawing.Point(40, 130);
+            label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(840, 90);
+            label2.TabIndex = 28;
+            label2.Text = "Addon Updater - программа для обновлений аддонов для игры World Of Warcraft.";
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(214, 7);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(467, 74);
-            this.label1.TabIndex = 27;
-            this.label1.Text = "Addon Updater";
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label1.ForeColor = System.Drawing.Color.White;
+            label1.Location = new System.Drawing.Point(270, 40);
+            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(467, 92);
+            label1.TabIndex = 27;
+            label1.Text = "Addon Updater";
             // 
             // panelBottom
             // 
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 620);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(1070, 20);
-            this.panelBottom.TabIndex = 39;
+            panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelBottom.Location = new System.Drawing.Point(0, 775);
+            panelBottom.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panelBottom.Name = "panelBottom";
+            panelBottom.Size = new System.Drawing.Size(1070, 25);
+            panelBottom.TabIndex = 39;
             // 
             // panelBottomButtons
             // 
-            this.panelBottomButtons.Controls.Add(this.buttonForum);
-            this.panelBottomButtons.Controls.Add(this.panelRightForum);
-            this.panelBottomButtons.Controls.Add(this.buttonGitHub);
-            this.panelBottomButtons.Controls.Add(this.panelRightGithub);
-            this.panelBottomButtons.Controls.Add(this.buttonDiscord);
-            this.panelBottomButtons.Controls.Add(this.panelRightDiscord);
-            this.panelBottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottomButtons.Location = new System.Drawing.Point(0, 540);
-            this.panelBottomButtons.Name = "panelBottomButtons";
-            this.panelBottomButtons.Size = new System.Drawing.Size(1070, 80);
-            this.panelBottomButtons.TabIndex = 40;
-            // 
-            // panelRightForum
-            // 
-            this.panelRightForum.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightForum.Location = new System.Drawing.Point(780, 0);
-            this.panelRightForum.Name = "panelRightForum";
-            this.panelRightForum.Size = new System.Drawing.Size(30, 80);
-            this.panelRightForum.TabIndex = 47;
-            // 
-            // panelRightGithub
-            // 
-            this.panelRightGithub.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightGithub.Location = new System.Drawing.Point(890, 0);
-            this.panelRightGithub.Name = "panelRightGithub";
-            this.panelRightGithub.Size = new System.Drawing.Size(30, 80);
-            this.panelRightGithub.TabIndex = 45;
-            // 
-            // panelRightDiscord
-            // 
-            this.panelRightDiscord.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRightDiscord.Location = new System.Drawing.Point(1000, 0);
-            this.panelRightDiscord.Name = "panelRightDiscord";
-            this.panelRightDiscord.Size = new System.Drawing.Size(70, 80);
-            this.panelRightDiscord.TabIndex = 41;
+            panelBottomButtons.Controls.Add(buttonForum);
+            panelBottomButtons.Controls.Add(panelRightForum);
+            panelBottomButtons.Controls.Add(buttonGitHub);
+            panelBottomButtons.Controls.Add(panelRightGithub);
+            panelBottomButtons.Controls.Add(buttonDiscord);
+            panelBottomButtons.Controls.Add(panelRightDiscord);
+            panelBottomButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
+            panelBottomButtons.Location = new System.Drawing.Point(0, 695);
+            panelBottomButtons.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panelBottomButtons.Name = "panelBottomButtons";
+            panelBottomButtons.Size = new System.Drawing.Size(1070, 80);
+            panelBottomButtons.TabIndex = 40;
             // 
             // buttonForum
             // 
-            this.buttonForum.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonForum.BackgroundImage = global::AddonUpdater.Properties.Resources.logo_sirus;
-            this.buttonForum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonForum.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonForum.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonForum.FlatAppearance.BorderSize = 0;
-            this.buttonForum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonForum.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonForum.Location = new System.Drawing.Point(700, 0);
-            this.buttonForum.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonForum.Name = "buttonForum";
-            this.buttonForum.Size = new System.Drawing.Size(80, 80);
-            this.buttonForum.TabIndex = 48;
-            this.buttonForum.TabStop = false;
-            this.buttonForum.UseVisualStyleBackColor = false;
-            this.buttonForum.Click += new System.EventHandler(this.ButtonForum_Click);
+            buttonForum.BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            buttonForum.BackgroundImage = Properties.Resources.logo_sirus;
+            buttonForum.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            buttonForum.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonForum.Dock = System.Windows.Forms.DockStyle.Right;
+            buttonForum.FlatAppearance.BorderSize = 0;
+            buttonForum.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonForum.ForeColor = System.Drawing.Color.WhiteSmoke;
+            buttonForum.Location = new System.Drawing.Point(700, 0);
+            buttonForum.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            buttonForum.Name = "buttonForum";
+            buttonForum.Size = new System.Drawing.Size(80, 80);
+            buttonForum.TabIndex = 48;
+            buttonForum.TabStop = false;
+            buttonForum.UseVisualStyleBackColor = false;
+            buttonForum.Click += ButtonForum_Click;
+            // 
+            // panelRightForum
+            // 
+            panelRightForum.Dock = System.Windows.Forms.DockStyle.Right;
+            panelRightForum.Location = new System.Drawing.Point(780, 0);
+            panelRightForum.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panelRightForum.Name = "panelRightForum";
+            panelRightForum.Size = new System.Drawing.Size(30, 80);
+            panelRightForum.TabIndex = 47;
             // 
             // buttonGitHub
             // 
-            this.buttonGitHub.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonGitHub.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonGitHub.BackgroundImage")));
-            this.buttonGitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonGitHub.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonGitHub.FlatAppearance.BorderSize = 0;
-            this.buttonGitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonGitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonGitHub.Location = new System.Drawing.Point(810, 0);
-            this.buttonGitHub.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonGitHub.Name = "buttonGitHub";
-            this.buttonGitHub.Size = new System.Drawing.Size(80, 80);
-            this.buttonGitHub.TabIndex = 46;
-            this.buttonGitHub.TabStop = false;
-            this.buttonGitHub.UseVisualStyleBackColor = false;
-            this.buttonGitHub.Click += new System.EventHandler(this.ButtonGitHub_Click);
+            buttonGitHub.BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            buttonGitHub.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonGitHub.BackgroundImage");
+            buttonGitHub.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            buttonGitHub.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonGitHub.Dock = System.Windows.Forms.DockStyle.Right;
+            buttonGitHub.FlatAppearance.BorderSize = 0;
+            buttonGitHub.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonGitHub.ForeColor = System.Drawing.Color.WhiteSmoke;
+            buttonGitHub.Location = new System.Drawing.Point(810, 0);
+            buttonGitHub.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            buttonGitHub.Name = "buttonGitHub";
+            buttonGitHub.Size = new System.Drawing.Size(80, 80);
+            buttonGitHub.TabIndex = 46;
+            buttonGitHub.TabStop = false;
+            buttonGitHub.UseVisualStyleBackColor = false;
+            buttonGitHub.Click += ButtonGitHub_Click;
+            // 
+            // panelRightGithub
+            // 
+            panelRightGithub.Dock = System.Windows.Forms.DockStyle.Right;
+            panelRightGithub.Location = new System.Drawing.Point(890, 0);
+            panelRightGithub.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panelRightGithub.Name = "panelRightGithub";
+            panelRightGithub.Size = new System.Drawing.Size(30, 80);
+            panelRightGithub.TabIndex = 45;
             // 
             // buttonDiscord
             // 
-            this.buttonDiscord.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonDiscord.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonDiscord.BackgroundImage")));
-            this.buttonDiscord.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDiscord.Dock = System.Windows.Forms.DockStyle.Right;
-            this.buttonDiscord.FlatAppearance.BorderSize = 0;
-            this.buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDiscord.Location = new System.Drawing.Point(920, 0);
-            this.buttonDiscord.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonDiscord.Name = "buttonDiscord";
-            this.buttonDiscord.Size = new System.Drawing.Size(80, 80);
-            this.buttonDiscord.TabIndex = 42;
-            this.buttonDiscord.TabStop = false;
-            this.buttonDiscord.UseVisualStyleBackColor = false;
-            this.buttonDiscord.Click += new System.EventHandler(this.ButtonDiscord_Click);
+            buttonDiscord.BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            buttonDiscord.BackgroundImage = (System.Drawing.Image)resources.GetObject("buttonDiscord.BackgroundImage");
+            buttonDiscord.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            buttonDiscord.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDiscord.Dock = System.Windows.Forms.DockStyle.Right;
+            buttonDiscord.FlatAppearance.BorderSize = 0;
+            buttonDiscord.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDiscord.ForeColor = System.Drawing.Color.WhiteSmoke;
+            buttonDiscord.Location = new System.Drawing.Point(920, 0);
+            buttonDiscord.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            buttonDiscord.Name = "buttonDiscord";
+            buttonDiscord.Size = new System.Drawing.Size(80, 80);
+            buttonDiscord.TabIndex = 42;
+            buttonDiscord.TabStop = false;
+            buttonDiscord.UseVisualStyleBackColor = false;
+            buttonDiscord.Click += ButtonDiscord_Click;
+            // 
+            // panelRightDiscord
+            // 
+            panelRightDiscord.Dock = System.Windows.Forms.DockStyle.Right;
+            panelRightDiscord.Location = new System.Drawing.Point(1000, 0);
+            panelRightDiscord.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panelRightDiscord.Name = "panelRightDiscord";
+            panelRightDiscord.Size = new System.Drawing.Size(70, 80);
+            panelRightDiscord.TabIndex = 41;
             // 
             // buttonDonate
             // 
-            this.buttonDonate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.buttonDonate.BackgroundImage = global::AddonUpdater.Properties.Resources.qiwi;
-            this.buttonDonate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.buttonDonate.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonDonate.FlatAppearance.BorderSize = 0;
-            this.buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonDonate.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.buttonDonate.Location = new System.Drawing.Point(334, 331);
-            this.buttonDonate.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonDonate.Name = "buttonDonate";
-            this.buttonDonate.Size = new System.Drawing.Size(79, 61);
-            this.buttonDonate.TabIndex = 34;
-            this.buttonDonate.TabStop = false;
-            this.buttonDonate.UseVisualStyleBackColor = false;
-            this.buttonDonate.Click += new System.EventHandler(this.ButtonDonate_Click);
+            buttonDonate.BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            buttonDonate.BackgroundImage = Properties.Resources.coin;
+            buttonDonate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            buttonDonate.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonDonate.FlatAppearance.BorderSize = 0;
+            buttonDonate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonDonate.ForeColor = System.Drawing.Color.WhiteSmoke;
+            buttonDonate.Location = new System.Drawing.Point(375, 410);
+            buttonDonate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            buttonDonate.Name = "buttonDonate";
+            buttonDonate.Size = new System.Drawing.Size(79, 76);
+            buttonDonate.TabIndex = 34;
+            buttonDonate.TabStop = false;
+            buttonDonate.UseVisualStyleBackColor = false;
+            buttonDonate.Click += ButtonDonate_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(lblThx);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(buttonDonate);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(lblAuthor);
+            panel1.Controls.Add(lblVersion);
+            panel1.Controls.Add(lblContacts);
+            panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            panel1.Location = new System.Drawing.Point(0, 0);
+            panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(1070, 695);
+            panel1.TabIndex = 41;
             // 
             // AboutFormControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(42)))), ((int)(((byte)(63)))));
-            this.Controls.Add(this.panelBottomButtons);
-            this.Controls.Add(this.panelBottom);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.buttonDonate);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.labelVersion);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "AboutFormControl";
-            this.Size = new System.Drawing.Size(1070, 640);
-            this.panelBottomButtons.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.Color.FromArgb(44, 42, 63);
+            Controls.Add(panel1);
+            Controls.Add(panelBottomButtons);
+            Controls.Add(panelBottom);
+            Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            Name = "AboutFormControl";
+            Size = new System.Drawing.Size(1070, 800);
+            panelBottomButtons.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblThx;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonDonate;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblContacts;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.Label lblAuthor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelBottom;
@@ -312,5 +303,6 @@
         private System.Windows.Forms.Panel panelRightForum;
         private System.Windows.Forms.Button buttonGitHub;
         private System.Windows.Forms.Panel panelRightGithub;
+        private System.Windows.Forms.Panel panel1;
     }
 }

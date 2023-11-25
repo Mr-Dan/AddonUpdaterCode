@@ -44,11 +44,11 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.SavePathGame = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.labelPathGame = new System.Windows.Forms.Label();
-            this.SavePathGame = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -232,6 +232,23 @@
             this.panel4.Size = new System.Drawing.Size(269, 44);
             this.panel4.TabIndex = 2;
             // 
+            // SavePathGame
+            // 
+            this.SavePathGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(177)))), ((int)(((byte)(128)))));
+            this.SavePathGame.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SavePathGame.FlatAppearance.BorderSize = 0;
+            this.SavePathGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SavePathGame.ForeColor = System.Drawing.Color.White;
+            this.SavePathGame.Location = new System.Drawing.Point(109, 0);
+            this.SavePathGame.Margin = new System.Windows.Forms.Padding(4);
+            this.SavePathGame.Name = "SavePathGame";
+            this.SavePathGame.Size = new System.Drawing.Size(130, 44);
+            this.SavePathGame.TabIndex = 40;
+            this.SavePathGame.TabStop = false;
+            this.SavePathGame.Text = "Изменить";
+            this.SavePathGame.UseVisualStyleBackColor = false;
+            this.SavePathGame.Click += new System.EventHandler(this.SavePathGame_Click);
+            // 
             // panel3
             // 
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
@@ -275,23 +292,6 @@
             this.labelPathGame.Size = new System.Drawing.Size(761, 94);
             this.labelPathGame.TabIndex = 45;
             this.labelPathGame.Click += new System.EventHandler(this.LabelPathGame_Click);
-            // 
-            // SavePathGame
-            // 
-            this.SavePathGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(44)))), ((int)(((byte)(177)))), ((int)(((byte)(128)))));
-            this.SavePathGame.Dock = System.Windows.Forms.DockStyle.Right;
-            this.SavePathGame.FlatAppearance.BorderSize = 0;
-            this.SavePathGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SavePathGame.ForeColor = System.Drawing.Color.White;
-            this.SavePathGame.Location = new System.Drawing.Point(109, 0);
-            this.SavePathGame.Margin = new System.Windows.Forms.Padding(4);
-            this.SavePathGame.Name = "SavePathGame";
-            this.SavePathGame.Size = new System.Drawing.Size(130, 44);
-            this.SavePathGame.TabIndex = 40;
-            this.SavePathGame.TabStop = false;
-            this.SavePathGame.Text = "Изменить";
-            this.SavePathGame.UseVisualStyleBackColor = false;
-            this.SavePathGame.Click += new System.EventHandler(this.SavePathGame_Click);
             // 
             // SettingsControl
             // 

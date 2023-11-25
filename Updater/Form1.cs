@@ -10,8 +10,8 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +19,7 @@ using System.Windows.Forms;
 
 namespace Updater
 {
+  
     public partial class Form1 : Form
     {
 
@@ -27,9 +28,9 @@ namespace Updater
             InitializeComponent();
         }
 
-        public void DirectoryDelete(string path)
+        public static void DirectoryDelete(string path)
         {
-            DirectoryInfo directory = new DirectoryInfo(path);
+            DirectoryInfo directory = new(path);
             try
             {
                 if (Directory.Exists(path))
@@ -41,18 +42,16 @@ namespace Updater
             }
         }
 
-        private Task DownloadAppTask(string link)
+        private static Task DownloadAppTask(string link)
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            using (WebClient webClient = new WebClient())
-            {
-                return webClient.DownloadFileTaskAsync(link, "AddonUpdater.zip");
-            }
+            ServicePointManager.SecurityProtocol =  SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            using HttpClient webClient = new();
+            return webClient.DownloadFileTaskAsync(new Uri(link), "AddonUpdater.zip");
         }
         AddonUpdaterSetting setting;
        
 
-        private void Backup(AddonUpdaterSetting setting)
+        private static void Backup(AddonUpdaterSetting setting)
         {
             if(setting != null)
             if (Directory.Exists("Backup"))
@@ -67,13 +66,13 @@ namespace Updater
                     if (File.Exists($"Backup\\{setting.Files[i]}")) File.Move($"Backup\\{setting.Files[i]}", setting.Files[i]);
                 }
                 File.Delete("AddonUpdater.zip");
-                DirectoryDelete("AddonUpdater-main");
-                DirectoryDelete("Backup");
+                    DirectoryDelete("AddonUpdater-main");
+                    DirectoryDelete("Backup");
             }
             Application.Exit();
         }
 
-        private void Extract(AddonUpdaterSetting setting)
+        private static void Extract(AddonUpdaterSetting setting)
         {
             ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
 
@@ -86,7 +85,7 @@ namespace Updater
             DirectoryDelete("AddonUpdater-main");          
         }
 
-        private void ErrorMsg(int hResult)
+        private static void ErrorMsg(int hResult)
         {
             if (hResult == -2146233079)
             {
@@ -99,36 +98,36 @@ namespace Updater
             }
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
         [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
+        private static extern bool ReleaseCapture();
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
                 ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+               _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
 
-        private void button_Resize_Click(object sender, EventArgs e)
+        private void Button_Resize_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
-        public string GetContent(string url)
+        public static async Task<string> GetContent(string url)
         {
             string result = null;
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            WebClient client = new WebClient();
+            ServicePointManager.SecurityProtocol =  SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            HttpClient client = new();
             try
             {
-                Stream stream = client.OpenRead(url);
-                StreamReader reader = new StreamReader(stream);
+                Stream stream = await client.GetStreamAsync(url);
+                StreamReader reader = new(stream);
                 result = reader.ReadToEnd();
             }
             catch (Exception ex)
@@ -142,7 +141,7 @@ namespace Updater
         {
             if(setting != null)
             {
-                if (File.Exists("Backup")) {                   
+                if (File.Exists("Backup")) {
                     Backup(setting);
                 }
                
@@ -157,7 +156,7 @@ namespace Updater
 
             try
             {
-                string content = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings");
+                string content = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings").Result;
                 if (content != null)
                 {
                     setting = JsonConvert.DeserializeObject<AddonUpdaterSetting>(content);
@@ -197,4 +196,15 @@ namespace Updater
             Application.Exit();
         }
     }
+    public static class HttpClientUtils
+    {
+        public static async Task DownloadFileTaskAsync(this HttpClient client, Uri uri, string FileName)
+        {
+            using var s = await client.GetStreamAsync(uri);
+            using var fs = new FileStream(FileName, FileMode.CreateNew);
+            await s.CopyToAsync(fs);
+        }
+    }
+
+   
 }

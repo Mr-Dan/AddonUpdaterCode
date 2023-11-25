@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AddonUpdater.Models
 {
-    class AddonUpdaterSetting
+    class Setting
     {
         public List<string> DeleteDirectory { get; set; }
 
@@ -30,10 +30,11 @@ namespace AddonUpdater.Models
 
         public string Author { get; set; }
 
-        public string Contacts { get; set; }
+        public string Contact { get; set; }
 
         public string Version { get; set; }
 
+        public string Thx { get; set; }
 
     }
 
@@ -41,6 +42,25 @@ namespace AddonUpdater.Models
     {
         public string Link { get; set; }
         public string Regex { get; set; }
+
+    }
+
+    class SettingApp
+    {
+        public string PathWow { get; set; }
+        public bool AutoUpdateBool { get; set; }
+
+        public bool DescriptionBool { get; set; }
+
+        public List<LastUpdateAddon> LastUpdate { get; set; }
+
+        public bool LauncherOpen { get; set; }
+
+        public List<string> UpdateAddon { get; set; }
+
+        public List<string> PathsWow { get; set; }
+
+        public string BackupWTF { get; set; }
 
     }
 }

@@ -1,2 +1,0 @@
-ilmerge AddonUpdater.exe Newtonsoft.Json.dll /out:newAddonUpdater.exe
-ilmerge Update.exe Newtonsoft.Json.dll /out:newUpdate.exe

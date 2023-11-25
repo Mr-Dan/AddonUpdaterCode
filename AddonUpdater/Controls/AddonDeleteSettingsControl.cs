@@ -1,4 +1,5 @@
-﻿using AddonUpdater.Models;
+﻿using AddonUpdater.Controlers;
+using AddonUpdater.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,7 +76,7 @@ namespace AddonUpdater.Controls
                 {
                     if (setting == "Персональные")
                     {
-                        int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
+                        int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(AddonUpdaterSettingApp.SettingsApp.PathWow + "\\WTF\\Account\\", "") == account);
                         if (index != -1)
                         {
                             int index2 = DownloadAddonGitHub.WTF[index].Realms.FindIndex(name => name.Name.Replace(DownloadAddonGitHub.WTF[index].Account + "\\", "") == realm);
@@ -115,7 +116,7 @@ namespace AddonUpdater.Controls
                     else if (setting == "Глобальные")
                     {
 
-                        int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", "") == account);
+                        int index = DownloadAddonGitHub.WTF.FindIndex(name => name.Account.Replace(AddonUpdaterSettingApp.SettingsApp.PathWow + "\\WTF\\Account\\", "") == account);
                         if (index != -1)
                         {
                             string path = DownloadAddonGitHub.WTF[index].Account + "\\SavedVariables";
@@ -158,7 +159,7 @@ namespace AddonUpdater.Controls
                 ClearComboBox();
                 foreach (WTF wTF in DownloadAddonGitHub.WTF)
                 {
-                    accountComboBox.Items.Add(wTF.Account.Replace(Properties.Settings.Default.PathWow + "\\WTF\\Account\\", ""));
+                    accountComboBox.Items.Add(wTF.Account.Replace(AddonUpdaterSettingApp.SettingsApp.PathWow + "\\WTF\\Account\\", ""));
                 }
             }
             else

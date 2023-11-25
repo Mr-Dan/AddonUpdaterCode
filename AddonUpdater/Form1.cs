@@ -22,72 +22,73 @@ using Newtonsoft.Json;
 using System.Timers;
 using Newtonsoft.Json.Linq;
 using AddonUpdater.Properties;
+using AddonUpdater.Controlers;
 
 namespace AddonUpdater
 {
+
     public partial class FormMainMenu : Form
     {
         private Control activeform;
-        private Button currentButton = new Button();
+        private Button currentButton = new();
         public static string activity = null;
-
-        private string version = "1.28";
 
         private AddonFormControl formControl = null;
 
         bool openFormAddons = false;
-        DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
+        DownloadAddonGitHub downloadAddonGitHub = new();
 
         Color standardButton = Color.FromArgb(37, 35, 47);
         Color activeButton = Color.FromArgb(123, 119, 159);
 
         public FormMainMenu()
         {
+            AddonUpdaterSettingApp.ReadAppSetting();
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.Selectable, false);
             UpdateStyles();
         }
 
-        private async Task<bool> CheckVersion()
+        private async void DownloadNewVersion()
         {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            string result;
-            WebClient webClient = new WebClient();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             try
             {
-                Stream stream = webClient.OpenRead("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/AddonUpdaterVersion");
-                StreamReader streamReader = new StreamReader(stream);
-                result = streamReader.ReadToEnd().Replace("\n", "").Trim();
-                LabelVersion.Text = "v." + Properties.Settings.Default.Version.Trim();
-               
-                  if(!File.Exists("debug"))
-                    if (File.Exists("Update.exe"))
+                if (File.Exists("Update.exe"))
+                {
+                    if (Application.ProductVersion != AddonUpdaterSetting.Setting.Version)
                     {
-                        if (Properties.Settings.Default.Version.Trim() != result)
+                        Process.Start(new ProcessStartInfo
                         {
-                            Process p = Process.Start("Update.exe");
-                        }
+                            FileName = "Update.exe",
+                            UseShellExecute = true
+                        });
                     }
-                    else
+                }
+                else
+                {
+                    if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
+                    if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
+                    if (File.Exists("Updater.exe")) File.Delete("Updater.exe");
+
+                    await DownloadUpdaterTask("https://github.com/Mr-Dan/AddonUpdater/archive/refs/heads/main.zip");
+                    ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
+
+                    if (File.Exists($"AddonUpdater-main\\Update.exe"))
                     {
-                        if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
-                        if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
-                        if (File.Exists("Updater.exe")) File.Delete("Updater.exe");
-
-                        await DownloadUpdaterTask("https://github.com/Mr-Dan/AddonUpdater/archive/refs/heads/main.zip");
-                        ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
-
-                        if (File.Exists($"AddonUpdater-main\\Update.exe"))
+                        File.Move($"AddonUpdater-main\\Update.exe", Directory.GetCurrentDirectory() + $"\\Update.exe");
+                        Process.Start(new ProcessStartInfo
                         {
-                            File.Move($"AddonUpdater-main\\Update.exe", Directory.GetCurrentDirectory() + $"\\Update.exe");
-                            Process.Start("Update.exe");
-                        }
-                        if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
-                        if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
+                            FileName = "Update.exe",
+                            UseShellExecute = true
+                        });
+                    }
+                    if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
+                    if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
 
-                        Application.Exit();
-                    
+                    Application.Exit();
+
 
                 }
             }
@@ -102,53 +103,43 @@ namespace AddonUpdater
                 {
                     // MessageBox.Show("Необходимо открыть от имени администратора", "Ошибка Addon Updater");
                 }
-                return false;
-            }
-            return true;
-        }
-
-        private Task DownloadUpdaterTask(string link)
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            using (WebClient webClient = new WebClient())
-            {
-                return webClient.DownloadFileTaskAsync(link, "AddonUpdater.zip");
             }
         }
 
-        private void GetOnline()
+        private static async Task DownloadUpdaterTask(string link)
         {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            using HttpClient webClient = new();
+            await Task.Run(() => webClient.DownloadFileTaskAsync(new Uri(link), "AddonUpdater.zip"));
+        }
 
+
+        private async void GetOnline()
+        {
             string result;
-            using (WebClient webClient = new WebClient())
+            using HttpClient httpClient = new();
+            try
             {
-                try
+                using Stream stream = await httpClient.GetStreamAsync("https://api.sirus.su/api/server/status");
+                using StreamReader streamReader = new(stream);
+                result = streamReader.ReadToEnd().Replace("\n", "").Trim();
+                List<Realms> json = JsonConvert.DeserializeObject<List<Realms>>(result);
+
+                for (int i = 0; i < json.Count; i++)
                 {
-                    using (Stream stream = webClient.OpenRead("https://api.sirus.su/api/server/status"))
+                    OnlineControl onlineControl = new(json[i].IsOnline, json[i].Name, json[i].Online, this)
                     {
-                        using (StreamReader streamReader = new StreamReader(stream))
-                        {
-                            result = streamReader.ReadToEnd().Replace("\n", "").Trim();
-                            List<Realms> json = JsonConvert.DeserializeObject<List<Realms>>(result);
+                        Location = new Point(i * 200, 0),
+                        Name = json[i].Name,
+                        Width = 200
+                    };
 
-                            for (int i = 0; i < json.Count; i++)
-                            {
-                                OnlineControl onlineControl = new OnlineControl(json[i].IsOnline, json[i].Name, json[i].Online, this)
-                                {
-                                    Location = new Point(i * 200, 0),
-                                    Name = json[i].Name,
-                                    Width = 200
-                                };
-
-                                titleOnlinePanel.Controls.Add(onlineControl);
-                            }
-                        }
-                    }
+                    titleOnlinePanel.Controls.Add(onlineControl);
                 }
-                catch (Exception ex)
-                {
+            }
+            catch (Exception ex)
+            {
 
-                }
             }
         }
 
@@ -225,7 +216,7 @@ namespace AddonUpdater
             }
         }
 
-        private void buttonModifications_Click(object sender, EventArgs e)
+        private void ButtonModifications_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (activity != null)
@@ -287,8 +278,8 @@ namespace AddonUpdater
 
         private void LabelVersion_Click(object sender, EventArgs e)
         {
-            if (DownloadAddonGitHub.AddonUpdaterSettings.News != null)
-                Process.Start(DownloadAddonGitHub.AddonUpdaterSettings.News);
+            if (AddonUpdaterSetting.Setting.News != null)
+                Process.Start(AddonUpdaterSetting.Setting.News);
         }
 
         private void ButtonClose_MouseMove(object sender, MouseEventArgs e)
@@ -315,25 +306,25 @@ namespace AddonUpdater
                     labelInfo.Visible = true;
                 }
                 activity = "обновления";
-                DownloadAddonGitHub.NeedUpdate.Clear();
-                DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-                if (DownloadAddonGitHub.NeedUpdate.Count > 0)
+                //  DownloadAddonGitHub.NeedUpdate.Clear();
+                List<GitHub> NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
+                if (NeedUpdate.Count > 0)
                 {
                     progressBar1.Value = 0;
-                    progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
-                    for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                    progressBar1.Maximum = NeedUpdate.Count;
+                    for (int i = 0; i < NeedUpdate.Count; i++)
                     {
-                        labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                        await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                        labelInfo.Text = NeedUpdate[i].Name;
+                        await downloadAddonGitHub.DownloadAddonGitHubTask(NeedUpdate[i].Name, NeedUpdate[i].GithubLink, NeedUpdate[i].Branches);
                         progressBar1.Value++;
                     }
                     labelInfo.Text = "Распаковка Аддонов";
-                    await downloadAddonGitHub.GetAddon();
+                    await downloadAddonGitHub.GetAddonAsync(NeedUpdate);
                     labelInfo.Text = "Обновление";
                     progressBar1.Value = 0;
                     progressBar1.Maximum = 2;
                     progressBar1.Value++;
-                    await downloadAddonGitHub.Aupdatecheck();
+                    await downloadAddonGitHub.AupdatecheckAsync();
                     SetNotificationsAddons();
                     progressBar1.Value++;
                     progressBar1.Value = 0;
@@ -356,26 +347,32 @@ namespace AddonUpdater
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            bool isSucsses = await CheckVersion();
-            if (isSucsses)
+            await AddonUpdaterSetting.GetSettingsTask();
+            LabelVersion.Text = "v." + Application.ProductVersion;
+            if (AddonUpdaterSetting.Setting.Version == Application.ProductVersion)
             {
                 PathCheck();
                 GetOnline();
-                await downloadAddonGitHub.Aupdatecheck();
+                await downloadAddonGitHub.AupdatecheckAsync();
                 SetNotificationsAddons();
                 timerGithub.Start();
                 timerLocal.Start();
                 timerUpdate.Start();
                 timerKill.Start();
                 timerSirus.Start();
-            }
-            VisibleOn();
 
-            OpenChildForm(new AddonFormControl(this, true), buttonAddons);
-            AutoUpdate();
-            openFormAddons = true;
-            labelNeedUpdateMyAddon.Parent = buttonAddons;
-            labelNeedUpdateMyAddon.Location = new Point(0, 12);
+                VisibleOn();
+                WTF();
+                OpenChildForm(new AddonFormControl(this, true), buttonAddons);
+                AutoUpdate();
+                openFormAddons = true;
+                labelNeedUpdateMyAddon.Parent = buttonAddons;
+                labelNeedUpdateMyAddon.Location = new Point(0, 12);
+            }
+            else
+            {
+                DownloadNewVersion();
+            }
 
         }
 
@@ -385,7 +382,7 @@ namespace AddonUpdater
             if (e.Button == MouseButtons.Left)
             {
                 ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
         private void PanelTitleBar_MouseDown(object sender, MouseEventArgs e)
@@ -418,13 +415,13 @@ namespace AddonUpdater
             MoveForm(e);
         }
 
-        public const int WM_NCLBUTTONDOWN = 0xA1;
-        public const int HT_CAPTION = 0x2;
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
         [DllImportAttribute("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        private static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
 
-        public static extern bool ReleaseCapture();
+        private static extern bool ReleaseCapture();
         #endregion
 
         #region OpenChildForm
@@ -489,10 +486,7 @@ namespace AddonUpdater
         {
             if (DownloadAddonGitHub.UpdateInfo)
             {
-                if (formControl != null)
-                {
-                    formControl.UpdatePanelAddonsView();
-                }
+                formControl?.UpdatePanelAddonsView();
 
             }
         }
@@ -511,7 +505,7 @@ namespace AddonUpdater
             {
                 foreach (Process process in processes)
                 {
-                    if (process.Id != Process.GetCurrentProcess().Id)
+                    if (process.Id != Environment.ProcessId)
                         process.Kill();
                 }
                 ShowInTaskbar = true;
@@ -525,7 +519,7 @@ namespace AddonUpdater
             if (activity == null)
             {
                 timer = true;
-                await downloadAddonGitHub.Aupdatecheck();
+                await downloadAddonGitHub.AupdatecheckAsync();
                 timer = false;
             }
         }
@@ -534,7 +528,7 @@ namespace AddonUpdater
         {
             if (activity == null && timer == false)
             {
-                await downloadAddonGitHub.AupdatecheckLocal();
+                await downloadAddonGitHub.AupdatecheckLocalAsync();
             }
         }
 
@@ -545,7 +539,7 @@ namespace AddonUpdater
         }
 
 
-        private void timerUpdate_Tick(object sender, EventArgs e)
+        private void TimerUpdate_Tick(object sender, EventArgs e)
         {
             if (activity == null)
             {
@@ -565,9 +559,9 @@ namespace AddonUpdater
 
         private async void AutoUpdate()
         {
-            if (Properties.Settings.Default.AutoUpdateBool == true && DownloadAddonGitHub.GitHubs.FindAll(addon => addon.NeedUpdate == true).Count > 0)
+            if (AddonUpdaterSettingApp.SettingsApp.AutoUpdateBool == true && DownloadAddonGitHub.GitHubs.FindAll(addon => addon.NeedUpdate == true).Count > 0)
             {
-                if (Directory.Exists(Properties.Settings.Default.PathWow))
+                if (Directory.Exists(AddonUpdaterSettingApp.SettingsApp.PathWow))
                 {
                     activity = "Cкачивания";
                     await DownloadAddonAuto();
@@ -599,9 +593,10 @@ namespace AddonUpdater
             }
         }
 
-        public void PathCheck()
+        public static void PathCheck()
         {
-            System.Collections.IList list = Properties.Settings.Default.PathsWow;
+
+            System.Collections.IList list = AddonUpdaterSettingApp.SettingsApp.PathsWow;
             for (int i = 0; i < list.Count; i++)
             {
                 if (list[i] != null)
@@ -609,29 +604,30 @@ namespace AddonUpdater
                     string path = list[i].ToString();
                     if (!Directory.Exists(path))
                     {
-                        Properties.Settings.Default.PathsWow.Remove(path);
+                        AddonUpdaterSettingApp.SettingsApp.PathsWow.Remove(path);
                         i--;
                     }
                 }
                 else
                 {
-                    Properties.Settings.Default.PathsWow.Remove(null);
+                    AddonUpdaterSettingApp.SettingsApp.PathsWow.Remove(null);
                     i--;
                 }
             }
 
-            if (!Properties.Settings.Default.PathsWow.Contains(Properties.Settings.Default.PathWow))
+            if (!AddonUpdaterSettingApp.SettingsApp.PathsWow.Contains(AddonUpdaterSettingApp.SettingsApp.PathWow))
             {
-                if (Properties.Settings.Default.PathsWow.Count >= 1)
+                if (AddonUpdaterSettingApp.SettingsApp.PathsWow.Count >= 1)
                 {
-                    Properties.Settings.Default.PathWow = Properties.Settings.Default.PathsWow[0];
+                    AddonUpdaterSettingApp.SettingsApp.PathWow = AddonUpdaterSettingApp.SettingsApp.PathsWow[0];
                 }
                 else
                 {
-                    Properties.Settings.Default.PathWow = null;
+                    AddonUpdaterSettingApp.SettingsApp.PathWow = null;
                 }
             }
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.Save();
+
         }
 
         private void OffPanel()
@@ -697,17 +693,95 @@ namespace AddonUpdater
 
         public static void HideFromAltTab(IntPtr Handle)
         {
-            SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle,
+            _ = SetWindowLong(Handle, GWL_EXSTYLE, GetWindowLong(Handle,
                 GWL_EXSTYLE) | WS_EX_TOOLWINDOW);
         }
-
-
-
-
-
-
         #endregion
 
+        private static async void WTF()
+        {
+
+            if (Directory.Exists("BackupWTF"))
+            {
+                if (Directory.GetFiles("BackupWTF").Length > 15)
+                {
+                    await BackupWTF.DeleteFileBackupTask(15);
+                }
+            }
+
+            string settings = AddonUpdaterSettingApp.SettingsApp.BackupWTF;
+
+            if (settings == "")
+            {
+                AddonUpdaterSettingApp.SettingsApp.BackupWTF = "Никогда";
+                AddonUpdaterSettingApp.Save();
+            }
+            else if (settings == "При запуске программы")
+            {
+                await BackupWTF.CreateFileBackupTask();
+            }
+            else if (settings == "Раз в день")
+            {
+                DateTime last = BackupWTF.GetLastBackupWtf();
+
+                if (last != new DateTime())
+                {
+                    if (last.Day - DateTime.Now.Day == 1)
+                    {
+                        await BackupWTF.CreateFileBackupTask();
+                    }
+                }
+            }
+            else if (settings == "Раз в два дня")
+            {
+                DateTime last = BackupWTF.GetLastBackupWtf();
+
+                if (last != new DateTime())
+                {
+                    if (last.Day - DateTime.Now.Day == 2)
+                    {
+                        await BackupWTF.CreateFileBackupTask();
+                    }
+                }
+            }
+            else if (settings == "Раз в три дня")
+            {
+                DateTime last = BackupWTF.GetLastBackupWtf();
+
+                if (last != new DateTime())
+                {
+                    if (last.Day - DateTime.Now.Day == 3)
+                    {
+                        await BackupWTF.CreateFileBackupTask();
+                    }
+                }
+            }
+            else if (settings == "Раз в неделю")
+            {
+                DateTime last = BackupWTF.GetLastBackupWtf();
+
+                if (last != new DateTime())
+                {
+                    if (last.Day - DateTime.Now.Day == 7)
+                    {
+                        await BackupWTF.CreateFileBackupTask();
+                    }
+                }
+            }
+            else if (settings == "Раз в месяц")
+            {
+                DateTime last = BackupWTF.GetLastBackupWtf();
+
+                if (last != new DateTime())
+                {
+                    if (last.Month - DateTime.Now.Month == 1)
+                    {
+                        await BackupWTF.CreateFileBackupTask();
+                    }
+                }
+            }
+
+        }
     }
 
 }

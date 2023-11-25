@@ -61,7 +61,7 @@ namespace Updater
             this.button_Resize.Size = new System.Drawing.Size(40, 37);
             this.button_Resize.TabIndex = 24;
             this.button_Resize.UseVisualStyleBackColor = false;
-            this.button_Resize.Click += new System.EventHandler(this.button_Resize_Click);
+            this.button_Resize.Click += new System.EventHandler(this.Button_Resize_Click);
             // 
             // Form1
             // 

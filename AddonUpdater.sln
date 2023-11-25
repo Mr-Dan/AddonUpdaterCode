@@ -1,11 +1,10 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddonUpdater", "AddonUpdater\AddonUpdater.csproj", "{96D538A2-BF48-445C-92B0-7CF77C272E17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddonUpdater", "AddonUpdater\AddonUpdater.csproj", "{96D538A2-BF48-445C-92B0-7CF77C272E17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Update", "Updater\Update.csproj", "{2FA893DA-9E77-40B0-AF04-60CE46F3168C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Update", "Updater\Update.csproj", "{2FA893DA-9E77-40B0-AF04-60CE46F3168C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +20,8 @@ Global
 		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Debug|x86.Build.0 = Release|x86
 		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Release|x86.ActiveCfg = Release|x86
-		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Release|x86.Build.0 = Release|x86
+		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Release|x86.ActiveCfg = Release|Any CPU
+		{96D538A2-BF48-445C-92B0-7CF77C272E17}.Release|x86.Build.0 = Release|Any CPU
 		{2FA893DA-9E77-40B0-AF04-60CE46F3168C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FA893DA-9E77-40B0-AF04-60CE46F3168C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FA893DA-9E77-40B0-AF04-60CE46F3168C}.Debug|x86.ActiveCfg = Release|Any CPU

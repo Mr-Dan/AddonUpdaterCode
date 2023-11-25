@@ -1,4 +1,5 @@
-﻿using AddonUpdater.Models;
+﻿using AddonUpdater.Controlers;
+using AddonUpdater.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,9 +24,9 @@ namespace AddonUpdater.Controls
         public AddonDeleteSettingsControl deleteSettings;
         public bool myAddon;
 
-        private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
-        private PanelAddonSetings panelAddonSetings = new PanelAddonSetings();
-        private List<AddonControl> addonControls = new List<AddonControl>();
+        private DownloadAddonGitHub downloadAddonGitHub = new ();
+        private PanelAddonSetings panelAddonSetings = new ();
+        private List<AddonControl> addonControls = new ();
         private string pictureBoxFollowUpdateState = null;
 
         public AddonFormControl()
@@ -59,9 +60,9 @@ namespace AddonUpdater.Controls
                 SetAllAddon();
                 addonDropdown.SetAllAddons();
             }
-            if (Properties.Settings.Default.PathWow != null)
+            if (AddonUpdaterSettingApp.SettingsApp.PathWow != null)
             {
-                if (Directory.Exists(Properties.Settings.Default.PathWow))
+                if (Directory.Exists(AddonUpdaterSettingApp.SettingsApp.PathWow))
                 {
                     if (FormMainMenu.progressBar1.Visible == false)
                     {
@@ -89,14 +90,11 @@ namespace AddonUpdater.Controls
 
         private void AddonFormControls_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.PathsWow.Contains(Properties.Settings.Default.PathWow) == false)
+            if (AddonUpdaterSettingApp.SettingsApp.PathsWow.Contains(AddonUpdaterSettingApp.SettingsApp.PathWow) == false)
             {
-                Properties.Settings.Default.PathsWow.Add(Properties.Settings.Default.PathWow);
+                AddonUpdaterSettingApp.SettingsApp.PathsWow.Add(AddonUpdaterSettingApp.SettingsApp.PathWow);
 
             }
-
-            if (Properties.Settings.Default.PathsWow.Contains("Dan") && Properties.Settings.Default.PathsWow.Count > 1)
-                Properties.Settings.Default.PathsWow.Remove("Dan");
         }
 
         private async void AddonDownload()
@@ -116,20 +114,28 @@ namespace AddonUpdater.Controls
         {
             try
             {
-                DownloadAddonGitHub.NeedUpdate.Clear();
-                DownloadAddonGitHub.NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
-                if (DownloadAddonGitHub.NeedUpdate.Count > 0)
+                // DownloadAddonGitHub.NeedUpdate.Clear();
+                List<GitHub> NeedUpdate = DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true);
+                if (NeedUpdate.Count > 0)
                 {
                     FormMainMenu.progressBar1.Value = 0;
-                    FormMainMenu.progressBar1.Maximum = DownloadAddonGitHub.NeedUpdate.Count;
-                    for (int i = 0; i < DownloadAddonGitHub.NeedUpdate.Count; i++)
+                    FormMainMenu.progressBar1.Maximum = NeedUpdate.Count;
+                    for (int i = 0; i < NeedUpdate.Count; i++)
                     {
-                        FormMainMenu.labelInfo.Text = DownloadAddonGitHub.NeedUpdate[i].Name;
-                        await downloadAddonGitHub.DownloadAddonGitHubTask(DownloadAddonGitHub.NeedUpdate[i].Name, DownloadAddonGitHub.NeedUpdate[i].GithubLink, DownloadAddonGitHub.NeedUpdate[i].Branches);
+                        FormMainMenu.labelInfo.Text =NeedUpdate[i].Name;
+                        await downloadAddonGitHub.DownloadAddonGitHubTask(NeedUpdate[i].Name, NeedUpdate[i].GithubLink, NeedUpdate[i].Branches);
                         FormMainMenu.progressBar1.Value++;
                     }
                     FormMainMenu.labelInfo.Text = "Распаковка Аддонов";
-                    await downloadAddonGitHub.GetAddon();
+                    await downloadAddonGitHub.GetAddonAsync(NeedUpdate);
+
+                    for (int i = 0; i < NeedUpdate.Count; i++)
+                    {
+                        NeedUpdate[i].MyVersion = downloadAddonGitHub.GetMyVersion(NeedUpdate[i].Directory, NeedUpdate[i].Regex);
+                        NeedUpdate[i].NeedUpdate = downloadAddonGitHub.GetNeedUpdate(NeedUpdate[i].Version, NeedUpdate[i].MyVersion, downloadAddonGitHub.GetAddonUpdate(NeedUpdate[i].Name));
+                        NeedUpdate[i].SavedVariables = downloadAddonGitHub.GetSavedVariables(NeedUpdate[i].Directory);
+                        NeedUpdate[i].SavedVariablesPerCharacter = downloadAddonGitHub.GetSavedVariablesPerCharacter(NeedUpdate[i].Directory);
+                    }
                     FormMainMenu.progressBar1.Value = 0;
                     FormMainMenu.labelInfo.Text = "";
                 }
@@ -158,7 +164,7 @@ namespace AddonUpdater.Controls
             else
             {
                 lastAddon = addon.Name;
-                Point pos = new Point
+                Point pos = new()
                 {
                     Y = location.Y
                 };
@@ -186,7 +192,7 @@ namespace AddonUpdater.Controls
             ActiveControl = null;
             if (FormMainMenu.activity == null)
             {
-                if (Directory.Exists(Properties.Settings.Default.PathWow))
+                if (Directory.Exists(AddonUpdaterSettingApp.SettingsApp.PathWow))
                 {
 
                     if (DownloadAddonGitHub.GitHubs.FindAll(find => find.NeedUpdate == true).Count > 0)
@@ -212,7 +218,7 @@ namespace AddonUpdater.Controls
             ActiveControl = null;
             if (FormMainMenu.activity == null)
             {
-                if (Directory.Exists(Properties.Settings.Default.PathWow))
+                if (Directory.Exists(AddonUpdaterSettingApp.SettingsApp.PathWow))
                 {
                     DownloadAddonGitHub.UpdateInfo = false;
                     UpdatePanelAddonsView();
@@ -229,10 +235,10 @@ namespace AddonUpdater.Controls
         {
             ActiveControl = null;
             string pathLauncher = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Programs\\sirus-open-launcher\\Sirus Launcher.exe";
-            string pathPlayExe = Properties.Settings.Default.PathWow + "\\run.exe";
+            string pathPlayExe = AddonUpdaterSettingApp.SettingsApp.PathWow + "\\run.exe";
             Process[] proc = Process.GetProcessesByName("Sirus Launcher");
             Process[] proc2 = Process.GetProcessesByName("run");
-            if (proc.Length == 0 && Properties.Settings.Default.LauncherOpen == true)
+            if (proc.Length == 0 && AddonUpdaterSettingApp.SettingsApp.LauncherOpen == true)
             {
                 if (File.Exists(pathLauncher))
                     Process.Start(pathLauncher);
@@ -257,7 +263,7 @@ namespace AddonUpdater.Controls
             {
                 for (int i = 0; i < addonControls.Count; i++)
                 {
-                    if (Properties.Settings.Default.UpdateAddon.Contains(addonControls[i].addon.Name))
+                    if (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addonControls[i].addon.Name))
                     {
                         int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == addonControls[i].addon.Name);
                         if (index != -1)
@@ -271,7 +277,7 @@ namespace AddonUpdater.Controls
             {
                 for (int i = 0; i < addonControls.Count; i++)
                 {
-                    if (Properties.Settings.Default.UpdateAddon.Contains(addonControls[i].addon.Name) == false)
+                    if (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addonControls[i].addon.Name) == false)
                     {
                         int index = DownloadAddonGitHub.GitHubs.FindIndex(find => find.Name == addonControls[i].addon.Name);
                         if (index != -1)
@@ -292,12 +298,12 @@ namespace AddonUpdater.Controls
             if (isShowContextMenuStripPaths == false)
             {
                 ContextMenuStripPaths.Items.Clear();
-                foreach (string text in Properties.Settings.Default.PathsWow)
+                foreach (string text in AddonUpdaterSettingApp.SettingsApp.PathsWow)
                 {
                     if (text != null)
                     {
                         ContextMenuStripPaths.Items.Add(text);
-                        if (text == Properties.Settings.Default.PathWow)
+                        if (text == AddonUpdaterSettingApp.SettingsApp.PathWow)
                         {
                             ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].BackColor = Color.FromArgb(44, 177, 128);
                             ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].ForeColor = Color.White;
@@ -319,8 +325,8 @@ namespace AddonUpdater.Controls
 
         private void ContextMenuStripPaths_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Properties.Settings.Default.PathWow = e.ClickedItem.Text;
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.SettingsApp.PathWow = e.ClickedItem.Text;
+            AddonUpdaterSettingApp.Save();
             ActiveControl = null;
             FormMainMenu.ButtonOff();
             ButtonOff();
@@ -346,8 +352,8 @@ namespace AddonUpdater.Controls
             }
             for (int i = 0; i < gitHubs.Count; i++)
             {
-                Point location = new Point(0, i * 40);
-                AddonControl AddonControl = new AddonControl(gitHubs[i], panelAddonSetings, this, i)
+                Point location = new (0, i * 40);
+                AddonControl AddonControl = new (gitHubs[i], panelAddonSetings, this, i)
                 {
                     Location = location,
                     Name = gitHubs[i].Name,
@@ -381,7 +387,7 @@ namespace AddonUpdater.Controls
 
             if (addonDropdown.Visible == false && deleteSettings.Visible == false)
             {
-                if (Properties.Settings.Default.DescriptionBool)
+                if (AddonUpdaterSettingApp.SettingsApp.DescriptionBool)
                 {
                     if (addon.Description != string.Empty)
                         if (PanelDescription.Visible == false)
@@ -390,7 +396,7 @@ namespace AddonUpdater.Controls
                             Size len = TextRenderer.MeasureText(addon.Description, LabelDescription.Font);
                             int size = len.Width * len.Height;
                             PanelDescription.Size = new Size(PanelDescription.Width, (size / 800) + 20);
-                            Point pos = new Point
+                            Point pos = new()
                             {
                                 Y = location.Y
                             };
@@ -548,7 +554,7 @@ namespace AddonUpdater.Controls
             {
                 if (DownloadAddonGitHub.GitHubs[i].MyVersion != null)
                 {
-                    if (Properties.Settings.Default.UpdateAddon.Contains(DownloadAddonGitHub.GitHubs[i].Name))
+                    if (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(DownloadAddonGitHub.GitHubs[i].Name))
                     {
                         follow++;
                     }
@@ -612,7 +618,7 @@ namespace AddonUpdater.Controls
                 FormMainMenu.progressBar1.Value = 0;
                 FormMainMenu.progressBar1.Maximum = 2;
                 FormMainMenu.progressBar1.Value++;
-                await downloadAddonGitHub.Aupdatecheck();
+                await downloadAddonGitHub.AupdatecheckAsync();
                 UpdatePanelAddons();
                 FormMainMenu.progressBar1.Value++;
                 FormMainMenu.progressBar1.Value = 0;
@@ -677,7 +683,7 @@ namespace AddonUpdater.Controls
 
         private void UpdateControlAddon(List<GitHub> gitHubs)
         {
-            List<AddonControl> gitHubsDelete = new List<AddonControl>();
+            List<AddonControl> gitHubsDelete = new ();
             for (int i = 0; i < addonControls.Count; i++)
             {
                 if (gitHubs.FindIndex(addon => addon.Name == addonControls[i].addon.Name) == -1)
@@ -691,7 +697,7 @@ namespace AddonUpdater.Controls
                 }
             }
 
-            List<AddonControl> gitHubsAdd = new List<AddonControl>();
+            List<AddonControl> gitHubsAdd = new ();
 
             
             for (int i = 0; i < gitHubs.Count; i++)
@@ -717,14 +723,14 @@ namespace AddonUpdater.Controls
                 }
                 else
                 {
-                    Point location = new Point(0, 0);
+                    Point location = new (0, 0);
                     if (i > 0)
                     {
                         AddonControl control = addonControls.Find(ctrl => ctrl.addon.Name == gitHubs[i - 1].Name);
-                        location = new Point(0, control.Location.Y + 40);
+                        location = new (0, control.Location.Y + 40);
                     }
 
-                    AddonControl AddonControl = new AddonControl(gitHubs[i], panelAddonSetings, this, i)
+                    AddonControl AddonControl = new (gitHubs[i], panelAddonSetings, this, i)
                     {
                         Location = location,
                         Name = gitHubs[i].Name,

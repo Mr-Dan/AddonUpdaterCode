@@ -1,4 +1,5 @@
-﻿using AddonUpdater.Models;
+﻿using AddonUpdater.Controlers;
+using AddonUpdater.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,7 +20,7 @@ namespace AddonUpdater.Controls
 
         private PanelAddonSetings setings;
         private AddonFormControl addonForm;
-        private DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
+        private DownloadAddonGitHub downloadAddonGitHub = new ();
        
 
         public AddonControl(GitHub addon, PanelAddonSetings setings, AddonFormControl addonForm, int row)
@@ -75,7 +76,7 @@ namespace AddonUpdater.Controls
                     {
                         download = true;
                         await DownloadAddon();
-                        if (!Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+                        if (!AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addon.Name))
                         {
                             FollowUpdate();
 
@@ -122,7 +123,7 @@ namespace AddonUpdater.Controls
                 addonProgressBar.Value++;
                 await downloadAddonGitHub.DownloadAddonGitHubTask(addon.Name, addon.GithubLink, addon.Branches);
                 addonProgressBar.Value++;
-                await downloadAddonGitHub.GetAddon(addon);
+                await downloadAddonGitHub.GetAddonAsync(addon);
                 addon.MyVersion = downloadAddonGitHub.GetMyVersion(addon.Directory, addon.Regex);
                 addon.NeedUpdate = downloadAddonGitHub.GetNeedUpdate(addon.Version, addon.MyVersion, downloadAddonGitHub.GetAddonUpdate(addon.Name));
                 addon.SavedVariables = downloadAddonGitHub.GetSavedVariables(addon.Directory);
@@ -186,14 +187,14 @@ namespace AddonUpdater.Controls
 
         public void UnFollowUpdate()
         {
-            if (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+            if (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addon.Name))
             {
-                while (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+                while (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addon.Name))
                 {
-                    Properties.Settings.Default.UpdateAddon.Remove(addon.Name);
+                    AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Remove(addon.Name);
                 }
             }
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.Save();
 
             trackImage.BackgroundImage = downloadAddonGitHub.GetAddonUpdate(addon.Name) ? Properties.Resources.eyes_open : Properties.Resources.eyes_closed;
             addonForm.SetPictureBoxFollowUpdate();
@@ -201,18 +202,18 @@ namespace AddonUpdater.Controls
         }
         public void FollowUpdate()
         {
-            if (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+            if (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addon.Name))
             {
-                while (Properties.Settings.Default.UpdateAddon.Contains(addon.Name))
+                while (AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Contains(addon.Name))
                 {
-                    Properties.Settings.Default.UpdateAddon.Remove(addon.Name);
+                    AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Remove(addon.Name);
                 }
             }
             else
             {
-                Properties.Settings.Default.UpdateAddon.Add(addon.Name);
+                AddonUpdaterSettingApp.SettingsApp.UpdateAddon.Add(addon.Name);
             }
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.Save();
 
             addon.NeedUpdate = downloadAddonGitHub.GetNeedUpdate(addon.Version, addon.MyVersion, downloadAddonGitHub.GetAddonUpdate(addon.Name));
 
@@ -353,13 +354,13 @@ namespace AddonUpdater.Controls
                 {
                     if (downloadAddonGitHub.GetAddonUpdate(addon.Name))
                     {
-                        if (DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == addon.Name) > -1) versionButton.Text = "Актуальная: " + addon.Version + "\n" + DownloadAddonGitHub.lastUpdateAddon[DownloadAddonGitHub.lastUpdateAddon.FindIndex(f => f.AddonName == addon.Name)].LastUpdate;
+                        if (AddonUpdaterSettingApp.SettingsApp.LastUpdate.FindIndex(f => f.AddonName == addon.Name) > -1) versionButton.Text = "Актуальная: " + addon.Version + "\n" + AddonUpdaterSettingApp.SettingsApp.LastUpdate[AddonUpdaterSettingApp.SettingsApp.LastUpdate.FindIndex(f => f.AddonName == addon.Name)].LastUpdate;
                         else versionButton.Text = "Актуальная: " + addon.Version;
                         versionButton.Enabled = true;
                     }
                     else
                     {
-                        versionButton.Text = "Не слежу";
+                        versionButton.Text = "Не слежу за обновлениями этого аддона";
                         versionButton.Enabled = false;
                     }
                 }

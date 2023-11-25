@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AddonUpdater.Controlers;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,36 +15,36 @@ namespace AddonUpdater.Controls
 {
     public partial class SettingsControl : UserControl
     {
-        DownloadAddonGitHub downloadAddonGitHub = new DownloadAddonGitHub();
+        DownloadAddonGitHub downloadAddonGitHub = new ();
         private FormMainMenu formMainMenu;
         public SettingsControl(FormMainMenu formMainMenu)
         {
             InitializeComponent();
             this.formMainMenu = formMainMenu;
-            checkBoxAutoUpdate.Checked = Properties.Settings.Default.AutoUpdateBool;
-            checkBoxDescription.Checked = Properties.Settings.Default.DescriptionBool;
-            checkBoxLauncher.Checked = Properties.Settings.Default.LauncherOpen;
-            labelPathGame.Text = Properties.Settings.Default.PathWow;
+            checkBoxAutoUpdate.Checked = AddonUpdaterSettingApp.SettingsApp.AutoUpdateBool;
+            checkBoxDescription.Checked = AddonUpdaterSettingApp.SettingsApp.DescriptionBool;
+            checkBoxLauncher.Checked = AddonUpdaterSettingApp.SettingsApp.LauncherOpen;
+            labelPathGame.Text = AddonUpdaterSettingApp.SettingsApp.PathWow;
         }
 
 
         #region CheckedChanged
         private void CheckBoxAutoUpdate_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.AutoUpdateBool = checkBoxAutoUpdate.Checked;
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.SettingsApp.AutoUpdateBool = checkBoxAutoUpdate.Checked;
+            AddonUpdaterSettingApp.Save();
         }
 
         private void CheckBoxDescription_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.DescriptionBool = checkBoxDescription.Checked;
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.SettingsApp.DescriptionBool = checkBoxDescription.Checked;
+            AddonUpdaterSettingApp.Save();
         }
 
         private void CheckBoxLauncher_CheckedChanged(object sender, EventArgs e)
         {
-            Properties.Settings.Default.LauncherOpen = checkBoxLauncher.Checked;
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.SettingsApp.LauncherOpen = checkBoxLauncher.Checked;
+            AddonUpdaterSettingApp.Save();
         }
         #endregion
 
@@ -56,18 +57,18 @@ namespace AddonUpdater.Controls
                 string path = GetPath();
                 if (path != null)
                 {
-                    List<string> Directories = new List<string>(Directory.GetDirectories(path));
+                    List<string> Directories = new(Directory.GetDirectories(path));
 
                     if (Directories.FindIndex(dir => dir.ToLower().Contains("interface")) > -1 && Directories.FindIndex(dir => dir.ToLower().Contains("wtf")) > -1)
                     {
-                        Properties.Settings.Default.PathWow = path;
-                        if (Properties.Settings.Default.PathsWow.Contains(path) == false)
+                        AddonUpdaterSettingApp.SettingsApp.PathWow = path;
+                        if (AddonUpdaterSettingApp.SettingsApp.PathsWow.Contains(path) == false)
                         {
-                            Properties.Settings.Default.PathsWow.Add(path);
+                            AddonUpdaterSettingApp.SettingsApp.PathsWow.Add(path);
                             UpdateInfo();
                         }
 
-                        Properties.Settings.Default.Save();
+                        AddonUpdaterSettingApp.Save();
                         labelPathGame.Text = path;
                     }
                     else
@@ -86,12 +87,12 @@ namespace AddonUpdater.Controls
                 if (isShowContextMenuStripPaths == false)
                 {
                     ContextMenuStripPaths.Items.Clear();
-                    foreach (string text in Properties.Settings.Default.PathsWow)
+                    foreach (string text in AddonUpdaterSettingApp.SettingsApp.PathsWow)
                     {
                         if (text != null)
                         {
                             ContextMenuStripPaths.Items.Add(text);
-                            if (text == Properties.Settings.Default.PathWow)
+                            if (text == AddonUpdaterSettingApp.SettingsApp.PathWow)
                             {
                                 ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].BackColor = Color.FromArgb(44, 177, 128);
                                 ContextMenuStripPaths.Items[ContextMenuStripPaths.Items.Count - 1].ForeColor = Color.White;
@@ -116,14 +117,14 @@ namespace AddonUpdater.Controls
         {
             if (FormMainMenu.activity == null)
             {
-                if (Properties.Settings.Default.PathWow != null)
+                if (AddonUpdaterSettingApp.SettingsApp.PathWow != null)
                 {
-                    if (Properties.Settings.Default.PathsWow.Count > 1)
+                    if (AddonUpdaterSettingApp.SettingsApp.PathsWow.Count > 1)
                     {
-                        Properties.Settings.Default.PathsWow.Remove(Properties.Settings.Default.PathWow);
-                        Properties.Settings.Default.PathWow = Properties.Settings.Default.PathsWow[0];
-                        Properties.Settings.Default.Save();
-                        labelPathGame.Text = Properties.Settings.Default.PathWow;
+                        AddonUpdaterSettingApp.SettingsApp.PathsWow.Remove(AddonUpdaterSettingApp.SettingsApp.PathWow);
+                        AddonUpdaterSettingApp.SettingsApp.PathWow = AddonUpdaterSettingApp.SettingsApp.PathsWow[0];
+                        AddonUpdaterSettingApp.Save();
+                        labelPathGame.Text = AddonUpdaterSettingApp.SettingsApp.PathWow;
                         UpdateInfo();
                     }
                     else
@@ -142,8 +143,8 @@ namespace AddonUpdater.Controls
         #region ContextMenuStripPaths
         private void ContextMenuStripPaths_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            Properties.Settings.Default.PathWow = e.ClickedItem.Text;
-            Properties.Settings.Default.Save();
+            AddonUpdaterSettingApp.SettingsApp.PathWow = e.ClickedItem.Text;
+            AddonUpdaterSettingApp.Save();
             labelPathGame.Text = e.ClickedItem.Text;
             UpdateInfo();
         }
@@ -158,16 +159,14 @@ namespace AddonUpdater.Controls
 
         private string GetPath()
         {
-            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
-            {
-                DialogResult result = fbd.ShowDialog();
+            using FolderBrowserDialog fbd = new ();
+            DialogResult result = fbd.ShowDialog();
 
-                if (result == DialogResult.OK)
-                {
-                    return fbd.SelectedPath;
-                }
-                return null;
+            if (result == DialogResult.OK)
+            {
+                return fbd.SelectedPath;
             }
+            return null;
         }
 
         #region On/Off/Reset
@@ -207,7 +206,7 @@ namespace AddonUpdater.Controls
                 formMainMenu.progressBar1.Value = 0;
                 formMainMenu.progressBar1.Maximum = 2;
                 formMainMenu.progressBar1.Value++;
-                await downloadAddonGitHub.Aupdatecheck();
+                await downloadAddonGitHub.AupdatecheckAsync();
                 formMainMenu.SetNotificationsAddons();
                 formMainMenu.progressBar1.Value++;
                 formMainMenu.progressBar1.Value = 0;
@@ -223,9 +222,9 @@ namespace AddonUpdater.Controls
 
         private void LabelPathGame_Click(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.PathWow != null)
+            if (AddonUpdaterSettingApp.SettingsApp.PathWow != null)
             {
-                Process.Start("explorer.exe", Properties.Settings.Default.PathWow);
+                Process.Start("explorer.exe", AddonUpdaterSettingApp.SettingsApp.PathWow);
             }
         }
     }
