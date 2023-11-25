@@ -37,7 +37,7 @@ namespace AddonUpdater.Controlers
         {
 
             string pathWTF = AddonUpdaterSettingApp.SettingsApp.PathWow + "\\WTF";
-            string pathBackupWTF = "BackupWTF\\WTF " + DateTime.Now.ToString("dd MM yyyy hh mm ss") + ".zip";
+            string pathBackupWTF = "BackupWTF\\WTF " + DateTime.Now.ToString("dd MM yyyy HH mm ss") + ".zip";
 
             if (Directory.Exists("BackupWTF"))
             {
@@ -130,16 +130,17 @@ namespace AddonUpdater.Controlers
 
                         }
                     }
-
-                    // string pathToWtf = Directory.GetCurrentDirectory() + "\\BackupWTF\\WTF";
-                    string pathToWtf = AddonUpdaterSettingApp.SettingsApp + "\\WTF";
-
-                    if (Directory.Exists(pathToWtf))
+                    if (path != "")
                     {
-                        Directory.Delete(pathToWtf, true);
+                        string pathToWtf = AddonUpdaterSettingApp.SettingsApp.PathWow + "\\WTF";
+
+                        if (Directory.Exists(pathToWtf))
+                        {
+                            Directory.Delete(pathToWtf, true);
+                        }
+                        ZipFile.ExtractToDirectory(path, pathToWtf);
+                        MessageBox.Show(path + " восстановлен");
                     }
-                    ZipFile.ExtractToDirectory(path, pathToWtf);
-                    MessageBox.Show(path + " восстановлен");
                 }
                 catch (Exception ex)
                 {

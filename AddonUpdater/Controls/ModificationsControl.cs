@@ -32,9 +32,9 @@ namespace AddonUpdater.Controls
 
         private async void BtnBackupWTF_Click(object sender, EventArgs e)
         {
-            btnRestoreWTF.Enabled = false;
+            btnBackupWTF.Enabled = false;
             await BackupWTF.CreateFileBackupTask();
-            btnRestoreWTF.Enabled = true;
+            btnBackupWTF.Enabled = true;
         }
 
         private async void BtnRestoreWTF_Click(object sender, EventArgs e)
