@@ -279,7 +279,9 @@ namespace AddonUpdater
         private void LabelVersion_Click(object sender, EventArgs e)
         {
             if (AddonUpdaterSetting.Setting.News != null)
-                Process.Start(AddonUpdaterSetting.Setting.News);
+            {
+                Process.Start(new ProcessStartInfo(AddonUpdaterSetting.Setting.News) { UseShellExecute = true });
+            }
         }
 
         private void ButtonClose_MouseMove(object sender, MouseEventArgs e)

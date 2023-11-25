@@ -54,7 +54,7 @@ namespace AddonUpdater.Controls
         {
             if (Directory.Exists(Directory.GetCurrentDirectory() + "\\BackupWTF"))
             {
-                Process.Start("explorer.exe", Directory.GetCurrentDirectory() + "\\BackupWTF");
+                Process.Start(new ProcessStartInfo("explorer.exe", Directory.GetCurrentDirectory() + "\\BackupWTF") { UseShellExecute = true });
             }
             else
             {

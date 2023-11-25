@@ -1,4 +1,5 @@
-﻿using AddonUpdater.Models;
+﻿using AddonUpdater.Controlers;
+using AddonUpdater.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -50,21 +51,28 @@ namespace AddonUpdater.Controls
         {
             ActiveControl = null;
             if (addon.BugReport != "")
-                Process.Start(addon.BugReport);
+            {
+                Process.Start(new ProcessStartInfo(addon.BugReport) { UseShellExecute = true });
+            }
         }
 
         private void ForumButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (addon.Forum != "")
-                Process.Start(addon.Forum);
+            {
+                Process.Start(new ProcessStartInfo(addon.Forum) { UseShellExecute = true });
+            }
         }
 
         private void GitHubButton_Click(object sender, EventArgs e)
         {
             ActiveControl = null;
             if (addon.GithubLink != "")
-                Process.Start(addon.GithubLink);
+            {
+                Process.Start(new ProcessStartInfo(addon.GithubLink) { UseShellExecute = true });
+
+            }
         }
         private void DeleteSettingsButton_Click(object sender, EventArgs e)
         {

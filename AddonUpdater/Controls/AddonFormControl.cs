@@ -241,14 +241,18 @@ namespace AddonUpdater.Controls
             if (proc.Length == 0 && AddonUpdaterSettingApp.SettingsApp.LauncherOpen == true)
             {
                 if (File.Exists(pathLauncher))
-                    Process.Start(pathLauncher);
+                {
+                    Process.Start(new ProcessStartInfo(pathLauncher) { UseShellExecute = true });
+                }
             }
             else
             {
                 if (proc2.Length == 0)
                 {
                     if (File.Exists(pathPlayExe))
-                        Process.Start(pathPlayExe);
+                    {
+                        Process.Start(new ProcessStartInfo(pathPlayExe) { UseShellExecute = true });
+                    }
                 }
                 else
                 {

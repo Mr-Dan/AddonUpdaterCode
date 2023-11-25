@@ -224,7 +224,7 @@ namespace AddonUpdater.Controls
         {
             if (AddonUpdaterSettingApp.SettingsApp.PathWow != null)
             {
-                Process.Start("explorer.exe", AddonUpdaterSettingApp.SettingsApp.PathWow);
+                Process.Start(new ProcessStartInfo("explorer.exe", AddonUpdaterSettingApp.SettingsApp.PathWow) { UseShellExecute = true });
             }
         }
     }
