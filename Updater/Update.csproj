@@ -26,9 +26,6 @@
     <ManifestCertificateThumbprint>90E52E2FCB3B7E9E027740B963BCDC0A26F4812A</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Update_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
