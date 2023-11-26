@@ -5,7 +5,7 @@ Addon Updater - программа для обновления аддонов д
 
 ##### Установка:
 
-1) Скачиваем[AddonUpdaterEXE.zip](https://github.com/Mr-Dan/AddonUpdaterCode/releases/latest/AddonUpdaterEXE.zip)
+1) Скачиваем [AddonUpdaterEXE.zip](https://github.com/Mr-Dan/AddonUpdaterCode/releases/latest)
 2) Распаковываем.
 3) Переносим папку в удобное для вас место.
 4) Запускаем программу AddonUpdater.exe.
