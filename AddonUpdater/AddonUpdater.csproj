@@ -91,20 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AddonUpdater.ico" />
-    <None Include="bin\Debug\PatchX.png" />
-    <None Include="bin\Debug\update.png" />
-    <None Include="bin\Debug\icon.png" />
-    <None Include="bin\Debug\AddonUpdater.png" />
-    <None Include="bin\Debug\online.png" />
-    <None Include="bin\Debug\ofline.png" />
-    <None Include="bin\Debug\notifications3.png" />
-    <None Include="bin\Debug\notifications2.png" />
-    <None Include="bin\Debug\notifications.png" />
-    <None Include="bin\Debug\eyes mixed.png" />
-    <None Include="bin\Debug\eyes open.png" />
-    <None Include="bin\Debug\eyes closed.png" />
-    <None Include="bin\Debug\delete.png" />
-    <None Include="bin\Debug\AddonUpdater.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.1.1" />
