@@ -91,9 +91,15 @@
     <Content Include="AddonUpdater.ico" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Build.Tasks.Git" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.SourceLink.Common" Version="1.1.1" />
+    <PackageReference Include="Microsoft.SourceLink.Common" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
