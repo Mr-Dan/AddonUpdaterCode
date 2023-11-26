@@ -89,7 +89,6 @@ namespace AddonUpdater
 
                     Application.Exit();
 
-
                 }
             }
             catch (Exception ex)
