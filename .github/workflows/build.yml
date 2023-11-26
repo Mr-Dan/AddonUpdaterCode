@@ -42,7 +42,7 @@ jobs:
       run: dotnet publish -p:SelfContained=false -p:PublishSingleFile=true --configuration Release --output ./AddonUpdaterEXE
 
     - name: Zip project
-      run: Compress-Archive -Path "./AddonUpdaterEXE/AddonUpdater.exe","./AddonUpdaterEXE/Updater.exe" -DestinationPath AddonUpdaterEXE.zip
+      run: Compress-Archive -Path "./AddonUpdaterEXE/AddonUpdater.exe","./AddonUpdaterEXE/Update.exe","./LICENCE","./README.md" -DestinationPath AddonUpdaterEXE.zip
       #run: zip -r "AddonUpdaterEXE" ./AddonUpdaterEXE
 
     - name: Create Release
