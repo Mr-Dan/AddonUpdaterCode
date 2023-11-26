@@ -88,8 +88,6 @@ namespace AddonUpdater
                     if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
 
                     Application.Exit();
-
-
                 }
             }
             catch (Exception ex)
