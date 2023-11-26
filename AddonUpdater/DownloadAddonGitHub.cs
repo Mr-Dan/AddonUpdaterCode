@@ -88,7 +88,7 @@ namespace AddonUpdater
         {
             List<GitHub> GitHubsNew = new();
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            string getUrlGithub = GetContent(link).Result;
+            string getUrlGithub =  GetContent(link).Result;
             string[] url_addons = getUrlGithub.Split('\n');
 
             for (int i = 0; i < url_addons.Length - 1; i++)
