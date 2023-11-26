@@ -111,7 +111,7 @@ namespace AddonUpdater
                     Version = version,
                     Directory = directory,
                     MyVersion = myVersion,
-                    Description = GetDescription(description, linkVersion, directory),
+                    Description = description,
                     NeedUpdate = needUpdate,
                     GithubLink = GetValues(url_addons[i], "GitHub"),
                     Forum = GetValues(url_addons[i], "Forum"),
