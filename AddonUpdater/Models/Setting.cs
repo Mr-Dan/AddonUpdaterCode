@@ -14,10 +14,6 @@ namespace AddonUpdater.Models
 
         public string News { get; set; }
 
-        public string ListSpells { get; set; }
-
-        public string ListSpellVisualKit { get; set; }
-
         public List<string> Files { get; set; }
 
         public string ForumLink { get; set; }
@@ -27,8 +23,6 @@ namespace AddonUpdater.Models
         public string DiscordLink { get; set; }
 
         public string DonateLink { get; set; }
-
-        public string Author { get; set; }
 
         public string Contact { get; set; }
 

@@ -15,6 +15,7 @@ using System.Xml.Linq;
 using Newtonsoft.Json;
 using System.Net.Http;
 using AddonUpdater.Controlers;
+using System.Diagnostics.Metrics;
 
 namespace AddonUpdater
 {
@@ -35,6 +36,7 @@ namespace AddonUpdater
             if (AddonUpdaterSetting.Setting.Tocs != null)
                 foreach (Toc toc in AddonUpdaterSetting.Setting.Tocs)
                 {
+
                     GitHubsNew.AddRange(AupdatecheckToc(toc.Link, toc.Regex));
 
                 }
@@ -91,7 +93,35 @@ namespace AddonUpdater
             string getUrlGithub =  GetContent(link).Result;
             string[] url_addons = getUrlGithub.Split('\n');
 
-            for (int i = 0; i < url_addons.Length - 1; i++)
+            List<GitHub> gitHubs1 = new();
+            List<GitHub> gitHubs2 = new();
+            List<GitHub> gitHubs3 = new();
+            List<GitHub> gitHubs4 = new();
+
+            int count = url_addons.Length / 4;
+
+            Task[] task = new Task[4] 
+            { 
+                new Task(() => gitHubs1 = GetInfoByAddons(0,count,url_addons,regex)),
+                new Task(() => gitHubs2= GetInfoByAddons(count,count*2,url_addons,regex)),
+                new Task(() =>  gitHubs3 = GetInfoByAddons(count*2,count*3,url_addons,regex)),
+                new Task(() =>  gitHubs4 = GetInfoByAddons(count*3,url_addons.Length - 1,url_addons,regex))
+            };
+
+            foreach(var t in task) t.Start();
+            Task.WaitAll(task);
+            GitHubsNew.AddRange(gitHubs1);
+            GitHubsNew.AddRange(gitHubs2);
+            GitHubsNew.AddRange(gitHubs3);
+            GitHubsNew.AddRange(gitHubs4);
+
+            return GitHubsNew;
+        }
+
+        private List<GitHub> GetInfoByAddons(int start,int end, string[] url_addons, string regex)
+        {
+            List<GitHub> GitHubsNew = new();
+            for (int i = start; i < end; i++)
             {
                 string name = GetValues(url_addons[i], "NameAddon");
                 string linkVersion = GetValues(url_addons[i], "Version");
