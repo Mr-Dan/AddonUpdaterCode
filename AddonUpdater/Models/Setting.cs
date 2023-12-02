@@ -28,6 +28,12 @@ namespace AddonUpdater.Models
 
         public string Version { get; set; }
 
+        public string VersionUpdate { get; set; }
+
+        public string AddonUpdaterLink { get; set; }
+
+        public string UpdateLink { get; set; }
+
         public string Thx { get; set; }
 
     }

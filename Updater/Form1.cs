@@ -1,4 +1,5 @@
-﻿using AddonUpdater.Models;
+﻿using AddonUpdater.Controlers;
+using AddonUpdater.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ using System.Windows.Forms;
 
 namespace Updater
 {
-  
+
     public partial class Form1 : Form
     {
 
@@ -42,47 +43,48 @@ namespace Updater
             }
         }
 
-        private static Task DownloadAppTask(string link)
+        private async Task DownloadAppTask(string link)
         {
-            ServicePointManager.SecurityProtocol =  SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            using HttpClient webClient = new();
-            return webClient.DownloadFileTaskAsync(new Uri(link), "AddonUpdater.zip");
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            using HttpClient httpClient = new();
+            await Task.Run(() =>  httpClient.DownloadFileTaskAsync(new Uri(link), "AddonUpdater.zip"));
         }
-        AddonUpdaterSetting setting;
-       
 
-        private static void Backup(AddonUpdaterSetting setting)
+        private static void Backup()
         {
-            if(setting != null)
-            if (Directory.Exists("Backup"))
-            {
-                for (int i = 0; i < setting.Files.Count; i++)
+                if (Directory.Exists("Backup"))
                 {
-                    if (File.Exists(setting.Files[i])) File.Delete(setting.Files[i]);
-                }
+                    for (int i = 0; i < AddonUpdaterSetting.Setting.Files.Count; i++)
+                    {
+                        if (File.Exists(AddonUpdaterSetting.Setting.Files[i])) File.Delete(AddonUpdaterSetting.Setting.Files[i]);
+                    }
 
-                for (int i = 0; i < setting.Files.Count; i++)
-                {
-                    if (File.Exists($"Backup\\{setting.Files[i]}")) File.Move($"Backup\\{setting.Files[i]}", setting.Files[i]);
-                }
-                File.Delete("AddonUpdater.zip");
-                    DirectoryDelete("AddonUpdater-main");
+                    for (int i = 0; i < AddonUpdaterSetting.Setting.Files.Count; i++)
+                    {
+                        if (File.Exists($"Backup\\{AddonUpdaterSetting.Setting.Files[i]}")) File.Move($"Backup\\{AddonUpdaterSetting.Setting.Files[i]}", AddonUpdaterSetting.Setting.Files[i]);
+                    }
+                    File.Delete("AddonUpdater.zip");
+                    DirectoryDelete("AddonUpdater");
                     DirectoryDelete("Backup");
-            }
+                }
             Application.Exit();
         }
 
-        private static void Extract(AddonUpdaterSetting setting)
+        private static void Extract()
         {
-            ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
+            ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory()+ "\\AddonUpdater");
 
-            for (int i = 0; i < setting.Files.Count; i++)
+            for (int i = 0; i < AddonUpdaterSetting.Setting.Files.Count; i++)
             {
-                if (File.Exists($"AddonUpdater-main\\{setting.Files[i]}")) File.Move($"AddonUpdater-main\\{setting.Files[i]}", Directory.GetCurrentDirectory() + $"\\{setting.Files[i]}");
+                if (File.Exists($"AddonUpdater\\{AddonUpdaterSetting.Setting.Files[i]}")) File.Move($"AddonUpdater\\{AddonUpdaterSetting.Setting.Files[i]}", Directory.GetCurrentDirectory() + $"\\{AddonUpdaterSetting.Setting.Files[i]}");
             }
-            Process.Start("AddonUpdater.exe");
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = "AddonUpdater.exe",
+                UseShellExecute = true
+            }); 
             File.Delete("AddonUpdater.zip");
-            DirectoryDelete("AddonUpdater-main");          
+            DirectoryDelete("AddonUpdater");
         }
 
         private static void ErrorMsg(int hResult)
@@ -110,7 +112,7 @@ namespace Updater
             if (e.Button == MouseButtons.Left)
             {
                 ReleaseCapture();
-               _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+                _ = SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
 
@@ -122,7 +124,7 @@ namespace Updater
         public static async Task<string> GetContent(string url)
         {
             string result = null;
-            ServicePointManager.SecurityProtocol =  SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
             HttpClient client = new();
             try
             {
@@ -138,14 +140,11 @@ namespace Updater
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if(setting != null)
+        {          
+            if (File.Exists("Backup"))
             {
-                if (File.Exists("Backup")) {
-                    Backup(setting);
-                }
-               
-            }
+                Backup();
+            }         
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -156,38 +155,33 @@ namespace Updater
 
             try
             {
-                string content = GetContent("https://raw.githubusercontent.com/Mr-Dan/AddonUpdaterSettings/main/MainSettings").Result;
-                if (content != null)
+                await AddonUpdaterSetting.GetSettingsTask();
+
+                if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
+                await DownloadAppTask(AddonUpdaterSetting.Setting.AddonUpdaterLink);
+
+                if (File.Exists("Backup")) DirectoryDelete("Backup");
+                Directory.CreateDirectory("Backup");
+
+                for (int i = 0; i < AddonUpdaterSetting.Setting.Files.Count; i++)
                 {
-                    setting = JsonConvert.DeserializeObject<AddonUpdaterSetting>(content);
-                    if (Directory.Exists("AddonUpdater-main")) DirectoryDelete("AddonUpdater-main");
-                    if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
-                    await DownloadAppTask("https://github.com/Mr-Dan/AddonUpdater/archive/refs/heads/main.zip");
-
-                    if (File.Exists("Backup")) DirectoryDelete("Backup");
-                    Directory.CreateDirectory("Backup");
-
-                    for (int i = 0; i < setting.Files.Count; i++)
-                    {
-                        if (File.Exists(setting.Files[i])) File.Move(setting.Files[i], $"Backup\\{setting.Files[i]}");
-                    }
-                    try
-                    {
-                        Extract(setting);
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorMsg(ex.HResult);
-                        Backup(setting);
-                    }
-
+                    if (File.Exists(AddonUpdaterSetting.Setting.Files[i])) File.Move(AddonUpdaterSetting.Setting.Files[i], $"Backup\\{AddonUpdaterSetting.Setting.Files[i]}");
+                }
+                try
+                {
+                    Extract();
+                }
+                catch (Exception ex)
+                {
+                    ErrorMsg(ex.HResult);
+                    Backup();
                 }
 
             }
             catch (Exception ex)
             {
                 ErrorMsg(ex.HResult);
-                Backup(setting);
+                Backup();
             }
 
 
@@ -206,5 +200,5 @@ namespace Updater
         }
     }
 
-   
+
 }

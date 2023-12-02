@@ -101,7 +101,7 @@ namespace AddonUpdater
             int count = url_addons.Length / 4;
 
             Task[] task = new Task[4] 
-            { 
+            { // проверку на 4
                 new Task(() => gitHubs1 = GetInfoByAddons(0,count,url_addons,regex)),
                 new Task(() => gitHubs2= GetInfoByAddons(count,count*2,url_addons,regex)),
                 new Task(() =>  gitHubs3 = GetInfoByAddons(count*2,count*3,url_addons,regex)),

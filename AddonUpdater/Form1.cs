@@ -49,69 +49,7 @@ namespace AddonUpdater
             SetStyle(ControlStyles.Selectable, false);
             UpdateStyles();
         }
-
-        private async void DownloadNewVersion()
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            try
-            {
-                if (File.Exists("Update.exe"))
-                {
-                    if (Application.ProductVersion != AddonUpdaterSetting.Setting.Version)
-                    {
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = "Update.exe",
-                            UseShellExecute = true
-                        });
-                    }
-                }
-                else
-                {
-                    if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
-                    if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
-                    if (File.Exists("Updater.exe")) File.Delete("Updater.exe");
-
-                    await DownloadUpdaterTask("https://github.com/Mr-Dan/AddonUpdater/archive/refs/heads/main.zip");
-                    ZipFile.ExtractToDirectory("AddonUpdater.zip", Directory.GetCurrentDirectory());
-
-                    if (File.Exists($"AddonUpdater-main\\Update.exe"))
-                    {
-                        File.Move($"AddonUpdater-main\\Update.exe", Directory.GetCurrentDirectory() + $"\\Update.exe");
-                        Process.Start(new ProcessStartInfo
-                        {
-                            FileName = "Update.exe",
-                            UseShellExecute = true
-                        });
-                    }
-                    if (Directory.Exists("AddonUpdater-main")) downloadAddonGitHub.DirectoryDelete("AddonUpdater-main");
-                    if (File.Exists("AddonUpdater.zip")) File.Delete("AddonUpdater.zip");
-
-                    Application.Exit();
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ex.HResult == -2146233079)
-                {
-                    MessageBox.Show("Ошибка подключения, повторите попытку позже", "Ошибка Addon Updater");
-
-                }
-                if (ex.HResult == -2147467259)
-                {
-                    // MessageBox.Show("Необходимо открыть от имени администратора", "Ошибка Addon Updater");
-                }
-            }
-        }
-
-        private static async Task DownloadUpdaterTask(string link)
-        {
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
-            using HttpClient webClient = new();
-            await Task.Run(() => webClient.DownloadFileTaskAsync(new Uri(link), "AddonUpdater.zip"));
-        }
-
-
+       
         private async void GetOnline()
         {
             string result;
@@ -349,6 +287,12 @@ namespace AddonUpdater
         {
             await AddonUpdaterSetting.GetSettingsTask();
             LabelVersion.Text = "v." + Application.ProductVersion;
+            if (!Updater.CheckUpdate())
+            {
+                await Updater.DownloadAsync();
+                Application.Exit();
+
+            }
             if (AddonUpdaterSetting.Setting.Version == Application.ProductVersion)
             {
                 PathCheck();
@@ -371,7 +315,8 @@ namespace AddonUpdater
             }
             else
             {
-                DownloadNewVersion();
+                Updater.Run();
+                Application.Exit();
             }
 
         }

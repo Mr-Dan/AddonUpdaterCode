@@ -6,17 +6,13 @@ using System.Threading.Tasks;
 
 namespace AddonUpdater.Models
 {
-    class AddonUpdaterSetting
+    class Setting
     {
         public List<string> DeleteDirectory { get; set; }
 
         public List<Toc> Tocs { get; set; }
 
         public string News { get; set; }
-
-        public string ListSpells { get; set; }
-
-        public string ListSpellVisualKit { get; set; }
 
         public List<string> Files { get; set; }
 
@@ -28,12 +24,17 @@ namespace AddonUpdater.Models
 
         public string DonateLink { get; set; }
 
-        public string Author { get; set; }
-
-        public string Contacts { get; set; }
+        public string Contact { get; set; }
 
         public string Version { get; set; }
 
+        public string VersionUpdate { get; set; }
+
+        public string AddonUpdaterLink { get; set; }
+
+        public string UpdateLink { get; set; }
+
+        public string Thx { get; set; }
 
     }
 
